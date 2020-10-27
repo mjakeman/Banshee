@@ -96,7 +96,7 @@ namespace Hyena
             // On Windows, if running uninstalled, leave STDOUT alone so it's visible in the IDE,
             // otherwise write it to a file so it's not lost.
             if (PlatformDetection.IsWindows && !ApplicationContext.CommandLine.Contains ("uninstalled")) {
-                var log_path = Paths.Combine (Paths.ApplicationData, "banshee.log");
+                var log_path = Paths.Combine (Paths.ApplicationData, $"{Paths.ApplicationName}.log");
                 Console.WriteLine ("Logging to {0}", log_path);
 
                 try {
