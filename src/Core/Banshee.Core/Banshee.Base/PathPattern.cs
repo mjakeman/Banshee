@@ -33,7 +33,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
-using Mono.Unix;
+//using Mono.Unix;
 
 using Banshee.Configuration;
 using Banshee.Configuration.Schema;

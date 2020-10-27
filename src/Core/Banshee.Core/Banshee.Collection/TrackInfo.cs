@@ -29,12 +29,13 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
-using Mono.Unix;
+//using Mono.Unix;
 
 using Hyena;
 using Hyena.Data;
 using Banshee.Base;
 using Banshee.Streaming;
+using Banshee.I18n;
 
 namespace Banshee.Collection
 {

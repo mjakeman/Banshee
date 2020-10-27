@@ -283,6 +283,12 @@ namespace Hyena
 
         #region Public Debug Methods
 
+        [Obsolete("Preserved for compatibility. Migrate to string-based function")]
+        public static void Debug (Exception e)
+        {
+            Debug (e.Message, null);
+        }
+
         public static void Debug (string message, string details)
         {
             if (Debugging) {
@@ -307,6 +313,12 @@ namespace Hyena
         #endregion
 
         #region Public Information Methods
+
+        [Obsolete("Preserved for compatibility. Migrate to string-based function")]
+        public static void Information (Exception e)
+        {
+            Information (e.Message, null);
+        }
 
         public static void Information (string message)
         {
@@ -337,6 +349,12 @@ namespace Hyena
 
         #region Public Warning Methods
 
+        [Obsolete("Preserved for compatibility. Migrate to string-based function")]
+        public static void Warning (Exception e)
+        {
+            Warning (e.Message, null);
+        }
+
         public static void Warning (string message)
         {
             Warning (message, null);
@@ -365,6 +383,12 @@ namespace Hyena
         #endregion
 
         #region Public Error Methods
+
+        [Obsolete("Preserved for compatibility. Migrate to string-based function")]
+        public static void Error (Exception e)
+        {
+            Error (e.Message, null);
+        }
 
         public static void Error (string message)
         {

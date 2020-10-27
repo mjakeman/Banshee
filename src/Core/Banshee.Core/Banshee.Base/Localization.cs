@@ -153,6 +153,7 @@ namespace Banshee.Base
             }
 
             try {
+                // string [] marshalled_languages = Mono.Unix.UnixMarshal.PtrToStringArray(languages);
                 string [] marshalled_languages = Mono.Unix.UnixMarshal.PtrToStringArray(languages);
                 if(marshalled_languages == null || marshalled_languages.Length == 0) {
                     return default_languages;

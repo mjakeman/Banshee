@@ -28,10 +28,11 @@
 
 using System;
 using System.Text.RegularExpressions;
-using Mono.Unix;
+//using Mono.Unix;
 
 using Hyena;
 using Banshee.Base;
+using Banshee.I18n;
 
 namespace Banshee.Collection
 {

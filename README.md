@@ -11,7 +11,13 @@ The following are the main directories of note:
 ```
 
 ## Status
-TODO
+The following projects build:
+ - src/Core/Banshee.Core
+ - src/Hyena/Hyena
+
+Additionally, I added `src/Hyena/Hyena.Glue` to provide stub code for
+certain `Mono` classes/functions with no direct replacement, as well as
+the `Mono.Addins` framework.
 
 ## Original Readme
 The original README can be seen below at the time of forking:

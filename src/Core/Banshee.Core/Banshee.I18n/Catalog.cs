@@ -31,7 +31,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-using Mono.Unix;
+//using Mono.Unix;
 
 namespace Banshee.I18n
 {
@@ -46,20 +46,24 @@ namespace Banshee.I18n
                 throw new ArgumentException ("No text domain specified");
             }
 
-            IntPtr domain_ptr = UnixMarshal.StringToHeap (domain);
+            // IntPtr domain_ptr = UnixMarshal.StringToHeap (domain);
+            IntPtr domain_ptr = Marshal.StringToHGlobalAnsi (domain);
             IntPtr localedir_ptr = IntPtr.Zero;
 
             try {
                 BindTextDomainCodeset (domain_ptr);
 
                 if (localeDir != null && localeDir.Length > 0) {
-                    localedir_ptr = UnixMarshal.StringToHeap (localeDir);
+                    // localedir_ptr = UnixMarshal.StringToHeap (localeDir);
+                    localedir_ptr = Marshal.StringToHGlobalAnsi (localeDir);
                     BindTextDomain (domain_ptr, localedir_ptr);
                 }
             } finally {
-                UnixMarshal.FreeHeap (domain_ptr);
+                // UnixMarshal.FreeHeap (domain_ptr);
+                Marshal.FreeHGlobal (domain_ptr);
                 if (localedir_ptr != IntPtr.Zero) {
-                    UnixMarshal.FreeHeap (localedir_ptr);
+                    // UnixMarshal.FreeHeap (localedir_ptr);
+                    Marshal.FreeHGlobal (localedir_ptr);
                 }
             }
         }
@@ -71,13 +75,17 @@ namespace Banshee.I18n
 
         public static string GetString (string domain, string msgid)
         {
-            IntPtr msgid_ptr = UnixMarshal.StringToHeap (msgid);
-            IntPtr domain_ptr = domain == null ? IntPtr.Zero : UnixMarshal.StringToHeap (domain);
+            // IntPtr msgid_ptr = UnixMarshal.StringToHeap (msgid);
+            IntPtr msgid_ptr = Marshal.StringToHGlobalAnsi (msgid);
+            // IntPtr domain_ptr = domain == null ? IntPtr.Zero : UnixMarshal.StringToHeap (domain);
+            IntPtr domain_ptr = domain == null ? IntPtr.Zero : Marshal.StringToHGlobalAnsi (domain);
 
             if (domain == null) {
                 // FIXME banshee-1?
-                IntPtr ptr = UnixMarshal.StringToHeap ("banshee");
-                UnixMarshal.FreeHeap (ptr);
+                // IntPtr ptr = UnixMarshal.StringToHeap ("banshee");
+                IntPtr ptr = Marshal.StringToHGlobalAnsi ("banshee");
+                // UnixMarshal.FreeHeap (ptr);
+                Marshal.FreeHGlobal (ptr);
             }
 
             try {
@@ -86,14 +94,17 @@ namespace Banshee.I18n
                     dgettext (domain_ptr, msgid_ptr);
 
                 if (msgid_ptr != ret_ptr) {
-                    return UnixMarshal.PtrToStringUnix (ret_ptr);
+                    // return UnixMarshal.PtrToStringUnix (ret_ptr);
+                    return Marshal.PtrToStringAnsi (ret_ptr);
                 }
 
                 return msgid;
             } finally {
-                UnixMarshal.FreeHeap (msgid_ptr);
+                // UnixMarshal.FreeHeap (msgid_ptr);
+                Marshal.FreeHGlobal (msgid_ptr);
                 if (domain_ptr != IntPtr.Zero) {
-                    UnixMarshal.FreeHeap (domain_ptr);
+                    // UnixMarshal.FreeHeap (domain_ptr);
+                    Marshal.FreeHGlobal (domain_ptr);
                 }
             }
         }
@@ -110,9 +121,12 @@ namespace Banshee.I18n
 
         public static string GetString (string domain, string msgid, string msgidPlural, int n)
         {
-            IntPtr msgid_ptr = UnixMarshal.StringToHeap (msgid);
-            IntPtr msgid_plural_ptr = UnixMarshal.StringToHeap (msgidPlural);
-            IntPtr domain_ptr = domain == null ? IntPtr.Zero : UnixMarshal.StringToHeap (domain);
+            // IntPtr msgid_ptr = UnixMarshal.StringToHeap (msgid);
+            IntPtr msgid_ptr = Marshal.StringToHGlobalAnsi (msgid);
+            // IntPtr msgid_plural_ptr = UnixMarshal.StringToHeap (msgidPlural);
+            IntPtr msgid_plural_ptr = Marshal.StringToHGlobalAnsi (msgidPlural);
+            // IntPtr domain_ptr = domain == null ? IntPtr.Zero : UnixMarshal.StringToHeap (domain);
+            IntPtr domain_ptr = domain == null ? IntPtr.Zero : Marshal.StringToHGlobalAnsi (domain);
 
             try {
                 IntPtr ret_ptr = domain_ptr == IntPtr.Zero ?
@@ -125,12 +139,16 @@ namespace Banshee.I18n
                     return msgidPlural;
                 }
 
-                return UnixMarshal.PtrToStringUnix (ret_ptr);
+                // return UnixMarshal.PtrToStringUnix (ret_ptr);
+                return Marshal.PtrToStringAnsi (ret_ptr);
             } finally {
-                UnixMarshal.FreeHeap (msgid_ptr);
-                UnixMarshal.FreeHeap (msgid_plural_ptr);
+                // UnixMarshal.FreeHeap (msgid_ptr);
+                Marshal.FreeHGlobal (msgid_ptr);
+                // UnixMarshal.FreeHeap (msgid_plural_ptr);
+                Marshal.FreeHGlobal (msgid_plural_ptr);
                 if (domain_ptr != IntPtr.Zero) {
-                    UnixMarshal.FreeHeap (domain_ptr);
+                    // UnixMarshal.FreeHeap (domain_ptr);
+                    Marshal.FreeHGlobal (domain_ptr);
                 }
             }
         }
@@ -161,21 +179,25 @@ namespace Banshee.I18n
 
         private static void BindTextDomainCodeset (IntPtr domain)
         {
-            IntPtr codeset = UnixMarshal.StringToHeap("UTF-8");
+            // IntPtr codeset = UnixMarshal.StringToHeap("UTF-8");
+            IntPtr codeset = Marshal.StringToHGlobalAnsi("UTF-8");
 
             try {
                 if (bind_textdomain_codeset (domain, codeset) == IntPtr.Zero) {
-                    throw new UnixIOException (Mono.Unix.Native.Errno.ENOMEM);
+                    // throw new UnixIOException (Mono.Unix.Native.Errno.ENOMEM);
+                    throw new Exception ("Error: ENOMEM");
                 }
             } finally {
-                UnixMarshal.FreeHeap (codeset);
+                // UnixMarshal.FreeHeap (codeset);
+                Marshal.FreeHGlobal (codeset);
             }
         }
 
         private static void BindTextDomain (IntPtr domain, IntPtr localedir)
         {
             if (bindtextdomain (domain, localedir) == IntPtr.Zero) {
-                throw new UnixIOException (Mono.Unix.Native.Errno.ENOMEM);
+                // throw new UnixIOException (Mono.Unix.Native.Errno.ENOMEM);
+                throw new Exception ("Error: ENOMEM");
             }
         }
 

@@ -26,10 +26,14 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Collections.Generic;
+// using System;
+// using System.Collections.Generic;
 
-namespace CreativeCommons
+// TODO(firox263): Something very strange is going on with this
+// class. It seems incomplete? Commented out for now, doesn't seem
+// to be used anywhere.
+
+/*namespace CreativeCommons
 {
     public class LicenseInfo
     {
@@ -103,7 +107,7 @@ namespace CreativeCommons
             return null;
         }*/
 
-        private static Dictionary<string, CreativeCommonsLicenseInfo> licenses = new Dictionary<string, CreativeCommonsLicenseInfo> ();
+        /*private static Dictionary<string, CreativeCommonsLicenseInfo> licenses = new Dictionary<string, CreativeCommonsLicenseInfo> ();
 
         public static CreateiveCommonsLicenseInfo FromLicenseUrl (string license_url)
         {
@@ -125,7 +129,7 @@ namespace CreativeCommons
 
         private static string GetRdfUrl (string license_url)
         {
-            if (license_uri.StartsWith ("http://creativecommons.org/licenses/")) {
+            if (license_url.StartsWith ("http://creativecommons.org/licenses/")) {
                 if (license_url.EndsWith ("/rdf"))
                     return license_url;
                 else if (license_url.EndsWith ("/"))
@@ -149,7 +153,7 @@ namespace CreativeCommons
             if (license_uri.StartsWith ("http://creativecommons.org/")) {
                 if ()
             }
-        }*/
+        }
     }
 
     public class CreativeCommonsRdfParser
@@ -163,9 +167,9 @@ namespace CreativeCommons
         /*xmlns:cc='http://creativecommons.org/ns#'
         xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
         xmlns:dc='http://purl.org/dc/elements/1.1/'
-        xmlns:dcq='http://purl.org/dc/terms/'*/
+        xmlns:dcq='http://purl.org/dc/terms/'
     }
-}
+}*/
 
 /*
 <?xml version="1.0" encoding="utf-8"?>
