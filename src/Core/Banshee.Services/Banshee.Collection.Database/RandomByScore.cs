@@ -40,9 +40,9 @@ namespace Banshee.Collection.Database
     {
         public RandomByScore () : base ("score")
         {
-            Label = Catalog.GetString ("Shuffle by S_core");
-            Adverb = Catalog.GetString ("by score");
-            Description = Catalog.GetString ("Play songs randomly, prefer higher scored songs");
+            Label = I18n.Catalog.GetString ("Shuffle by S_core");
+            Adverb = I18n.Catalog.GetString ("by score");
+            Description = I18n.Catalog.GetString ("Play songs randomly, prefer higher scored songs");
 
             Condition = String.Format ("({0} BETWEEN ? AND ? OR (? = 50 AND {0} = 0))",
                                        BansheeQuery.ScoreField.Column);

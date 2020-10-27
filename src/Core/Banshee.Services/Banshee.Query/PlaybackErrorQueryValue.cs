@@ -41,29 +41,29 @@ namespace Banshee.Query
     {
         private static AliasedObjectSet<EnumQueryValueItem> items = new AliasedObjectSet<EnumQueryValueItem>(
             new EnumQueryValueItem (
-                (int)StreamPlaybackError.None, "None", Catalog.GetString ("None"),
+                (int)StreamPlaybackError.None, "None", I18n.Catalog.GetString ("None"),
                 //Translators: These are unique strings for playback errors. Please, no spaces. Blank ok.
-                Catalog.GetString ("None"), Catalog.GetString ("none"), Catalog.GetString ("no"),
+                I18n.Catalog.GetString ("None"), I18n.Catalog.GetString ("none"), I18n.Catalog.GetString ("no"),
                 "None", "none", "no"),
             new EnumQueryValueItem (
-                (int)StreamPlaybackError.ResourceNotFound, "ResourceNotFound", Catalog.GetString ("Resource Not Found"),
+                (int)StreamPlaybackError.ResourceNotFound, "ResourceNotFound", I18n.Catalog.GetString ("Resource Not Found"),
                 //Translators: These are unique strings for playback errors. Please, no spaces. Blank ok.
-                Catalog.GetString ("ResourceNotFound"), Catalog.GetString ("missing"), Catalog.GetString ("notfound"),
+                I18n.Catalog.GetString ("ResourceNotFound"), I18n.Catalog.GetString ("missing"), I18n.Catalog.GetString ("notfound"),
                 "ResourceNotFound", "missing", "notfound"),
             new EnumQueryValueItem (
-                (int)StreamPlaybackError.CodecNotFound, "CodecNotFound", Catalog.GetString ("CodecNotFound"),
+                (int)StreamPlaybackError.CodecNotFound, "CodecNotFound", I18n.Catalog.GetString ("CodecNotFound"),
                 //Translators: These are unique strings for playback errors. Please, no spaces. Blank ok.
-                Catalog.GetString ("CodecNotFound"), Catalog.GetString ("nocodec"),
+                I18n.Catalog.GetString ("CodecNotFound"), I18n.Catalog.GetString ("nocodec"),
                 "CodecNotFound", "nocodec"),
             new EnumQueryValueItem (
-                (int)StreamPlaybackError.Drm, "Drm", Catalog.GetString ("Drm"),
+                (int)StreamPlaybackError.Drm, "Drm", I18n.Catalog.GetString ("Drm"),
                 //Translators: These are unique strings for playback errors. Please, no spaces. Blank ok.
-                Catalog.GetString ("Drm"), Catalog.GetString ("drm"),
+                I18n.Catalog.GetString ("Drm"), I18n.Catalog.GetString ("drm"),
                 "Drm", "drm"),
             new EnumQueryValueItem (
-                (int)StreamPlaybackError.Unknown, "Unknown", Catalog.GetString ("Unknown"),
+                (int)StreamPlaybackError.Unknown, "Unknown", I18n.Catalog.GetString ("Unknown"),
                 //Translators: These are unique strings for playback errors. Please, no spaces. Blank ok.
-                Catalog.GetString ("Unknown"), Catalog.GetString ("unknown"),
+                I18n.Catalog.GetString ("Unknown"), I18n.Catalog.GetString ("unknown"),
                 "Unknown", "unknown")
         );
 

@@ -169,6 +169,6 @@ namespace Banshee.Collection.Database
 
         // Translators: This is used to generate bookmark names. {0} is track title, {1} is minutes
         // (possibly more than two digits) and {2} is seconds (between 00 and 60).
-        private static readonly string NAME_FMT = Catalog.GetString ("{0} ({1}:{2:00})");
+        private static readonly string NAME_FMT = I18n.Catalog.GetString ("{0} ({1}:{2:00})");
     }
 }

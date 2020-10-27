@@ -155,7 +155,7 @@ namespace Banshee.Sources
         public ErrorSource ErrorSource {
             get {
                 if (error_source == null) {
-                    error_source = new ErrorSource (Catalog.GetString ("Errors"));
+                    error_source = new ErrorSource (I18n.Catalog.GetString ("Errors"));
                     ErrorSource.Updated += OnErrorSourceUpdated;
                     OnErrorSourceUpdated (null, null);
                 }
@@ -212,7 +212,7 @@ namespace Banshee.Sources
 
         protected PrimarySource (string generic_name, string name, string id, int order, bool is_temp) : base (generic_name, name, id, order)
         {
-            Properties.SetString ("SortChildrenActionLabel", Catalog.GetString ("Sort Playlists By"));
+            Properties.SetString ("SortChildrenActionLabel", I18n.Catalog.GetString ("Sort Playlists By"));
             IsTemporary = is_temp;
             PrimarySourceInitialize ();
         }
@@ -222,7 +222,7 @@ namespace Banshee.Sources
         }
 
         // Translators: this is a noun, referring to the harddisk
-        private string storage_name = Catalog.GetString ("Drive");
+        private string storage_name = I18n.Catalog.GetString ("Drive");
         public string StorageName {
             get { return storage_name; }
             protected set { storage_name = value; }
@@ -246,9 +246,9 @@ namespace Banshee.Sources
         {
             PathPattern = pattern;
 
-            var file_system = PreferencesPage.FindOrAdd (new Section ("file-system", Catalog.GetString ("File Organization"), 5));
-            file_system.Add (new SchemaPreference<string> (pattern.FolderSchema, Catalog.GetString ("Folder hie_rarchy")));
-            file_system.Add (new SchemaPreference<string> (pattern.FileSchema, Catalog.GetString ("File _name")));
+            var file_system = PreferencesPage.FindOrAdd (new Section ("file-system", I18n.Catalog.GetString ("File Organization"), 5));
+            file_system.Add (new SchemaPreference<string> (pattern.FolderSchema, I18n.Catalog.GetString ("Folder hie_rarchy")));
+            file_system.Add (new SchemaPreference<string> (pattern.FileSchema, I18n.Catalog.GetString ("File _name")));
         }
 
         public virtual void Dispose ()
@@ -702,7 +702,7 @@ namespace Banshee.Sources
             get {
                 lock (this) {
                     if (add_track_job == null) {
-                        add_track_job = new BatchUserJob (String.Format (Catalog.GetString (
+                        add_track_job = new BatchUserJob (String.Format (I18n.Catalog.GetString (
                             "Adding {0} of {1} to {2}"), "{0}", "{1}", Name),
                             Properties.GetStringList ("Icon.Name"));
                         add_track_job.SetResources (Resource.Cpu, Resource.Database, Resource.Disk);
@@ -721,7 +721,7 @@ namespace Banshee.Sources
             get {
                 lock (this) {
                     if (delete_track_job == null) {
-                        delete_track_job = new BatchUserJob (String.Format (Catalog.GetString (
+                        delete_track_job = new BatchUserJob (String.Format (I18n.Catalog.GetString (
                             "Deleting {0} of {1} From {2}"), "{0}", "{1}", Name),
                             Properties.GetStringList ("Icon.Name"));
                         delete_track_job.SetResources (Resource.Cpu, Resource.Database);

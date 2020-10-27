@@ -48,7 +48,7 @@ namespace Banshee.Sources
         public ErrorSource (string name) : base (name, name, 0)
         {
             Properties.SetStringList ("Icon.Name", "dialog-error", "gtk-dialog-error");
-            Properties.SetString ("UnmapSourceActionLabel", Catalog.GetString ("Close Error Report"));
+            Properties.SetString ("UnmapSourceActionLabel", I18n.Catalog.GetString ("Close Error Report"));
             Properties.SetString ("GtkActionPath", "/ErrorSourceContextMenu");
         }
 
@@ -80,8 +80,8 @@ namespace Banshee.Sources
         }
 
         private ColumnDescription [] columns = new ColumnDescription [] {
-            new ColumnDescription ("Title", Catalog.GetString ("Error"), .35),
-            new ColumnDescription ("Details", Catalog.GetString ("Details"), .65)
+            new ColumnDescription ("Title", I18n.Catalog.GetString ("Error"), .35),
+            new ColumnDescription ("Details", I18n.Catalog.GetString ("Details"), .65)
         };
 
         public ColumnDescription [] ColumnDescriptions {

@@ -229,8 +229,8 @@ namespace Banshee.Database
 
                 uint timer_id = Log.DebugTimerStart ("Database Schema Migration");
 
-                OnSlowStarted (Catalog.GetString ("Upgrading your Banshee Database"),
-                    Catalog.GetString ("Please wait while your old Banshee database is migrated to the new format."));
+                OnSlowStarted (I18n.Catalog.GetString ("Upgrading your Banshee Database"),
+                    I18n.Catalog.GetString ("Please wait while your old Banshee database is migrated to the new format."));
 
                 Thread thread = new Thread (MigrateFromLegacyBanshee);
                 thread.Name = "Database Migrator";
@@ -1315,7 +1315,7 @@ namespace Banshee.Database
                         SELECT * FROM PlaylistEntries
                 ");
             } catch (Exception e) {
-                Log.Error ("Must be a pre-0.13.2 banshee.db, attempting to migrate", e);
+                Log.Error ("Must be a pre-0.13.2 banshee.db, attempting to migrate", e.Message);
                 try {
                     Execute(@"
                         INSERT INTO CorePlaylists (PlaylistID, Name)
@@ -1325,7 +1325,7 @@ namespace Banshee.Database
                     ");
                     Log.Debug ("Success, was able to migrate older playlist information");
                 } catch (Exception e2) {
-                    Log.Error ("Failed to migrate playlists", e2);
+                    Log.Error ("Failed to migrate playlists", e2.Message);
                 }
             }
 
@@ -1417,10 +1417,10 @@ namespace Banshee.Database
                 return;
             }
 
-            UserJob job = new UserJob (Catalog.GetString ("Refreshing Metadata"));
+            UserJob job = new UserJob (I18n.Catalog.GetString ("Refreshing Metadata"));
             job.SetResources (Resource.Cpu, Resource.Disk, Resource.Database);
             job.PriorityHints = PriorityHints.SpeedSensitive;
-            job.Status = Catalog.GetString ("Scanning...");
+            job.Status = I18n.Catalog.GetString ("Scanning...");
             job.IconNames = new string [] { "system-search", "gtk-find" };
             job.Register ();
 

@@ -42,7 +42,7 @@ namespace Banshee.Playlists.Formats
     public class M3uPlaylistFormat : PlaylistFormatBase
     {
         public static readonly PlaylistFormatDescription FormatDescription = new PlaylistFormatDescription(
-            typeof(M3uPlaylistFormat), MagicHandler, Catalog.GetString("MPEG Version 3.0 Extended (*.m3u)"),
+            typeof(M3uPlaylistFormat), MagicHandler, I18n.Catalog.GetString("MPEG Version 3.0 Extended (*.m3u)"),
             "m3u", new string [] {"audio/x-mpegurl", "audio/m3u", "audio/mpeg-url"});
 
         public static bool MagicHandler(StreamReader reader)

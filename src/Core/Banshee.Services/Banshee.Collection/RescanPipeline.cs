@@ -79,7 +79,7 @@ namespace Banshee.Collection
 
         private void BuildJob ()
         {
-            job = new BatchUserJob (Catalog.GetString ("Rescanning {0} of {1}"), "system-search", "gtk-find");
+            job = new BatchUserJob (I18n.Catalog.GetString ("Rescanning {0} of {1}"), "system-search", "gtk-find");
             job.SetResources (Resource.Cpu, Resource.Disk, Resource.Database);
             job.PriorityHints = PriorityHints.SpeedSensitive;
             job.CanCancel = true;

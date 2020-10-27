@@ -43,9 +43,9 @@ namespace Banshee.Collection.Database
     {
         public RandomByTrack () : base ("song")
         {
-            Label = Catalog.GetString ("Shuffle by _Song");
-            Adverb = Catalog.GetString ("by song");
-            Description = Catalog.GetString ("Play songs randomly from the playlist");
+            Label = I18n.Catalog.GetString ("Shuffle by _Song");
+            Adverb = I18n.Catalog.GetString ("by song");
+            Description = I18n.Catalog.GetString ("Play songs randomly from the playlist");
 
             Condition = "1=1";
             OrderBy = Banshee.Query.BansheeQuery.GetRandomSort ();

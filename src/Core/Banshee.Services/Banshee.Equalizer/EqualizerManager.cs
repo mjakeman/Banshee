@@ -79,7 +79,7 @@ namespace Banshee.Equalizer
             try {
                 Load ();
             } catch (Exception e) {
-                Log.Error ("Failed to load equalizer", e);
+                Log.Error ("Failed to load equalizer", e.Message);
             }
         }
 
@@ -234,11 +234,11 @@ namespace Banshee.Equalizer
                         }
                         Log.Information ("Converted legacy XML equalizer presets to new JSON format");
                     } catch (Exception xe) {
-                        Log.Error ("Could not load equalizers.xml", xe);
+                        Log.Error ("Could not load equalizers.xml", xe.Message);
                     }
                 }
             } catch (Exception e) {
-                Log.Error ("Could not load equalizers.json", e);
+                Log.Error ("Could not load equalizers.json", e.Message);
             }
 
             Log.DebugTimerPrint (timer, "Loaded equalizer presets: {0}");
@@ -249,58 +249,58 @@ namespace Banshee.Equalizer
 
         private IEnumerable<EqualizerSetting> GetDefaultEqualizers ()
         {
-            yield return new EqualizerSetting (this, Catalog.GetString ("Classical"), 0, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Classical"), 0, new [] {
                 0, 0, 0, 0, 0, 0, -7.2, -7.2, -7.2, -9.6
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Club"), 0, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Club"), 0, new [] {
                 0, 0, 8, 5.6, 5.6, 5.6, 3.2, 0, 0, 0
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Dance"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Dance"), -1.1, new [] {
                 9.6, 7.2, 2.4, -1.1, -1.1, -5.6, -7.2, -7.2, -1.1, -1.1
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Full Bass"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Full Bass"), -1.1, new [] {
                 -8, 9.6, 9.6, 5.6, 1.6, -4, -8, -10.4, -11.2, -11.2
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Full Bass and Treble"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Full Bass and Treble"), -1.1, new [] {
                 7.2, 5.6, -1.1, -7.2, -4.8, 1.6, 8, 11.2, 12, 12
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Full Treble"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Full Treble"), -1.1, new [] {
                 -9.6, -9.6, -9.6, -4, 2.4, 11.2, 11.5, 11.8, 11.8, 12
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Laptop Speakers and Headphones"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Laptop Speakers and Headphones"), -1.1, new [] {
                 4.8, 11.2, 5.6, -3.2, -2.4, 1.6, 4.8, 9.6, 11.9, 11.9
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Large Hall"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Large Hall"), -1.1, new [] {
                 10.4, 10.4, 5.6, 5.6, -1.1, -4.8, -4.8, -4.8, -1.1, -1.1
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Live"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Live"), -1.1, new [] {
                 -4.8, -1.1, 4, 5.6, 5.6, 5.6, 4, 2.4, 2.4, 2.4
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Party"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Party"), -1.1, new [] {
                 7.2, 7.2, -1.1, -1.1, -1.1, -1.1, -1.1, -1.1, 7.2, 7.2
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Pop"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Pop"), -1.1, new [] {
                 -1.6, 4.8, 7.2, 8, 5.6, -1.1, -2.4, -2.4, -1.6, -1.6
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Reggae"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Reggae"), -1.1, new [] {
                 -1.1, -1.1, -1.1, -5.6, -1.1, 6.4, 6.4, -1.1, -1.1, -1.1
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Rock"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Rock"), -1.1, new [] {
                 8, 4.8, -5.6, -8, -3.2, 4, 8.8, 11.2, 11.2, 11.2
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Ska"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Ska"), -1.1, new [] {
                 -2.4, -4.8, -4, -1.1, 4, 5.6, 8.8, 9.6, 11.2, 9.6
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Smiley Face Curve"), -7, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Smiley Face Curve"), -7, new [] {
                 12, 8, 6, 3, 0.0, 0.0, 3, 6, 8, 12
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Soft"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Soft"), -1.1, new [] {
                 4.8, 1.6, -1.1, -2.4, -1.1, 4, 8, 9.6, 11.2, 12,
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Soft Rock"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Soft Rock"), -1.1, new [] {
                 4, 4, 2.4, -1.1, -4, -5.6, -3.2, -1.1, 2.4, 8.8,
             });
-            yield return new EqualizerSetting (this, Catalog.GetString ("Techno"), -1.1, new [] {
+            yield return new EqualizerSetting (this, I18n.Catalog.GetString ("Techno"), -1.1, new [] {
                 8, 5.6, -1.1, -5.6, -4.8, -1.1, 8, 9.6, 9.6, 8.8
             });
         }
@@ -325,7 +325,7 @@ namespace Banshee.Equalizer
                 }
                 Log.Debug ("EqualizerManager", "Saved equalizers to disk");
             } catch (Exception e) {
-                Log.Error ("Unable to save equalizers", e);
+                Log.Error ("Unable to save equalizers", e.Message);
             }
         }
 

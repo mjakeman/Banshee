@@ -47,23 +47,23 @@ namespace Banshee.Preferences
         public PreferenceService ()
         {
             // Pages (tabs)
-            Page general = Add (new Page ("general", Catalog.GetString ("General"), 0));
-            Add (new Page ("source-specific", Catalog.GetString ("Source Specific"), 1));
-            Add (new Page ("extensions", Catalog.GetString ("Extensions"), 10));
+            Page general = Add (new Page ("general", I18n.Catalog.GetString ("General"), 0));
+            Add (new Page ("source-specific", I18n.Catalog.GetString ("Source Specific"), 1));
+            Add (new Page ("extensions", I18n.Catalog.GetString ("Extensions"), 10));
 
             // General policies
-            Section policies = general.Add (new Section ("policies", Catalog.GetString ("File Policies"), 0));
+            Section policies = general.Add (new Section ("policies", I18n.Catalog.GetString ("File Policies"), 0));
 
             policies.Add (Banshee.Metadata.SaveTrackMetadataService.WriteMetadataEnabled);
             policies.Add (Banshee.Metadata.SaveTrackMetadataService.WriteRatingsEnabled);
             policies.Add (Banshee.Metadata.SaveTrackMetadataService.WritePlayCountsEnabled);
 
             // Misc section
-            var misc = new Section ("misc", Catalog.GetString ("Miscellaneous"), 20);
+            var misc = new Section ("misc", I18n.Catalog.GetString ("Miscellaneous"), 20);
             general.Add (misc);
 
             var anon_data = misc.Add (new SchemaPreference<bool> (Banshee.Metrics.BansheeMetrics.EnableCollection,
-                Catalog.GetString ("Improve Banshee by sending anonymous usage data"))
+                I18n.Catalog.GetString ("Improve Banshee by sending anonymous usage data"))
             );
             anon_data.ValueChanged += (o) => {
                 if (Banshee.Metrics.BansheeMetrics.EnableCollection.Get ()) {

@@ -64,95 +64,95 @@ namespace Banshee.Library
                 "%title%"
             };
 
-            AddConversion ("track_artist", Catalog.GetString ("Track Artist"),
+            AddConversion ("track_artist", I18n.Catalog.GetString ("Track Artist"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.DisplayArtistName);
             });
 
-            AddConversion ("album_artist", Catalog.GetString ("Album Artist"),
+            AddConversion ("album_artist", I18n.Catalog.GetString ("Album Artist"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.DisplayAlbumArtistName);
             });
 
             // Alias for %album_artist%
-            AddConversion ("artist", Catalog.GetString ("Album Artist"),
+            AddConversion ("artist", I18n.Catalog.GetString ("Album Artist"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.DisplayAlbumArtistName);
             });
 
-            AddConversion ("album_artist_initial", Catalog.GetString("Album Artist Initial"),
+            AddConversion ("album_artist_initial", I18n.Catalog.GetString("Album Artist Initial"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.DisplayAlbumArtistName.Substring(0, 1));
             });
 
-            AddConversion ("conductor", Catalog.GetString ("Conductor"),
+            AddConversion ("conductor", I18n.Catalog.GetString ("Conductor"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.Conductor);
             });
 
-            AddConversion ("composer", Catalog.GetString ("Composer"),
+            AddConversion ("composer", I18n.Catalog.GetString ("Composer"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.Composer);
             });
 
-            AddConversion ("genre", Catalog.GetString ("Genre"),
+            AddConversion ("genre", I18n.Catalog.GetString ("Genre"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.DisplayGenre);
             });
 
-            AddConversion ("album", Catalog.GetString ("Album"),
+            AddConversion ("album", I18n.Catalog.GetString ("Album"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.DisplayAlbumTitle);
             });
 
-            AddConversion ("title", Catalog.GetString ("Title"),
+            AddConversion ("title", I18n.Catalog.GetString ("Title"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.DisplayTrackTitle);
             });
 
-            AddConversion ("year", Catalog.GetString ("Year"),
+            AddConversion ("year", I18n.Catalog.GetString ("Year"),
                 delegate (TrackInfo t, object r) {
                     int year = t == null ? (int)r : t.Year;
                     return year > 0 ? String.Format ("{0}", year) : null;
             });
 
-            AddConversion ("track_count", Catalog.GetString ("Count"),
+            AddConversion ("track_count", I18n.Catalog.GetString ("Count"),
                 delegate (TrackInfo t, object r) {
                     int track_count = t == null ? (int)r : t.TrackCount;
                     return track_count > 0 ? String.Format ("{0:00}", track_count) : null;
             });
 
-            AddConversion ("track_number", Catalog.GetString ("Number"),
+            AddConversion ("track_number", I18n.Catalog.GetString ("Number"),
                 delegate (TrackInfo t, object r) {
                     int track_number = t == null ? (int)r : t.TrackNumber;
                     return track_number > 0 ? String.Format ("{0:00}", track_number) : null;
             });
 
-            AddConversion ("track_count_nz", Catalog.GetString ("Count (unsorted)"),
+            AddConversion ("track_count_nz", I18n.Catalog.GetString ("Count (unsorted)"),
                 delegate (TrackInfo t, object r) {
                     int track_count = t == null ? (int)r : t.TrackCount;
                     return track_count > 0 ? String.Format ("{0}", track_count) : null;
             });
 
-            AddConversion ("track_number_nz", Catalog.GetString ("Number (unsorted)"),
+            AddConversion ("track_number_nz", I18n.Catalog.GetString ("Number (unsorted)"),
                 delegate (TrackInfo t, object r) {
                     int track_number = t == null ? (int)r : t.TrackNumber;
                     return track_number > 0 ? String.Format ("{0}", track_number) : null;
             });
 
-            AddConversion ("disc_count", Catalog.GetString ("Disc Count"),
+            AddConversion ("disc_count", I18n.Catalog.GetString ("Disc Count"),
                 delegate (TrackInfo t, object r) {
                     int disc_count = t == null ? (int)r : t.DiscCount;
                     return disc_count > 0 ? String.Format ("{0}", disc_count) : null;
             });
 
-            AddConversion ("disc_number", Catalog.GetString ("Disc Number"),
+            AddConversion ("disc_number", I18n.Catalog.GetString ("Disc Number"),
                 delegate (TrackInfo t, object r) {
                     int disc_number = t == null ? (int)r : t.DiscNumber;
                     return disc_number > 0 ? String.Format ("{0}", disc_number) : null;
             });
 
-            AddConversion ("grouping", Catalog.GetString ("Grouping"),
+            AddConversion ("grouping", I18n.Catalog.GetString ("Grouping"),
                 delegate (TrackInfo t, object r) {
                     return Escape (t == null ? (string)r : t.Grouping);
             });

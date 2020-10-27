@@ -61,8 +61,8 @@ namespace Banshee.Library
         public LibrarySource (string label, string name, int order) : base (label, label, name, order)
         {
             Properties.SetString ("GtkActionPath", "/LibraryContextMenu");
-            Properties.SetString ("RemoveSelectedTracksActionLabel", Catalog.GetString ("Remove From Library"));
-            Properties.SetString ("RemovePlayingTrackActionLabel", Catalog.GetString ("Remove From Library"));
+            Properties.SetString ("RemoveSelectedTracksActionLabel", I18n.Catalog.GetString ("Remove From Library"));
+            Properties.SetString ("RemovePlayingTrackActionLabel", I18n.Catalog.GetString ("Remove From Library"));
             IsLocal = true;
             base_dir_schema = CreateSchema<string> ("library-location", null, "The base directory under which files for this library are stored", null);
             copy_on_import = CreateSchema<bool> ("copy-on-import", false, "Copy files on import", "Copy and rename files to library directory when importing");
@@ -76,18 +76,18 @@ namespace Banshee.Library
 
             if (this.HasCopyOnImport || this.HasMoveFiles) {
                 var file_system = PreferencesPage.FindOrAdd (
-                    new Section ("file-system", Catalog.GetString ("File Organization"), 5));
+                    new Section ("file-system", I18n.Catalog.GetString ("File Organization"), 5));
 
                 if (this.HasCopyOnImport) {
                     file_system.Add (new SchemaPreference<bool> (
-                        copy_on_import, Catalog.GetString ("Co_py files to media folder when importing")));
+                        copy_on_import, I18n.Catalog.GetString ("Co_py files to media folder when importing")));
                 }
 
                 if (this.HasMoveFiles) {
                     file_system.Add (new SchemaPreference<bool> (
                         move_files,
-                        Catalog.GetString ("_Update file and folder names"),
-                        Catalog.GetString ("Rename files and folders according to media metadata")
+                        I18n.Catalog.GetString ("_Update file and folder names"),
+                        I18n.Catalog.GetString ("Rename files and folders according to media metadata")
                     ));
                 }
             }
@@ -166,7 +166,7 @@ namespace Banshee.Library
         protected virtual string SectionName {
             get {
                 // Translators: {0} is the library name, eg 'Music Library' or 'Podcasts'
-                return String.Format (Catalog.GetString ("{0} Folder"), Name);
+                return String.Format (I18n.Catalog.GetString ("{0} Folder"), Name);
             }
         }
 

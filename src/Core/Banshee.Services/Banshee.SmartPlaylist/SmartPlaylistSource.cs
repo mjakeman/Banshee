@@ -62,8 +62,8 @@ namespace Banshee.SmartPlaylist
             ServiceManager.SourceManager.SourceRemoved += HandleSourceRemoved;
         }
 
-        private static string generic_name = Catalog.GetString ("Smart Playlist");
-        private static string properties_label = Catalog.GetString ("Edit Smart Playlist");
+        private static string generic_name = I18n.Catalog.GetString ("Smart Playlist");
+        private static string properties_label = I18n.Catalog.GetString ("Edit Smart Playlist");
 
         private QueryOrder query_order;
         private QueryLimit limit;
@@ -251,8 +251,8 @@ namespace Banshee.SmartPlaylist
         {
             Properties.SetString ("Icon.Name", "source-smart-playlist");
             Properties.SetString ("SourcePropertiesActionLabel", properties_label);
-            Properties.SetString ("UnmapSourceActionLabel", Catalog.GetString ("Delete Smart Playlist"));
-            Properties.SetString ("RemovePlayingTrackActionLabel", Catalog.GetString ("Remove From Library"));
+            Properties.SetString ("UnmapSourceActionLabel", I18n.Catalog.GetString ("Delete Smart Playlist"));
+            Properties.SetString ("RemovePlayingTrackActionLabel", I18n.Catalog.GetString ("Remove From Library"));
         }
 
 #endregion

@@ -40,13 +40,13 @@ namespace Banshee.Library
 {
     public class VideoLibrarySource : LibrarySource
     {
-        // Catalog.GetString ("Video Library")
-        public VideoLibrarySource () : base (Catalog.GetString ("Videos"), "VideoLibrary", 50)
+        // I18n.Catalog.GetString ("Video Library")
+        public VideoLibrarySource () : base (I18n.Catalog.GetString ("Videos"), "VideoLibrary", 50)
         {
             MediaTypes = TrackMediaAttributes.VideoStream;
             NotMediaTypes = TrackMediaAttributes.Podcast;
             Properties.SetStringList ("Icon.Name", "video-x-generic", "video", "source-library");
-            Properties.Set<string> ("SearchEntryDescription", Catalog.GetString ("Search your videos"));
+            Properties.Set<string> ("SearchEntryDescription", I18n.Catalog.GetString ("Search your videos"));
             Properties.SetString ("TrackView.ColumnControllerXml", String.Format (@"
                 <column-controller>
                   <add-all-defaults />
@@ -63,7 +63,7 @@ namespace Banshee.Library
                     <long-title>{0}</long-title>
                   </column>
                 </column-controller>
-            ", Catalog.GetString ("Produced By")));
+            ", I18n.Catalog.GetString ("Produced By")));
 
             // Migrate the old import settings, if necessary
             if (DatabaseConfigurationClient.Client.Get<int> ("VideoImportSettingsMigrated", 0) != 1) {
@@ -75,7 +75,7 @@ namespace Banshee.Library
 
         public override string GetPluralItemCountString (int count)
         {
-            return Catalog.GetPluralString ("{0} video", "{0} videos", count);
+            return I18n.Catalog.GetPluralString ("{0} video", "{0} videos", count);
         }
 
         public override bool ShowBrowser {
@@ -99,18 +99,18 @@ namespace Banshee.Library
         }
 
         protected override string SectionName {
-            get { return Catalog.GetString ("Videos Folder"); }
+            get { return I18n.Catalog.GetString ("Videos Folder"); }
         }
 
         private static SmartPlaylistDefinition [] default_smart_playlists = new SmartPlaylistDefinition [] {
             new SmartPlaylistDefinition (
-                Catalog.GetString ("Favorites"),
-                Catalog.GetString ("Videos rated four and five stars"),
+                I18n.Catalog.GetString ("Favorites"),
+                I18n.Catalog.GetString ("Videos rated four and five stars"),
                 "rating>=4", true),
 
             new SmartPlaylistDefinition (
-                Catalog.GetString ("Unwatched"),
-                Catalog.GetString ("Videos that haven't been played yet"),
+                I18n.Catalog.GetString ("Unwatched"),
+                I18n.Catalog.GetString ("Videos that haven't been played yet"),
                 "plays=0", true),
         };
     }

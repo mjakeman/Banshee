@@ -45,88 +45,90 @@ using Banshee.Streaming;
 using Banshee.Networking;
 using Banshee.ServiceStack;
 
-using Lastfm.Data;
+// TODO(firox263): Reimplement This
 
-namespace Banshee.Metadata.LastFM
-{
-    public class LastFMQueryJob : MetadataServiceJob
-    {
-        public LastFMQueryJob (IBasicTrackInfo track)
-        {
-            Track = track;
-        }
+// using Lastfm.Data;
 
-        public override void Run ()
-        {
-            if (!OnlineMetadataServiceJob.TrackConditionsMet (Track)) {
-                return;
-            }
+// namespace Banshee.Metadata.LastFM
+// {
+//     public class LastFMQueryJob : MetadataServiceJob
+//     {
+//         public LastFMQueryJob (IBasicTrackInfo track)
+//         {
+//             Track = track;
+//         }
 
-            string artwork_id = Track.ArtworkId;
+//         public override void Run ()
+//         {
+//             if (!OnlineMetadataServiceJob.TrackConditionsMet (Track)) {
+//                 return;
+//             }
 
-            if (artwork_id == null || CoverArtSpec.CoverExists (artwork_id) || !InternetConnected) {
-                return;
-            }
+//             string artwork_id = Track.ArtworkId;
 
-            // Lastfm uses double url-encoding in their current 1.2 api for albuminfo.
-            string lastfmArtist = HttpUtility.UrlEncode (HttpUtility.UrlEncode (Track.AlbumArtist));
-            string lastfmAlbum = HttpUtility.UrlEncode (HttpUtility.UrlEncode (Track.AlbumTitle));
+//             if (artwork_id == null || CoverArtSpec.CoverExists (artwork_id) || !InternetConnected) {
+//                 return;
+//             }
 
-            LastfmAlbumData album = null;
+//             // Lastfm uses double url-encoding in their current 1.2 api for albuminfo.
+//             string lastfmArtist = HttpUtility.UrlEncode (HttpUtility.UrlEncode (Track.AlbumArtist));
+//             string lastfmAlbum = HttpUtility.UrlEncode (HttpUtility.UrlEncode (Track.AlbumTitle));
 
-            try {
-                album = new LastfmAlbumData (lastfmArtist, lastfmAlbum);
-            } catch {
-                return;
-            }
+//             LastfmAlbumData album = null;
 
-            // AllUrls is an array with [small,medium,large] coverart url
-            string [] album_cover_urls = album.AlbumCoverUrls.AllUrls ();
+//             try {
+//                 album = new LastfmAlbumData (lastfmArtist, lastfmAlbum);
+//             } catch {
+//                 return;
+//             }
 
-            // Select the URL for the coverart with highest resolution
-            string best_url = String.Empty;
-            foreach (string url in album_cover_urls) {
-                if (!String.IsNullOrEmpty (url)) {
-                    best_url = url;
-                }
-            }
+//             // AllUrls is an array with [small,medium,large] coverart url
+//             string [] album_cover_urls = album.AlbumCoverUrls.AllUrls ();
 
-            // No URL's found
-            if (String.IsNullOrEmpty (best_url) || best_url.Contains ("noimage")) {
-                //string upload_url = String.Format ("http://www.last.fm/music/{0}/{1}/+images", lastfmArtist, lastfmAlbum);
-                //Log.DebugFormat ("No coverart provided by lastfm. (you can upload it here: {0}) - {1} ", upload_url, Track.ArtworkId);
-                return;
-            }
+//             // Select the URL for the coverart with highest resolution
+//             string best_url = String.Empty;
+//             foreach (string url in album_cover_urls) {
+//                 if (!String.IsNullOrEmpty (url)) {
+//                     best_url = url;
+//                 }
+//             }
 
-            // Hack: You can get higher resolution artwork by replacing 130X130 with 300x300 in lastfm hosted albumart
-            string high_res_url = null;
-            if (best_url.Contains ("130x130")) {
-                high_res_url = best_url.Replace ("130x130", "300x300");
-            }
+//             // No URL's found
+//             if (String.IsNullOrEmpty (best_url) || best_url.Contains ("noimage")) {
+//                 //string upload_url = String.Format ("http://www.last.fm/music/{0}/{1}/+images", lastfmArtist, lastfmAlbum);
+//                 //Log.DebugFormat ("No coverart provided by lastfm. (you can upload it here: {0}) - {1} ", upload_url, Track.ArtworkId);
+//                 return;
+//             }
 
-            // Hack: You can get higher resolution artwork from Amazon too (lastfm sometimes uses amazon links)
-            if (best_url.Contains ("MZZZZZZZ")) {
-                high_res_url = best_url.Replace ("MZZZZZZZ", "LZZZZZZZ");
-            }
+//             // Hack: You can get higher resolution artwork by replacing 130X130 with 300x300 in lastfm hosted albumart
+//             string high_res_url = null;
+//             if (best_url.Contains ("130x130")) {
+//                 high_res_url = best_url.Replace ("130x130", "300x300");
+//             }
 
-            // Download the cover
-            try {
-                if ((high_res_url != null && SaveHttpStreamCover (new Uri (high_res_url), artwork_id, null)) ||
-                   SaveHttpStreamCover (new Uri (best_url), artwork_id, null)) {
-                    if (best_url.Contains ("amazon")) {
-                        Log.Debug ("Downloaded cover art from Amazon", artwork_id);
-                    } else {
-                        Log.Debug ("Downloaded cover art from Lastfm", artwork_id);
-                    }
+//             // Hack: You can get higher resolution artwork from Amazon too (lastfm sometimes uses amazon links)
+//             if (best_url.Contains ("MZZZZZZZ")) {
+//                 high_res_url = best_url.Replace ("MZZZZZZZ", "LZZZZZZZ");
+//             }
 
-                    StreamTag tag = new StreamTag ();
-                    tag.Name = CommonTags.AlbumCoverId;
-                    tag.Value = artwork_id;
-                    AddTag (tag);
-                }
-            } catch (Exception e) {
-                Log.Error ("Cover art found on Lastfm, but downloading it failed. Probably server under high load or dead link", e);
-            }
-        }
-    }
-}
+//             // Download the cover
+//             try {
+//                 if ((high_res_url != null && SaveHttpStreamCover (new Uri (high_res_url), artwork_id, null)) ||
+//                    SaveHttpStreamCover (new Uri (best_url), artwork_id, null)) {
+//                     if (best_url.Contains ("amazon")) {
+//                         Log.Debug ("Downloaded cover art from Amazon", artwork_id);
+//                     } else {
+//                         Log.Debug ("Downloaded cover art from Lastfm", artwork_id);
+//                     }
+
+//                     StreamTag tag = new StreamTag ();
+//                     tag.Name = CommonTags.AlbumCoverId;
+//                     tag.Value = artwork_id;
+//                     AddTag (tag);
+//                 }
+//             } catch (Exception e) {
+//                 Log.Error ("Cover art found on Lastfm, but downloading it failed. Probably server under high load or dead link", e);
+//             }
+//         }
+//     }
+// }

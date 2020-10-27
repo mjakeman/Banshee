@@ -43,7 +43,7 @@ namespace Banshee.Playlists.Formats
     public class AsxPlaylistFormat : PlaylistFormatBase
     {
         public static readonly PlaylistFormatDescription FormatDescription = new PlaylistFormatDescription(
-            typeof(AsxPlaylistFormat), MagicHandler, Catalog.GetString("Windows Media ASX (*.asx)"),
+            typeof(AsxPlaylistFormat), MagicHandler, I18n.Catalog.GetString("Windows Media ASX (*.asx)"),
             "asx", new string [] {"video/x-ms-asx", "video/asx", "video/x-ms-asf"});
 
         public static bool MagicHandler(StreamReader reader)

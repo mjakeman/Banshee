@@ -135,7 +135,7 @@ namespace Banshee.Collection
 
                 timer_id = Log.DebugTimerStart ();
 
-                user_job = new UserJob (Title, Catalog.GetString ("Scanning for media"));
+                user_job = new UserJob (Title, I18n.Catalog.GetString ("Scanning for media"));
                 user_job.SetResources (Resource.Cpu, Resource.Disk, Resource.Database);
                 user_job.PriorityHints = PriorityHints.SpeedSensitive | PriorityHints.DataLossIfStopped;
                 user_job.IconNames = new string [] { "system-search", "gtk-find" };
@@ -185,7 +185,7 @@ namespace Banshee.Collection
                             import_element.TotalCount);
 
                         user_job.Title = disp_progress;
-                        user_job.Status = String.IsNullOrEmpty (message) ? Catalog.GetString ("Scanning...") : message;
+                        user_job.Status = String.IsNullOrEmpty (message) ? I18n.Catalog.GetString ("Scanning...") : message;
                         user_job.Progress = new_progress;
                     }
                 }
@@ -201,7 +201,7 @@ namespace Banshee.Collection
                 if (DateTime.Now - last_enqueue_display > TimeSpan.FromMilliseconds (400)) {
                     lock (number_format) {
                         number_format.NumberDecimalDigits = 0;
-                        user_job.Status = String.Format (Catalog.GetString ("Scanning ({0} files)..."),
+                        user_job.Status = String.Format (I18n.Catalog.GetString ("Scanning ({0} files)..."),
                             import_element.TotalCount.ToString ("N", number_format));
                         last_enqueue_display = DateTime.Now;
                     }
@@ -235,20 +235,20 @@ namespace Banshee.Collection
 
 #region Properties
 
-        private string title = Catalog.GetString ("Importing Media");
+        private string title = I18n.Catalog.GetString ("Importing Media");
         public string Title {
             get { return title; }
             set { title = value; }
         }
 
-        private string cancel_message = Catalog.GetString (
+        private string cancel_message = I18n.Catalog.GetString (
             "The import process is currently running. Would you like to stop it?");
         public string CancelMessage {
             get { return cancel_message; }
             set { cancel_message = value; }
         }
 
-        private string progress_message = Catalog.GetString ("Importing {0} of {1}");
+        private string progress_message = I18n.Catalog.GetString ("Importing {0} of {1}");
         public string ProgressMessage {
             get { return progress_message; }
             set { progress_message = value; }

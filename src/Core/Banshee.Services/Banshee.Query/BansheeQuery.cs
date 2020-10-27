@@ -62,28 +62,28 @@ namespace Banshee.Query
         public static readonly QueryOrder [] Orders;
 
         public static QueryLimit [] Limits = new QueryLimit [] {
-            new QueryLimit ("songs",   Catalog.GetString ("items"), true),
-            new QueryLimit ("minutes", Catalog.GetString ("minutes"), "CoreTracks.Duration/1000", (int) TimeFactor.Minute),
-            new QueryLimit ("hours",   Catalog.GetString ("hours"), "CoreTracks.Duration/1000", (int) TimeFactor.Hour),
-            new QueryLimit ("MB",      Catalog.GetString ("MB"), "CoreTracks.FileSize", (int) FileSizeFactor.MB),
-            new QueryLimit ("GB",      Catalog.GetString ("GB"), "CoreTracks.FileSize", (int) FileSizeFactor.GB)
+            new QueryLimit ("songs",   I18n.Catalog.GetString ("items"), true),
+            new QueryLimit ("minutes", I18n.Catalog.GetString ("minutes"), "CoreTracks.Duration/1000", (int) TimeFactor.Minute),
+            new QueryLimit ("hours",   I18n.Catalog.GetString ("hours"), "CoreTracks.Duration/1000", (int) TimeFactor.Hour),
+            new QueryLimit ("MB",      I18n.Catalog.GetString ("MB"), "CoreTracks.FileSize", (int) FileSizeFactor.MB),
+            new QueryLimit ("GB",      I18n.Catalog.GetString ("GB"), "CoreTracks.FileSize", (int) FileSizeFactor.GB)
         };
 
 #region QueryField Definitions
 
         public static QueryField ArtistField = new QueryField (
             "artist", "DisplayArtistName",
-            Catalog.GetString ("Artist"), "CoreArtists.NameLowered", true,
+            I18n.Catalog.GetString ("Artist"), "CoreArtists.NameLowered", true,
             // Translators: These are unique search aliases for "artist". You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("artist"), Catalog.GetString ("by"), Catalog.GetString ("artists"),
+            I18n.Catalog.GetString ("artist"), I18n.Catalog.GetString ("by"), I18n.Catalog.GetString ("artists"),
             "by", "artist", "artists"
         );
 
         public static QueryField AlbumArtistField = new QueryField (
             "albumartist", "DisplayAlbumArtistName",
-            Catalog.GetString ("Album Artist"), "CoreAlbums.ArtistNameLowered", false,
+            I18n.Catalog.GetString ("Album Artist"), "CoreAlbums.ArtistNameLowered", false,
             // Translators: These are unique search aliases for "album artist". You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("albumartist"), Catalog.GetString ("compilationartist"),
+            I18n.Catalog.GetString ("albumartist"), I18n.Catalog.GetString ("compilationartist"),
             "albumartist", "compilationartist"
         );
 
@@ -91,247 +91,247 @@ namespace Banshee.Query
 
         public static QueryField AlbumField = new QueryField (
             "album", "DisplayAlbumTitle",
-            Catalog.GetString ("Album"), "CoreAlbums.TitleLowered", true,
+            I18n.Catalog.GetString ("Album"), "CoreAlbums.TitleLowered", true,
             // Translators: These are unique search aliases for "album". You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("album"), Catalog.GetString ("on"), Catalog.GetString ("from"),
+            I18n.Catalog.GetString ("album"), I18n.Catalog.GetString ("on"), I18n.Catalog.GetString ("from"),
             "on", "album", "from", "albumtitle"
         );
 
         public static QueryField DiscNumberField = new QueryField (
             "disc", "DiscNumber",
-            Catalog.GetString ("Disc"), "CoreTracks.Disc", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Disc"), "CoreTracks.Disc", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields (and nouns). You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("disc"), Catalog.GetString ("cd"), Catalog.GetString ("discnum"),
+            I18n.Catalog.GetString ("disc"), I18n.Catalog.GetString ("cd"), I18n.Catalog.GetString ("discnum"),
             "disc", "cd", "discnum"
         );
 
         public static QueryField DiscCountField = new QueryField (
             "disccount", "DiscCount",
-            Catalog.GetString ("Disc Count"), "CoreTracks.DiscCount", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Disc Count"), "CoreTracks.DiscCount", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields (and nouns). You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("discs"), Catalog.GetString ("cds"),
+            I18n.Catalog.GetString ("discs"), I18n.Catalog.GetString ("cds"),
             "discs", "cds"
         );
 
         public static QueryField TrackNumberField = new QueryField (
             "track", "TrackNumber",
             // Translators: noun
-            Catalog.GetString ("Track Number"), "CoreTracks.TrackNumber", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Track Number"), "CoreTracks.TrackNumber", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            "#", Catalog.GetString ("track"), Catalog.GetString ("trackno"), Catalog.GetString ("tracknum"),
+            "#", I18n.Catalog.GetString ("track"), I18n.Catalog.GetString ("trackno"), I18n.Catalog.GetString ("tracknum"),
             "track", "trackno", "tracknum"
         );
 
         public static QueryField TrackCountField = new QueryField (
             "trackcount", "TrackCount",
             // Translators: noun
-            Catalog.GetString ("Track Count"), "CoreTracks.TrackCount", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Track Count"), "CoreTracks.TrackCount", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("tracks"), Catalog.GetString ("trackcount"),
+            I18n.Catalog.GetString ("tracks"), I18n.Catalog.GetString ("trackcount"),
             "tracks", "trackcount"
         );
 
         public static QueryField BpmField = new QueryField (
             "bpm", "Bpm",
-            Catalog.GetString ("Beats per Minute"), "CoreTracks.BPM", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Beats per Minute"), "CoreTracks.BPM", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("bpm"),
+            I18n.Catalog.GetString ("bpm"),
             "bpm"
         );
 
         public static QueryField BitRateField = new QueryField (
             "bitrate", "BitRate",
             // Translators: noun
-            Catalog.GetString ("Bit Rate"), "CoreTracks.BitRate", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Bit Rate"), "CoreTracks.BitRate", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("bitrate"), Catalog.GetString ("kbs"), Catalog.GetString ("kps"),
+            I18n.Catalog.GetString ("bitrate"), I18n.Catalog.GetString ("kbs"), I18n.Catalog.GetString ("kps"),
             "bitrate", "kbs", "kps"
         );
 
         public static QueryField SampleRateField = new QueryField (
             "samplerate", "SampleRate",
             // Translators: noun
-            Catalog.GetString ("Sample Rate"), "CoreTracks.SampleRate", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Sample Rate"), "CoreTracks.SampleRate", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("samplerate"), Catalog.GetString ("Hz"),
+            I18n.Catalog.GetString ("samplerate"), I18n.Catalog.GetString ("Hz"),
             "samplerate", "Hz"
         );
 
         public static QueryField BitsPerSampleField = new QueryField (
             "bitspersample", "BitsPerSample",
             // Translators: noun
-            Catalog.GetString ("Bits Per Sample"), "CoreTracks.BitsPerSample", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Bits Per Sample"), "CoreTracks.BitsPerSample", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("bitspersample"), Catalog.GetString ("bitdepth"), Catalog.GetString ("quantization"),
+            I18n.Catalog.GetString ("bitspersample"), I18n.Catalog.GetString ("bitdepth"), I18n.Catalog.GetString ("quantization"),
             "bitspersample", "bitdepth", "quantization"
         );
 
         public static QueryField TitleField = new QueryField (
             "title", "DisplayTrackTitle",
-            Catalog.GetString ("Name"), "CoreTracks.TitleLowered", true,
+            I18n.Catalog.GetString ("Name"), "CoreTracks.TitleLowered", true,
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("title"), Catalog.GetString ("titled"), Catalog.GetString ("name"), Catalog.GetString ("named"),
+            I18n.Catalog.GetString ("title"), I18n.Catalog.GetString ("titled"), I18n.Catalog.GetString ("name"), I18n.Catalog.GetString ("named"),
             "title", "titled", "name", "named"
         );
 
         public static QueryField YearField = new QueryField (
             "year", "Year",
-            Catalog.GetString ("Year"), "CoreTracks.Year", typeof(YearQueryValue),
+            I18n.Catalog.GetString ("Year"), "CoreTracks.Year", typeof(YearQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("year"), Catalog.GetString ("released"), Catalog.GetString ("yr"),
+            I18n.Catalog.GetString ("year"), I18n.Catalog.GetString ("released"), I18n.Catalog.GetString ("yr"),
             "year", "released", "yr"
         );
 
         public static QueryField GenreField = new QueryField (
             "genre", "Genre",
-            Catalog.GetString ("Genre"), "CoreTracks.Genre", false,
+            I18n.Catalog.GetString ("Genre"), "CoreTracks.Genre", false,
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("genre"), "genre"
+            I18n.Catalog.GetString ("genre"), "genre"
         );
 
         public static QueryField ComposerField = new QueryField (
             "composer", "Composer",
-            Catalog.GetString ("Composer"), "CoreTracks.Composer", false,
+            I18n.Catalog.GetString ("Composer"), "CoreTracks.Composer", false,
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("composer"), "composer"
+            I18n.Catalog.GetString ("composer"), "composer"
         );
 
         public static QueryField ConductorField = new QueryField (
             "conductor", "Conductor",
-            Catalog.GetString ("Conductor"), "CoreTracks.Conductor", false,
+            I18n.Catalog.GetString ("Conductor"), "CoreTracks.Conductor", false,
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("conductor"), "conductor"
+            I18n.Catalog.GetString ("conductor"), "conductor"
         );
 
         public static QueryField GroupingField = new QueryField (
             "grouping", "Grouping",
-            Catalog.GetString ("Grouping"), "CoreTracks.Grouping", false,
+            I18n.Catalog.GetString ("Grouping"), "CoreTracks.Grouping", false,
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("grouping"), "grouping"
+            I18n.Catalog.GetString ("grouping"), "grouping"
         );
 
         public static QueryField CommentField = new QueryField (
             "comment", "Comment",
             // Translators: noun
-            Catalog.GetString ("Comment"), "CoreTracks.Comment", false,
+            I18n.Catalog.GetString ("Comment"), "CoreTracks.Comment", false,
             // Translators: These are unique search fields (and nouns). You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("comment"), "comment"
+            I18n.Catalog.GetString ("comment"), "comment"
         );
 
         public static QueryField LicenseUriField = new QueryField (
             "licenseuri", "LicenseUri",
             // Translators: noun
-            Catalog.GetString ("License"), "CoreTracks.LicenseUri", typeof(ExactStringQueryValue),
+            I18n.Catalog.GetString ("License"), "CoreTracks.LicenseUri", typeof(ExactStringQueryValue),
             // Translators: These are unique search fields (and nouns). You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("license"), Catalog.GetString ("licensed"), Catalog.GetString ("under"),
+            I18n.Catalog.GetString ("license"), I18n.Catalog.GetString ("licensed"), I18n.Catalog.GetString ("under"),
             "license", "licensed", "under"
         );
 
         public static QueryField RatingField = new QueryField (
             "rating", "SavedRating",
-            Catalog.GetString ("Rating"), "CoreTracks.Rating", new Type [] {typeof(RatingQueryValue)},//, typeof(NullQueryValue)},
+            I18n.Catalog.GetString ("Rating"), "CoreTracks.Rating", new Type [] {typeof(RatingQueryValue)},//, typeof(NullQueryValue)},
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("rating"), Catalog.GetString ("stars"),
+            I18n.Catalog.GetString ("rating"), I18n.Catalog.GetString ("stars"),
             "rating", "stars"
         );
 
         public static QueryField PlayCountField = new QueryField (
             "playcount", "PlayCount",
-            Catalog.GetString ("Play Count"), "CoreTracks.PlayCount", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Play Count"), "CoreTracks.PlayCount", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields (and nouns). You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("plays"), Catalog.GetString ("playcount"), Catalog.GetString ("listens"),
+            I18n.Catalog.GetString ("plays"), I18n.Catalog.GetString ("playcount"), I18n.Catalog.GetString ("listens"),
             "plays", "playcount", "numberofplays", "listens"
         );
 
         public static QueryField SkipCountField = new QueryField (
             "skipcount", "SkipCount",
-            Catalog.GetString ("Skip Count"), "CoreTracks.SkipCount", typeof(NaturalIntegerQueryValue),
+            I18n.Catalog.GetString ("Skip Count"), "CoreTracks.SkipCount", typeof(NaturalIntegerQueryValue),
             // Translators: These are unique search fields (and nouns). You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("skips"), Catalog.GetString ("skipcount"),
+            I18n.Catalog.GetString ("skips"), I18n.Catalog.GetString ("skipcount"),
             "skips", "skipcount"
         );
 
         public static QueryField FileSizeField = new QueryField (
             "filesize", "FileSize",
-            Catalog.GetString ("File Size"), "CoreTracks.FileSize", typeof(FileSizeQueryValue),
+            I18n.Catalog.GetString ("File Size"), "CoreTracks.FileSize", typeof(FileSizeQueryValue),
             // Translators: These are unique search fields (and nouns). You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("size"), Catalog.GetString ("filesize"),
+            I18n.Catalog.GetString ("size"), I18n.Catalog.GetString ("filesize"),
             "size", "filesize"
         );
 
         public static QueryField UriField = new QueryField (
             "uri", "Uri",
-            Catalog.GetString ("File Location"), "CoreTracks.Uri", typeof(ExactUriStringQueryValue),
+            I18n.Catalog.GetString ("File Location"), "CoreTracks.Uri", typeof(ExactUriStringQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("uri"), Catalog.GetString ("path"), Catalog.GetString ("file"), Catalog.GetString ("location"),
+            I18n.Catalog.GetString ("uri"), I18n.Catalog.GetString ("path"), I18n.Catalog.GetString ("file"), I18n.Catalog.GetString ("location"),
             "uri", "path", "file", "location"
         );
 
         public static QueryField DurationField = new QueryField (
             "duration", "Duration",
-            Catalog.GetString ("Time"), "CoreTracks.Duration", typeof(TimeSpanQueryValue),
+            I18n.Catalog.GetString ("Time"), "CoreTracks.Duration", typeof(TimeSpanQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("duration"), Catalog.GetString ("length"), Catalog.GetString ("time"),
+            I18n.Catalog.GetString ("duration"), I18n.Catalog.GetString ("length"), I18n.Catalog.GetString ("time"),
             "duration", "length", "time"
         );
 
         public static QueryField MimeTypeField = new QueryField (
             "mimetype", "MimeType",
-            Catalog.GetString ("Mime Type"), "CoreTracks.MimeType", typeof(ExactStringQueryValue),
+            I18n.Catalog.GetString ("Mime Type"), "CoreTracks.MimeType", typeof(ExactStringQueryValue),
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("type"), Catalog.GetString ("mimetype"), Catalog.GetString ("format"), Catalog.GetString ("ext"),
+            I18n.Catalog.GetString ("type"), I18n.Catalog.GetString ("mimetype"), I18n.Catalog.GetString ("format"), I18n.Catalog.GetString ("ext"),
             "type", "mimetype", "format", "ext", "mime"
         );
 
         public static QueryField LastPlayedField = new QueryField (
             "lastplayed", "LastPlayed",
-            Catalog.GetString ("Last Played"), "CoreTracks.LastPlayedStamp", new Type [] {typeof(RelativeTimeSpanQueryValue), typeof(DateQueryValue)},
+            I18n.Catalog.GetString ("Last Played"), "CoreTracks.LastPlayedStamp", new Type [] {typeof(RelativeTimeSpanQueryValue), typeof(DateQueryValue)},
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("lastplayed"), Catalog.GetString ("played"), Catalog.GetString ("playedon"),
+            I18n.Catalog.GetString ("lastplayed"), I18n.Catalog.GetString ("played"), I18n.Catalog.GetString ("playedon"),
             "lastplayed", "played", "playedon"
         );
 
         public static QueryField LastSkippedField = new QueryField (
             "lastskipped", "LastSkipped",
-            Catalog.GetString ("Last Skipped"), "CoreTracks.LastSkippedStamp", new Type [] {typeof(RelativeTimeSpanQueryValue), typeof(DateQueryValue)},
+            I18n.Catalog.GetString ("Last Skipped"), "CoreTracks.LastSkippedStamp", new Type [] {typeof(RelativeTimeSpanQueryValue), typeof(DateQueryValue)},
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("lastskipped"), Catalog.GetString ("skipped"), Catalog.GetString ("skippedon"),
+            I18n.Catalog.GetString ("lastskipped"), I18n.Catalog.GetString ("skipped"), I18n.Catalog.GetString ("skippedon"),
             "lastskipped", "skipped", "skippedon"
         );
 
         public static QueryField DateAddedField = new QueryField (
             "added", "DateAdded",
-            Catalog.GetString ("Date Added"), "CoreTracks.DateAddedStamp", new Type [] {typeof(RelativeTimeSpanQueryValue), typeof(DateQueryValue)},
+            I18n.Catalog.GetString ("Date Added"), "CoreTracks.DateAddedStamp", new Type [] {typeof(RelativeTimeSpanQueryValue), typeof(DateQueryValue)},
             // Translators: These are unique search fields. You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("added"), Catalog.GetString ("imported"), Catalog.GetString ("addedon"), Catalog.GetString ("dateadded"), Catalog.GetString ("importedon"),
+            I18n.Catalog.GetString ("added"), I18n.Catalog.GetString ("imported"), I18n.Catalog.GetString ("addedon"), I18n.Catalog.GetString ("dateadded"), I18n.Catalog.GetString ("importedon"),
             "added", "imported", "addedon", "dateadded", "importedon"
         );
 
         public static QueryField PlaylistField = new QueryField (
-            "playlistid", null, Catalog.GetString ("Playlist"),
+            "playlistid", null, I18n.Catalog.GetString ("Playlist"),
             "CoreTracks.TrackID {2} IN (SELECT TrackID FROM CorePlaylistEntries WHERE PlaylistID = {1})", typeof(PlaylistQueryValue),
             "playlistid", "playlist"
         );
 
         public static QueryField SmartPlaylistField = new QueryField (
-            "smartplaylistid", null, Catalog.GetString ("Smart Playlist"),
+            "smartplaylistid", null, I18n.Catalog.GetString ("Smart Playlist"),
             "CoreTracks.TrackID {2} IN (SELECT TrackID FROM CoreSmartPlaylistEntries WHERE SmartPlaylistID = {1})", typeof(SmartPlaylistQueryValue),
             "smartplaylistid", "smartplaylist"
         );
 
         public static QueryField ScoreField = new QueryField (
             "score", "Score",
-            Catalog.GetString ("Score"), "CoreTracks.Score", typeof(IntegerQueryValue),
+            I18n.Catalog.GetString ("Score"), "CoreTracks.Score", typeof(IntegerQueryValue),
             //Translators: These are unique search fields (and nouns). You can use CSV for synonyms. Please, no spaces. Blank ok.
-            Catalog.GetString ("score"),
+            I18n.Catalog.GetString ("score"),
             "score"
         );
 
         public static QueryField PlaybackErrorField = new QueryField (
             "playbackerror", "PlaybackError",
-            Catalog.GetString ("Playback Error"), "CoreTracks.LastStreamError", typeof(PlaybackErrorQueryValue),
+            I18n.Catalog.GetString ("Playback Error"), "CoreTracks.LastStreamError", typeof(PlaybackErrorQueryValue),
             //Translators: These are unique search fields (and nouns). Please, no spaces. Blank ok.
-            Catalog.GetString ("playbackerror"),
+            I18n.Catalog.GetString ("playbackerror"),
             "playbackerror", "error"
         );
 
@@ -348,9 +348,9 @@ namespace Banshee.Query
         static BansheeQuery ()
         {
             // Translators: noun
-            BpmField.ShortLabel         = Catalog.GetString ("BPM");
-            SkipCountField.ShortLabel   = Catalog.GetString ("Skips");
-            PlayCountField.ShortLabel   = Catalog.GetString ("Plays");
+            BpmField.ShortLabel         = I18n.Catalog.GetString ("BPM");
+            SkipCountField.ShortLabel   = I18n.Catalog.GetString ("Skips");
+            PlayCountField.ShortLabel   = I18n.Catalog.GetString ("Plays");
 
             default_sort = String.Format (default_sort_template, "");
             default_sort_by_year = String.Format (default_sort_template, YearField.Column + " ASC, ");
@@ -359,26 +359,26 @@ namespace Banshee.Query
 
             Orders = new QueryOrder [] {
                 RandomOrder,
-                CreateQueryOrder ("Album",      asc,  Catalog.GetString ("Album"), AlbumField),
-                CreateQueryOrder ("Artist",     asc,  Catalog.GetString ("Artist"), ArtistField),
+                CreateQueryOrder ("Album",      asc,  I18n.Catalog.GetString ("Album"), AlbumField),
+                CreateQueryOrder ("Artist",     asc,  I18n.Catalog.GetString ("Artist"), ArtistField),
                 // Translators: noun
-                CreateQueryOrder ("Title",      asc,  Catalog.GetString ("Name"), TitleField),
-                CreateQueryOrder ("Genre",      asc,  Catalog.GetString ("Genre"), GenreField),
+                CreateQueryOrder ("Title",      asc,  I18n.Catalog.GetString ("Name"), TitleField),
+                CreateQueryOrder ("Genre",      asc,  I18n.Catalog.GetString ("Genre"), GenreField),
                 null,
-                CreateQueryOrder ("Rating",     desc, Catalog.GetString ("Highest Rating"), RatingField),
-                CreateQueryOrder ("Rating",     asc,  Catalog.GetString ("Lowest Rating"), RatingField),
+                CreateQueryOrder ("Rating",     desc, I18n.Catalog.GetString ("Highest Rating"), RatingField),
+                CreateQueryOrder ("Rating",     asc,  I18n.Catalog.GetString ("Lowest Rating"), RatingField),
                 null,
-                CreateQueryOrder ("Score",      desc, Catalog.GetString ("Highest Score"), ScoreField),
-                CreateQueryOrder ("Score",      asc,  Catalog.GetString ("Lowest Score"), ScoreField),
+                CreateQueryOrder ("Score",      desc, I18n.Catalog.GetString ("Highest Score"), ScoreField),
+                CreateQueryOrder ("Score",      asc,  I18n.Catalog.GetString ("Lowest Score"), ScoreField),
                 null,
-                CreateQueryOrder ("PlayCount",  desc, Catalog.GetString ("Most Often Played"), PlayCountField),
-                CreateQueryOrder ("PlayCount",  asc,  Catalog.GetString ("Least Often Played"), PlayCountField),
+                CreateQueryOrder ("PlayCount",  desc, I18n.Catalog.GetString ("Most Often Played"), PlayCountField),
+                CreateQueryOrder ("PlayCount",  asc,  I18n.Catalog.GetString ("Least Often Played"), PlayCountField),
                 null,
-                CreateQueryOrder ("LastPlayedStamp", desc, Catalog.GetString ("Most Recently Played"), LastPlayedField),
-                CreateQueryOrder ("LastPlayedStamp", asc,  Catalog.GetString ("Least Recently Played"), LastPlayedField),
+                CreateQueryOrder ("LastPlayedStamp", desc, I18n.Catalog.GetString ("Most Recently Played"), LastPlayedField),
+                CreateQueryOrder ("LastPlayedStamp", asc,  I18n.Catalog.GetString ("Least Recently Played"), LastPlayedField),
                 null,
-                CreateQueryOrder ("DateAddedStamp",  desc, Catalog.GetString ("Most Recently Added"), DateAddedField),
-                CreateQueryOrder ("DateAddedStamp",  asc,  Catalog.GetString ("Least Recently Added"), DateAddedField)
+                CreateQueryOrder ("DateAddedStamp",  desc, I18n.Catalog.GetString ("Most Recently Added"), DateAddedField),
+                CreateQueryOrder ("DateAddedStamp",  asc,  I18n.Catalog.GetString ("Least Recently Added"), DateAddedField)
             };
         }
 
@@ -526,7 +526,7 @@ namespace Banshee.Query
 
         private static QueryOrder CreateRandomQueryOrder ()
         {
-            return new QueryOrder (CreateOrderName ("Random", true), Catalog.GetString ("Random"), GetRandomSort (), null, true);
+            return new QueryOrder (CreateOrderName ("Random", true), I18n.Catalog.GetString ("Random"), GetRandomSort (), null, true);
         }
 
         public static QueryLimit FindLimit (string name)

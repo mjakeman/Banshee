@@ -146,7 +146,7 @@ namespace Banshee.Sources
             DatabaseArtistListModel artist_model = new DatabaseArtistListModel (src, src.DatabaseTrackModel, ServiceManager.DbConnection, src.UniqueId);
             DatabaseAlbumListModel album_model = new DatabaseAlbumListModel (src, src.DatabaseTrackModel, ServiceManager.DbConnection, src.UniqueId);
             DatabaseQueryFilterModel<string> genre_model = new DatabaseQueryFilterModel<string> (src, src.DatabaseTrackModel, ServiceManager.DbConnection,
-                        Catalog.GetString ("All Genres ({0})"), src.UniqueId, BansheeQuery.GenreField, "Genre");
+                        I18n.Catalog.GetString ("All Genres ({0})"), src.UniqueId, BansheeQuery.GenreField, "Genre");
             DatabaseYearListModel year_model = new DatabaseYearListModel (src, src.DatabaseTrackModel, ServiceManager.DbConnection, src.UniqueId);
 
             if (this == src) {

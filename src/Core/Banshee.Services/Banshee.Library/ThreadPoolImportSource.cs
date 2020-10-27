@@ -53,7 +53,7 @@ namespace Banshee.Library
                     return;
                 }
 
-                user_job = new UserJob (UserJobTitle, UserJobTitle, Catalog.GetString ("Importing Songs"));
+                user_job = new UserJob (UserJobTitle, UserJobTitle, I18n.Catalog.GetString ("Importing Songs"));
                 user_job.SetResources (Resource.Cpu, Resource.Disk, Resource.Database);
                 user_job.PriorityHints = PriorityHints.SpeedSensitive | PriorityHints.DataLossIfStopped;
                 user_job.IconNames = IconNames;
@@ -78,7 +78,7 @@ namespace Banshee.Library
         protected void UpdateUserJob (int processed, int count, string artist, string title)
         {
             user_job.Title = String.Format(
-                Catalog.GetString("Importing {0} of {1}"),
+                I18n.Catalog.GetString("Importing {0} of {1}"),
                 processed, count);
             user_job.Status = String.Format("{0} - {1}", artist, title);
             user_job.Progress = processed / (double)count;
@@ -110,13 +110,13 @@ namespace Banshee.Library
         protected virtual string UserJobTitle {
             get {
                 if (user_job_title == null) {
-                    user_job_title = String.Format (Catalog.GetString ("Importing From {0}"), Name);
+                    user_job_title = String.Format (I18n.Catalog.GetString ("Importing From {0}"), Name);
                 }
                 return user_job_title;
             }
         }
 
-        private string cancel_message = Catalog.GetString ("The import process is currently running. Would you like to stop it?");
+        private string cancel_message = I18n.Catalog.GetString ("The import process is currently running. Would you like to stop it?");
         protected virtual string CancelMessage {
             get { return cancel_message; }
         }

@@ -35,9 +35,9 @@ namespace Banshee.Collection.Database
     {
         public RandomByOff () : base ("off")
         {
-            Label = Catalog.GetString ("Shuffle _Off");
-            Adverb = Catalog.GetString ("manually");
-            Description = Catalog.GetString ("Do not shuffle playlist");
+            Label = I18n.Catalog.GetString ("Shuffle _Off");
+            Adverb = I18n.Catalog.GetString ("manually");
+            Description = I18n.Catalog.GetString ("Do not shuffle playlist");
         }
 
         #region Empty implementation of RandomBy

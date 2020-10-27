@@ -201,6 +201,10 @@ namespace Banshee.I18n
             }
         }
 
+        // TODO(firox263): Use Hyena's Catalog.cs implementation
+        // instead of direct access like this. Perhaps we could port
+        // this file to Hyena instead?
+
         private const string LibIntlibrary = "intl";
 
         [DllImport (LibIntlibrary, CallingConvention = CallingConvention.Cdecl)]

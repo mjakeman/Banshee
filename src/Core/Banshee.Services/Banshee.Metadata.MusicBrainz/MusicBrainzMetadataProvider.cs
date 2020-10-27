@@ -33,17 +33,19 @@ using Banshee.Base;
 using Banshee.Collection;
 using Banshee.Metadata;
 
-namespace Banshee.Metadata.MusicBrainz
-{
-    public class MusicBrainzMetadataProvider : BaseMetadataProvider
-    {
-        public MusicBrainzMetadataProvider() : base()
-        {
-        }
+// TODO(firox263): Reimplement This
 
-        public override IMetadataLookupJob CreateJob(IBasicTrackInfo track)
-        {
-            return new MusicBrainzQueryJob(track);
-        }
-    }
-}
+// namespace Banshee.Metadata.MusicBrainz
+// {
+//     public class MusicBrainzMetadataProvider : BaseMetadataProvider
+//     {
+//         public MusicBrainzMetadataProvider() : base()
+//         {
+//         }
+
+//         public override IMetadataLookupJob CreateJob(IBasicTrackInfo track)
+//         {
+//             return new MusicBrainzQueryJob(track);
+//         }
+//     }
+// }

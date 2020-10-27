@@ -75,8 +75,8 @@ namespace Banshee.SmartPlaylist
             } catch (Exception e) {
                 ServiceManager.DbConnection.Execute ("ROLLBACK");
                 Log.Error (
-                    Catalog.GetString ("Unable to Migrate Smart Playlists"),
-                    String.Format (Catalog.GetString ("Please file a bug with this error: {0}"), e.ToString ()), true
+                    I18n.Catalog.GetString ("Unable to Migrate Smart Playlists"),
+                    String.Format (I18n.Catalog.GetString ("Please file a bug with this error: {0}"), e.ToString ()), true
                 );
                 return false;
             }

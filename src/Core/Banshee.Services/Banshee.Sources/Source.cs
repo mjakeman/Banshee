@@ -665,17 +665,17 @@ namespace Banshee.Sources
 
         public static readonly SourceSortType SortNameAscending = new SourceSortType (
             "NameAsc",
-            Catalog.GetString ("Name"),
+            I18n.Catalog.GetString ("Name"),
             SortType.Ascending, null); // null comparer b/c we already fall back to sorting by name
 
         public static readonly SourceSortType SortSizeAscending = new SourceSortType (
             "SizeAsc",
-            Catalog.GetString ("Size Ascending"),
+            I18n.Catalog.GetString ("Size Ascending"),
             SortType.Ascending, new SizeComparer ());
 
         public static readonly SourceSortType SortSizeDescending = new SourceSortType (
             "SizeDesc",
-            Catalog.GetString ("Size Descending"),
+            I18n.Catalog.GetString ("Size Descending"),
             SortType.Descending, new SizeComparer ());
 
         private static SourceSortType[] sort_types = new SourceSortType[] {};
@@ -788,7 +788,7 @@ namespace Banshee.Sources
 
         public virtual string GetPluralItemCountString (int count)
         {
-            return Catalog.GetPluralString ("{0} item", "{0} items", count);
+            return I18n.Catalog.GetPluralString ("{0} item", "{0} items", count);
         }
 
 #endregion

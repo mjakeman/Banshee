@@ -98,13 +98,13 @@ namespace Banshee.MediaEngine
 
             if (default_engine != null) {
                 active_engine = default_engine;
-                Log.Debug (Catalog.GetString ("Default player engine"), active_engine.Name);
+                Log.Debug (I18n.Catalog.GetString ("Default player engine"), active_engine.Name);
             } else {
                 default_engine = active_engine;
             }
 
             if (default_engine == null || active_engine == null || engines == null || engines.Count == 0) {
-                Log.Warning (Catalog.GetString (
+                Log.Warning (I18n.Catalog.GetString (
                     "No player engines were found. Please ensure Banshee has been cleanly installed."),
                     "Using the featureless NullPlayerEngine.");
                 PlayerEngine null_engine = new NullPlayerEngine ();
@@ -372,7 +372,7 @@ namespace Banshee.MediaEngine
                 OpenCheck (track, play);
             } catch (Exception e) {
                 Log.Error (e);
-                Log.Error (Catalog.GetString ("Problem with Player Engine"), e.Message, true);
+                Log.Error (I18n.Catalog.GetString ("Problem with Player Engine"), e.Message, true);
                 Close ();
                 ActiveEngine = default_engine;
             }
@@ -921,7 +921,7 @@ namespace Banshee.MediaEngine
                         try {
                             node.Value.Handler (args);
                         } catch (Exception e) {
-                            Log.Error (String.Format ("Error running PlayerEngine handler for {0}", args.Event), e);
+                            Log.Error (String.Format ("Error running PlayerEngine handler for {0}", args.Event), e.Message);
                         }
                     }
                     node = node.Next;

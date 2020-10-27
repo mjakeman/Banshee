@@ -49,7 +49,7 @@ namespace Banshee.Networking
 
     public class NetworkUnavailableException : ApplicationException
     {
-        public NetworkUnavailableException() : base(Catalog.GetString("There is no available network connection"))
+        public NetworkUnavailableException() : base(I18n.Catalog.GetString("There is no available network connection"))
         {
         }
 
@@ -75,8 +75,8 @@ namespace Banshee.Networking
             } catch(Exception) {
                 manager = null;
                 Log.Warning(
-                    Catalog.GetString("Cannot connect to NetworkManager or Wicd"),
-                    Catalog.GetString("An available, working network connection will be assumed"),
+                    I18n.Catalog.GetString("Cannot connect to NetworkManager or Wicd"),
+                    I18n.Catalog.GetString("An available, working network connection will be assumed"),
                     false);
             }
         }
@@ -156,8 +156,8 @@ namespace Banshee.Networking
             }
 
             disable_internet_access_preference = service["general"]["misc"].Add (new SchemaPreference<bool> (DisableInternetAccess,
-                Catalog.GetString ("_Disable features requiring Internet access"),
-                Catalog.GetString ("Some features require a broadband Internet connection such as Last.fm or cover art fetching"),
+                I18n.Catalog.GetString ("_Disable features requiring Internet access"),
+                I18n.Catalog.GetString ("Some features require a broadband Internet connection such as Last.fm or cover art fetching"),
                 delegate {
                     bool was_connected = Connected;
                     disable_internet_access = DisableInternetAccess.Get ();

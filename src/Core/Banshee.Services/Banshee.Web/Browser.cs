@@ -64,8 +64,8 @@ namespace Banshee.Web
                 }
             } catch(Exception e) {
                 if (showErrors) {
-                    Log.Warning (Catalog.GetString ("Could not launch URL"),
-                        String.Format (Catalog.GetString ("{0} could not be opened: {1}\n\n " +
+                    Log.Warning (I18n.Catalog.GetString ("Could not launch URL"),
+                        String.Format (I18n.Catalog.GetString ("{0} could not be opened: {1}\n\n " +
                             "Check your 'Preferred Applications' settings."), url, e.Message), true);
                 }
                 return false;

@@ -41,7 +41,7 @@ namespace Banshee.Playlists.Formats
         public static readonly PlaylistFormatDescription FormatDescription = new PlaylistFormatDescription (
             typeof (XspfPlaylistFormat),
             MagicHandler,
-            Catalog.GetString ("XML Shareable Playlist Format version 1 (*.xspf)"),
+            I18n.Catalog.GetString ("XML Shareable Playlist Format version 1 (*.xspf)"),
             "xspf",
             new string [] {"application/xspf+xml"}
         );

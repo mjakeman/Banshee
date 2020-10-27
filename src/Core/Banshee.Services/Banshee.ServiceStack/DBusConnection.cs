@@ -34,7 +34,6 @@ using System;
 using System.Collections.Generic;
 
 using DBus;
-using org.freedesktop.DBus;
 
 using Hyena;
 

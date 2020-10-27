@@ -47,9 +47,9 @@ namespace Banshee.Collection.Database
 
         public RandomByArtist () : base ("artist")
         {
-            Label = Catalog.GetString ("Shuffle by A_rtist");
-            Adverb = Catalog.GetString ("by artist");
-            Description = Catalog.GetString ("Play all songs by an artist, then randomly choose another artist");
+            Label = I18n.Catalog.GetString ("Shuffle by A_rtist");
+            Adverb = I18n.Catalog.GetString ("by artist");
+            Description = I18n.Catalog.GetString ("Play all songs by an artist, then randomly choose another artist");
 
             Condition = "CoreAlbums.ArtistID = ?";
             OrderBy = String.Format ("{0}, CoreTracks.AlbumID ASC, Disc ASC, TrackNumber ASC", BansheeQuery.YearField.Column);

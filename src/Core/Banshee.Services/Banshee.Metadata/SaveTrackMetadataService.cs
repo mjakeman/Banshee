@@ -46,20 +46,20 @@ namespace Banshee.Metadata
     {
         public static SchemaPreference<bool> WriteMetadataEnabled = new SchemaPreference<bool> (
                 LibrarySchema.WriteMetadata,
-                Catalog.GetString ("Sync _metadata between library and files"),
-                Catalog.GetString ("Enable this option to have metadata in sync between your library and supported media files")
+                I18n.Catalog.GetString ("Sync _metadata between library and files"),
+                I18n.Catalog.GetString ("Enable this option to have metadata in sync between your library and supported media files")
         );
 
         public static SchemaPreference<bool> WriteRatingsEnabled = new SchemaPreference<bool> (
                 LibrarySchema.WriteRatings,
-                Catalog.GetString ("Sync _ratings between library and files"),
-                Catalog.GetString ("Enable this option to have rating metadata synced between your library and supported audio files")
+                I18n.Catalog.GetString ("Sync _ratings between library and files"),
+                I18n.Catalog.GetString ("Enable this option to have rating metadata synced between your library and supported audio files")
         );
 
         public static SchemaPreference<bool> WritePlayCountsEnabled = new SchemaPreference<bool> (
                 LibrarySchema.WritePlayCounts,
-                Catalog.GetString ("Sync play counts between library and files"),
-                Catalog.GetString ("Enable this option to have playcount metadata synced between your library and supported audio files")
+                I18n.Catalog.GetString ("Sync play counts between library and files"),
+                I18n.Catalog.GetString ("Enable this option to have playcount metadata synced between your library and supported audio files")
         );
 
         private SaveTrackMetadataJob job;

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <ProjectGuid>{B28354F0-BA87-44E8-989F-B864A3C7C09F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <UseParentDirectoryAsNamespace>true</UseParentDirectoryAsNamespace>
+    <AssemblyName>Banshee.Services</AssemblyName>
+    <SchemaVersion>2.0</SchemaVersion>
+    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\Administrator\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ReleaseVersion>1.3</ReleaseVersion>
+    <RootNamespace>Banshee.Services</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\bin</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Windows|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\bin\bin</OutputPath>
+    <DefineConstants>WIN32</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System.Xml" />
+    <Reference Include="dbus-sharp">
+      <HintPath>..\..\..\bin\bin\dbus-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="dbus-sharp-glib">
+      <HintPath>..\..\..\bin\bin\dbus-sharp-glib.dll</HintPath>
+    </Reference>
+    <Reference Include="taglib-sharp">
+      <HintPath>..\..\..\bin\bin\taglib-sharp.dll</HintPath>
+      <Package>taglib-sharp</Package>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\..\bin\bin\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>..\..\..\bin\bin\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins">
+      <HintPath>..\..\..\bin\bin\Mono.Addins.dll</HintPath>
+      <Package>mono-addins</Package>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Mono.Media\Mono.Media.csproj">
+      <Project>{A7566CDC-6033-4A16-9E9D-87D05A627066}</Project>
+      <Name>Mono.Media</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Banshee.Core\Banshee.Core.csproj">
+      <Project>{2ADB831A-A050-47D0-B6B9-9C19D60233BB}</Project>
+      <Name>Banshee.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\MusicBrainz\MusicBrainz.csproj">
+      <Project>{C5DD02DE-4F0E-4DC0-ABC7-035A8217CD50}</Project>
+      <Name>MusicBrainz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Lastfm\Lastfm.csproj">
+      <Project>{C1F63FC5-4B96-48B2-B7F7-5B33FCC4F2A2}</Project>
+      <Name>Lastfm</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Hyena\Hyena.Data.Sqlite\Hyena.Data.Sqlite.csproj">
+      <Project>{95374549-9553-4C1E-9D89-667755F90E13}</Project>
+      <Name>Hyena.Data.Sqlite</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Hyena\Hyena\Hyena.csproj">
+      <Project>{95374549-9553-4C1E-9D89-667755F90E12}</Project>
+      <Name>Hyena</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Banshee.Database\BansheeDbConnection.cs" />
+    <Compile Include="Banshee.Database\BansheeDbFormatMigrator.cs" />
+    <Compile Include="Banshee.Collection.Database\Bookmark.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseAlbumListModel.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseArtistListModel.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseTrackInfo.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseTrackListModel.cs" />
+    <Compile Include="Banshee.Collection.Database\RandomBy.cs" />
+    <Compile Include="Banshee.Collection.Database\RandomByArtist.cs" />
+    <Compile Include="Banshee.Collection.Database\RandomByAlbum.cs" />
+    <Compile Include="Banshee.Collection.Database\RandomByTrack.cs" />
+    <Compile Include="Banshee.Collection.Database\RandomByRating.cs" />
+    <Compile Include="Banshee.Networking\DotNetNetworking.cs" />
+    <Compile Include="Banshee.Sources\Source.cs" />
+    <Compile Include="Banshee.Sources\SourceManager.cs" />
+    <Compile Include="Banshee.Sources\DatabaseSource.cs" />
+    <Compile Include="Banshee.Sources\PrimarySource.cs" />
+    <Compile Include="Banshee.Playlist\PlaylistSource.cs" />
+    <Compile Include="Banshee.Library\LibrarySource.cs" />
+    <Compile Include="Banshee.ServiceStack\Application.cs" />
+    <Compile Include="Banshee.Sources\ITrackModelSource.cs" />
+    <Compile Include="Banshee.ServiceStack\ServiceManager.cs" />
+    <Compile Include="Banshee.Sources\ISourceManager.cs" />
+    <Compile Include="Banshee.ServiceStack\DBusServiceManager.cs" />
+    <Compile Include="Banshee.ServiceStack\IDBusExportable.cs" />
+    <Compile Include="Banshee.ServiceStack\IService.cs" />
+    <Compile Include="Banshee.Sources\ISource.cs" />
+    <Compile Include="Banshee.ServiceStack\ServiceStartedHandler.cs" />
+    <Compile Include="Banshee.MediaEngine\PlayerEngine.cs" />
+    <Compile Include="Banshee.MediaEngine\PlayerEvent.cs" />
+    <Compile Include="Banshee.Collection\AlbumListModel.cs" />
+    <Compile Include="Banshee.Collection\ArtistListModel.cs" />
+    <Compile Include="Banshee.Collection\IExportableModel.cs" />
+    <Compile Include="Banshee.Collection\ModelHelper.cs" />
+    <Compile Include="Banshee.Collection\TrackListModel.cs" />
+    <Compile Include="Banshee.MediaEngine\PlayerEngineService.cs" />
+    <Compile Include="Banshee.ServiceStack\IUserJob.cs" />
+    <Compile Include="Banshee.ServiceStack\UserJobEventHandler.cs" />
+    <Compile Include="Banshee.ServiceStack\UserJob.cs" />
+    <Compile Include="Banshee.ServiceStack\TestUserJob.cs" />
+    <Compile Include="Banshee.Collection\ImportManager.cs" />
+    <Compile Include="Banshee.Collection\ImportEventHandler.cs" />
+    <Compile Include="Banshee.Library\LibraryImportManager.cs" />
+    <Compile Include="Banshee.Library\IImportSource.cs" />
+    <Compile Include="Banshee.Library\ImportSourceManager.cs" />
+    <Compile Include="Banshee.Playlists.Formats\AsxPlaylistFormat.cs" />
+    <Compile Include="Banshee.Playlists.Formats\InvalidPlaylistException.cs" />
+    <Compile Include="Banshee.Playlists.Formats\IPlaylistFormat.cs" />
+    <Compile Include="Banshee.Playlists.Formats\M3uPlaylistFormat.cs" />
+    <Compile Include="Banshee.Playlists.Formats\PlaylistFormatBase.cs" />
+    <Compile Include="Banshee.Playlists.Formats\PlaylistFormatDescription.cs" />
+    <Compile Include="Banshee.Playlists.Formats\PlaylistParser.cs" />
+    <Compile Include="Banshee.Playlists.Formats\PlsPlaylistFormat.cs" />
+    <Compile Include="Banshee.Web\Browser.cs" />
+    <Compile Include="Banshee.Streaming\RadioTrackInfo.cs" />
+    <Compile Include="Banshee.Equalizer\EqualizerSetting.cs" />
+    <Compile Include="Banshee.Equalizer\EqualizerManager.cs" />
+    <Compile Include="Banshee.MediaEngine\IEqualizer.cs" />
+    <Compile Include="Banshee.Sources\ErrorSource.cs" />
+    <Compile Include="Banshee.MediaEngine\IPlayerEngineService.cs" />
+    <Compile Include="Banshee.Collection\BansheeListModel.cs" />
+    <Compile Include="Banshee.Playlist\AbstractPlaylistSource.cs" />
+    <Compile Include="Banshee.Playlist\PlaylistFileUtil.cs" />
+    <Compile Include="Banshee.SmartPlaylist\Migrator.cs" />
+    <Compile Include="Banshee.SmartPlaylist\SmartPlaylistSource.cs" />
+    <Compile Include="Banshee.Sources\IImportable.cs" />
+    <Compile Include="Banshee.Sources\IUnmapableSource.cs" />
+    <Compile Include="Banshee.Metadata\BaseMetadataProvider.cs" />
+    <Compile Include="Banshee.Metadata\IMetadataLookupJob.cs" />
+    <Compile Include="Banshee.Metadata\IMetadataProvider.cs" />
+    <Compile Include="Banshee.Metadata\MetadataService.cs" />
+    <Compile Include="Banshee.Metadata\MetadataServiceJob.cs" />
+    <Compile Include="Banshee.Metadata.FileSystem\FileSystemMetadataProvider.cs" />
+    <Compile Include="Banshee.Metadata.FileSystem\FileSystemQueryJob.cs" />
+    <Compile Include="Banshee.Metadata.Embedded\EmbeddedMetadataProvider.cs" />
+    <Compile Include="Banshee.Metadata.Embedded\EmbeddedQueryJob.cs" />
+    <Compile Include="Banshee.Metadata.MusicBrainz\MusicBrainzMetadataProvider.cs" />
+    <Compile Include="Banshee.Metadata.MusicBrainz\MusicBrainzQueryJob.cs" />
+    <Compile Include="Banshee.Metadata.Rhapsody\RhapsodyMetadataProvider.cs" />
+    <Compile Include="Banshee.Metadata.Rhapsody\RhapsodyQueryJob.cs" />
+    <Compile Include="Banshee.Networking\Network.cs" />
+    <Compile Include="Banshee.Networking\State.cs" />
+    <Compile Include="Banshee.Networking\NetworkManager.cs" />
+    <Compile Include="Banshee.Networking\Wicd.cs" />
+    <Compile Include="Banshee.Networking\INetworkAvailabilityService.cs" />
+    <Compile Include="Banshee.Database\BansheeModelProvider.cs" />
+    <Compile Include="Banshee.Database\BansheeModelCache.cs" />
+    <Compile Include="Banshee.PlaybackController\IPlaybackController.cs" />
+    <Compile Include="Banshee.PlaybackController\PlaybackRepeatMode.cs" />
+    <Compile Include="Banshee.PlaybackController\PlaybackControllerDatabaseStack.cs" />
+    <Compile Include="Banshee.PlaybackController\PlaybackControllerService.cs" />
+    <Compile Include="Banshee.PlaybackController\IPlaybackControllerService.cs" />
+    <Compile Include="Banshee.PlaybackController\ICanonicalPlaybackController.cs" />
+    <Compile Include="Banshee.PlaybackController\IBasicPlaybackController.cs" />
+    <Compile Include="Banshee.Sources\IDurationAggregator.cs" />
+    <Compile Include="Banshee.Sources\IFileSizeAggregator.cs" />
+    <Compile Include="Banshee.ServiceStack\IExtensionService.cs" />
+    <Compile Include="Banshee.Configuration\DatabaseConfigurationClient.cs" />
+    <Compile Include="Banshee.Sources\SourceMergeType.cs" />
+    <Compile Include="Banshee.Base\RateLimiter.cs" />
+    <Compile Include="Banshee.Query\BansheeQuery.cs" />
+    <Compile Include="Banshee.Query\NaturalIntegerQueryValue.cs" />
+    <Compile Include="Banshee.Query\AbstractPlaylistQueryValue.cs" />
+    <Compile Include="Banshee.Query\RatingQueryValue.cs" />
+    <Compile Include="Banshee.Query\SmartPlaylistQueryValue.cs" />
+    <Compile Include="Banshee.Query\YearQueryValue.cs" />
+    <Compile Include="Banshee.MediaEngine\NullPlayerEngine.cs" />
+    <Compile Include="Banshee.Library\ThreadPoolImportSource.cs" />
+    <Compile Include="Banshee.ServiceStack\IInitializeService.cs" />
+    <Compile Include="Banshee.Query\PlaylistQueryValue.cs" />
+    <Compile Include="Banshee.Collection\SelectAllSelection.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseAlbumInfo.cs" />
+    <Compile Include="Banshee.Sources\SourceMessage.cs" />
+    <Compile Include="Banshee.Sources\MessageAction.cs" />
+    <Compile Include="Banshee.Library\MusicLibrarySource.cs" />
+    <Compile Include="Banshee.Library\VideoLibrarySource.cs" />
+    <Compile Include="Banshee.ServiceStack\Client.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseArtistInfo.cs" />
+    <Compile Include="Banshee.Hardware\HardwareManager.cs" />
+    <Compile Include="Banshee.Hardware\IDevice.cs" />
+    <Compile Include="Banshee.Hardware\IBlockDevice.cs" />
+    <Compile Include="Banshee.Hardware\IVolume.cs" />
+    <Compile Include="Banshee.Hardware\IHardwareManager.cs" />
+    <Compile Include="Banshee.ServiceStack\IRequiredService.cs" />
+    <Compile Include="Banshee.Hardware\ICdromDevice.cs" />
+    <Compile Include="Banshee.Hardware\IDiskDevice.cs" />
+    <Compile Include="Banshee.Hardware\IDiscVolume.cs" />
+    <Compile Include="Banshee.Collection\MemoryTrackListModel.cs" />
+    <Compile Include="Banshee.MediaEngine\IAudioCdRipper.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseImportManager.cs" />
+    <Compile Include="Banshee.MediaProfiles\MediaProfileManager.cs" />
+    <Compile Include="Banshee.MediaProfiles\Pipeline.cs" />
+    <Compile Include="Banshee.MediaProfiles\PipelineVariable.cs" />
+    <Compile Include="Banshee.MediaProfiles\Profile.cs" />
+    <Compile Include="Banshee.MediaProfiles\ProfileConfiguration.cs" />
+    <Compile Include="Banshee.Hardware\IDeviceMediaCapabilities.cs" />
+    <Compile Include="Banshee.Collection.Database\CachedList.cs" />
+    <Compile Include="Banshee.ServiceStack\BatchUserJob.cs" />
+    <Compile Include="Banshee.Sources\IDiskUsageReporter.cs" />
+    <Compile Include="Banshee.MediaEngine\ITranscoder.cs" />
+    <Compile Include="Banshee.MediaEngine\TranscoderService.cs" />
+    <Compile Include="Banshee.Preferences\Root.cs" />
+    <Compile Include="Banshee.Preferences\Preference.cs" />
+    <Compile Include="Banshee.Preferences\Section.cs" />
+    <Compile Include="Banshee.Preferences\PreferenceBase.cs" />
+    <Compile Include="Banshee.Preferences\Collection.cs" />
+    <Compile Include="Banshee.Preferences\PreferenceService.cs" />
+    <Compile Include="Banshee.Preferences\Page.cs" />
+    <Compile Include="Banshee.Preferences\SchemaPreference.cs" />
+    <Compile Include="Banshee.Preferences\VoidPreference.cs" />
+    <Compile Include="Banshee.Hardware\ICustomDeviceProvider.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseTrackModelCache.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseTrackModelProvider.cs" />
+    <Compile Include="Banshee.Collection.Database\IDatabaseTrackModelCache.cs" />
+    <Compile Include="Banshee.Collection.Database\IDatabaseTrackModelProvider.cs" />
+    <Compile Include="Banshee.ServiceStack\IDelayedInitializeService.cs" />
+    <Compile Include="Banshee.Sources\DurationStatusFormatters.cs" />
+    <Compile Include="Banshee.SmartPlaylist\SmartPlaylistDefinition.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseFilterListModel.cs" />
+    <Compile Include="Banshee.Collection\FilterListModel.cs" />
+    <Compile Include="Banshee.Playlists.Formats\Tests\PlaylistFormatTests.cs" />
+    <Compile Include="Banshee.Collection\IFilterListModel.cs" />
+    <Compile Include="Banshee.ServiceStack\DBusConnection.cs" />
+    <Compile Include="Banshee.ServiceStack\DBusCommandService.cs" />
+    <Compile Include="Banshee.ServiceStack\IDBusObjectName.cs" />
+    <Compile Include="Banshee.Metadata.LastFM\LastFMMetadataProvider.cs" />
+    <Compile Include="Banshee.Metadata.LastFM\LastFMQueryJob.cs" />
+    <Compile Include="Banshee.Hardware\IDiscDuplicator.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseImportResultHandler.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseQueryFilterModel.cs" />
+    <Compile Include="Banshee.Collection.Database\FilterModelProvider.cs" />
+    <Compile Include="Banshee.Collection.Database\QueryFilterInfo.cs" />
+    <Compile Include="Banshee.Sources\IFilterableSource.cs" />
+    <Compile Include="Banshee.MediaEngine\IVisualizationDataSource.cs" />
+    <Compile Include="Banshee.Metadata\SaveTrackMetadataJob.cs" />
+    <Compile Include="Banshee.Metadata\SaveTrackMetadataService.cs" />
+    <Compile Include="Banshee.ServiceStack\IRegisterOnDemandService.cs" />
+    <Compile Include="Banshee.Web\HttpRequest.cs" />
+    <Compile Include="Banshee.Collection.Indexer\CollectionIndexerService.cs" />
+    <Compile Include="Banshee.Collection.Indexer\ICollectionIndexerService.cs" />
+    <Compile Include="Banshee.Collection.Indexer\ICollectionIndexer.cs" />
+    <Compile Include="Banshee.Collection.Indexer\CollectionIndexer.cs" />
+    <Compile Include="Banshee.Configuration\DefaultApplicationHelper.cs" />
+    <Compile Include="Banshee.Collection.Indexer\IIndexerClient.cs" />
+    <Compile Include="Banshee.Collection\RescanPipeline.cs" />
+    <Compile Include="Banshee.Hardware\VendorProductInfo.cs" />
+    <Compile Include="Banshee.Hardware\IUsbDevice.cs" />
+    <Compile Include="Banshee.Hardware\VendorProductDeviceNode.cs" />
+    <Compile Include="Banshee.Hardware\DeviceCommand.cs" />
+    <Compile Include="Banshee.MediaEngine\VideoDisplayContextType.cs" />
+    <Compile Include="Banshee.MediaEngine\IBpmDetector.cs" />
+    <Compile Include="Banshee.MediaEngine\ISupportClutter.cs" />
+    <Compile Include="Banshee.Collection.Database\Tests\DatabaseAlbumInfoTests.cs" />
+    <Compile Include="Banshee.Collection.Database\Tests\DatabaseArtistInfoTests.cs" />
+    <Compile Include="Banshee.Collection.Database\Tests\DatabaseTrackInfoTests.cs" />
+    <Compile Include="Banshee.Database\SortKeyUpdater.cs" />
+    <Compile Include="Banshee.Playlists.Formats\XspfPlaylistFormat.cs" />
+    <Compile Include="Banshee.Preferences\SourcePage.cs" />
+    <Compile Include="Banshee.ServiceStack\DbIteratorJob.cs" />
+    <Compile Include="Banshee.Sources\SourceSortType.cs" />
+    <Compile Include="Banshee.Playlists.Formats\AsfReferencePlaylistFormat.cs" />
+    <Compile Include="Banshee.ServiceStack\JobScheduler.cs" />
+    <Compile Include="Banshee.PlatformServices\ScreensaverManager.cs" />
+    <Compile Include="Banshee.PlatformServices\IScreensaverManager.cs" />
+    <Compile Include="Banshee.Collection.Database\RandomByScore.cs" />
+    <Compile Include="Banshee.Collection.Database\RandomBySlot.cs" />
+    <Compile Include="Banshee.Query\PlaybackErrorQueryValue.cs" />
+    <Compile Include="Banshee.Collection.Database\Shuffler.cs" />
+    <Compile Include="Banshee.Web\BaseHttpServer.cs" />
+    <Compile Include="Banshee.Library\LibrarySchema.cs" />
+    <Compile Include="Banshee.Metadata\Tests\TaglibReadWriteTests.cs" />
+    <Compile Include="Banshee.Library\Tests\FileNamePatternTests.cs" />
+    <Compile Include="Banshee.Collection.Database\ISearchable.cs" />
+    <Compile Include="Banshee.Library\MusicFileNamePattern.cs" />
+    <Compile Include="Banshee.Metrics\BansheeMetrics.cs" />
+    <Compile Include="Banshee.Metrics\Configuration.cs" />
+    <Compile Include="Banshee.Collection.Database\RandomByOff.cs" />
+    <Compile Include="Banshee.Database\Tests.cs" />
+    <Compile Include="Banshee.Hardware\IUsbPortInfo.cs" />
+    <Compile Include="Banshee.Hardware\UsbPortInfo.cs" />
+    <Compile Include="Banshee.MediaEngine\Tests.cs" />
+    <Compile Include="Banshee.Sources\Tests.cs" />
+    <Compile Include="Banshee.Query\Tests\BansheeQueryTests.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseAlbumArtistInfo.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseAlbumArtistListModel.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseYearInfo.cs" />
+    <Compile Include="Banshee.Collection.Database\DatabaseYearListModel.cs" />
+    <Compile Include="Banshee.Collection\InvalidFileException.cs" />
+    <Compile Include="Banshee.Sources\IBatchScrobblerSource.cs" />
+    <Compile Include="Banshee.Playlists.Formats\PlaylistElement.cs" />
+    <Compile Include="Banshee.Hardware\FileSystem.cs" />
+    <Compile Include="Banshee.Playlists.Formats\ParsedPlaylist.cs" />
+    <Compile Include="Banshee.Metadata\OnlineMetadataServiceJob.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Banshee.Services.addin.xml">
+      <LogicalName>Banshee.Services.addin.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Banshee.Services.addins">
+      <LogicalName>Banshee.Services.addins</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData generateScript="False" />
+        <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="Makefile.am">
+          <BuildFilesVar Sync="True" Name="SOURCES" />
+          <DeployFilesVar />
+          <ResourcesVar Sync="True" Name="RESOURCES" />
+          <OthersVar />
+          <GacRefVar />
+          <AsmRefVar />
+          <ProjectRefVar />
+        </MonoDevelop.Autotools.MakefileInfo>
+      </Properties>
+    </MonoDevelop>
+    <VisualStudio />
+  </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Banshee.Query\Tests\" />
+  </ItemGroup>
+</Project>

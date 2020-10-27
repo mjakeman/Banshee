@@ -15,6 +15,19 @@ namespace Mono.Addins
             Console.WriteLine($"Extension Point Accessed: {exPoint} - Not Implemented");
             return new List<TypeExtensionNode>();
         }
+
+        public static void AddExtensionNodeHandler(string node, ExtensionNodeHandler handler)
+        {
+            Console.WriteLine($"Extension Node Handler Added: {node} - Not Implemented");
+        }
+    }
+
+    public delegate void ExtensionNodeHandler(object o, ExtensionNodeEventArgs e);
+
+    public class ExtensionNodeEventArgs : EventArgs
+    {
+        public object ExtensionNode => throw new NotImplementedException("ExtensionNode - NotImplemented");
+        public string Path => String.Empty;
     }
 
     public class TypeExtensionNode
@@ -22,6 +35,7 @@ namespace Mono.Addins
         public bool HasId => false;
         public int Id => 0;
 
-        public object CreateInstance(Type t) => throw new NotImplementedException("Mono.Addins is not implemented! See Hyena.Glue/Addins.cs");
+        public object CreateInstance() => throw new NotImplementedException("Mono.Addins is not implemented! See Hyena.Glue/Addins.cs");
+        public object CreateInstance(Type t) => CreateInstance();
     }
 }

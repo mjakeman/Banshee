@@ -45,7 +45,7 @@ namespace Banshee.Streaming
 {
     public class RadioTrackInfo : TrackInfo
     {
-        public static readonly string UnknownStream = Catalog.GetString ("Unknown Stream");
+        public static readonly string UnknownStream = I18n.Catalog.GetString ("Unknown Stream");
 
 #region Static Helper Methods
 
@@ -80,8 +80,8 @@ namespace Banshee.Streaming
                 radio_track.ParsingPlaylistEvent += delegate {
                     ThreadAssist.ProxyToMain (delegate {
                         if (radio_track.PlaybackError != StreamPlaybackError.None) {
-                            Log.Error (Catalog.GetString ("Error opening stream"),
-                                Catalog.GetString ("Could not open stream or playlist"), true);
+                            Log.Error (I18n.Catalog.GetString ("Error opening stream"),
+                                I18n.Catalog.GetString ("Could not open stream or playlist"), true);
                             radio_track = null;
                         }
                     });
@@ -89,8 +89,8 @@ namespace Banshee.Streaming
 
                 return radio_track;
             } catch {
-                Log.Error (Catalog.GetString ("Error opening stream"),
-                    Catalog.GetString("Problem parsing playlist"), true);
+                Log.Error (I18n.Catalog.GetString ("Error opening stream"),
+                    I18n.Catalog.GetString("Problem parsing playlist"), true);
                 return null;
             }
         }
@@ -166,7 +166,7 @@ namespace Banshee.Streaming
                         LoadStreamUris ();
                     } catch (Exception e) {
                         trying_to_play = false;
-                        Log.Error (this.ToString (), e);
+                        Log.Error (this.ToString (), e.Message);
                         SavePlaybackError (StreamPlaybackError.Unknown);
                         OnParsingPlaylistFinished ();
                         ServiceManager.PlayerEngine.Close ();
@@ -307,10 +307,10 @@ namespace Banshee.Streaming
                 }
                 Log.DebugFormat ("Parsed {0} URIs out of {1}", stream_uris.Count, this);
             } catch (System.Net.WebException e) {
-                Log.Warning (this.ToString (), e);
+                Log.Warning (this.ToString (), e.Message);
                 SavePlaybackError (StreamPlaybackError.ResourceNotFound);
             } catch (Exception e) {
-                Log.Error (this.ToString (), e);
+                Log.Error (this.ToString (), e.Message);
                 SavePlaybackError (StreamPlaybackError.Unknown);
             }
         }

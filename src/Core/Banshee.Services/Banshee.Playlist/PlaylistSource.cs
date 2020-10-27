@@ -55,7 +55,7 @@ namespace Banshee.Playlist
 
         private static string add_track_range_from_joined_model_sql;
 
-        private static string generic_name = Catalog.GetString ("Playlist");
+        private static string generic_name = I18n.Catalog.GetString ("Playlist");
 
         protected override string SourceTable {
             get { return "CorePlaylists"; }
@@ -130,9 +130,9 @@ namespace Banshee.Playlist
         private void SetProperties ()
         {
             Properties.SetString ("Icon.Name", "source-playlist");
-            Properties.SetString ("RemoveSelectedTracksActionLabel", Catalog.GetString ("Remove From Playlist"));
-            Properties.SetString ("RemovePlayingTrackActionLabel", Catalog.GetString ("Remove From Library"));
-            Properties.SetString ("UnmapSourceActionLabel", Catalog.GetString ("Delete Playlist"));
+            Properties.SetString ("RemoveSelectedTracksActionLabel", I18n.Catalog.GetString ("Remove From Playlist"));
+            Properties.SetString ("RemovePlayingTrackActionLabel", I18n.Catalog.GetString ("Remove From Library"));
+            Properties.SetString ("UnmapSourceActionLabel", I18n.Catalog.GetString ("Delete Playlist"));
         }
 
 #region Source Overrides
@@ -395,13 +395,13 @@ namespace Banshee.Playlist
 
         public static string CreateUniqueName ()
         {
-            return NamingUtil.PostfixDuplicate (Catalog.GetString ("New Playlist"), PlaylistExists);
+            return NamingUtil.PostfixDuplicate (I18n.Catalog.GetString ("New Playlist"), PlaylistExists);
         }
 
         public static string CreateUniqueName (IEnumerable tracks)
         {
             return NamingUtil.PostfixDuplicate (NamingUtil.GenerateTrackCollectionName (
-                tracks, Catalog.GetString ("New Playlist")), PlaylistExists);
+                tracks, I18n.Catalog.GetString ("New Playlist")), PlaylistExists);
         }
     }
 }

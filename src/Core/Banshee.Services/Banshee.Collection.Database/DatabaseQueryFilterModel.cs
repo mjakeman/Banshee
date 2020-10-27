@@ -46,7 +46,7 @@ namespace Banshee.Collection.Database
         private QueryField field;
         private readonly QueryField query_filter_field = new QueryField (
             "itemid", "ItemID",
-            Catalog.GetString ("Value"), "CoreCache.ItemID", false
+            I18n.Catalog.GetString ("Value"), "CoreCache.ItemID", false
         );
 
         private string select_all_fmt;

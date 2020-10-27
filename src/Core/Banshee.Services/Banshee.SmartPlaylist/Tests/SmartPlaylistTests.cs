@@ -26,28 +26,30 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using NUnit.Framework;
-using Hyena;
+// TODO(firox263): We do not currently have testing support
 
-using Banshee.Sources;
-using Banshee.Library;
-using Banshee.SmartPlaylist;
+// using System;
+// using NUnit.Framework;
+// using Hyena;
 
-[TestFixture]
-public class SmartPlaylistTests : BansheeTests
-{
-    /*[Test]
-    public void TestCanCreateAllPredefinedSmartPlaylists ()
-    {
-        PrimarySource [] primaries = new PrimarySource [] {
-            new MusicLibrarySource (), new VideoLibrarySource ()//, new DapSource (), new PodcastSource ()
-        };
+// using Banshee.Sources;
+// using Banshee.Library;
+// using Banshee.SmartPlaylist;
 
-        foreach (PrimarySource source in primaries) {
-            AssertForEach<SmartPlaylistDefinition> (source.PredefinedSmartPlaylists, delegate (SmartPlaylistDefinition def) {
-                def.ToSmartPlaylistSource (source);
-            });
-        }
-    }*/
-}
+// [TestFixture]
+// public class SmartPlaylistTests : BansheeTests
+// {
+//     /*[Test]
+//     public void TestCanCreateAllPredefinedSmartPlaylists ()
+//     {
+//         PrimarySource [] primaries = new PrimarySource [] {
+//             new MusicLibrarySource (), new VideoLibrarySource ()//, new DapSource (), new PodcastSource ()
+//         };
+
+//         foreach (PrimarySource source in primaries) {
+//             AssertForEach<SmartPlaylistDefinition> (source.PredefinedSmartPlaylists, delegate (SmartPlaylistDefinition def) {
+//                 def.ToSmartPlaylistSource (source);
+//             });
+//         }
+//     }*/
+// }

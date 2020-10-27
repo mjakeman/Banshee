@@ -58,7 +58,7 @@ namespace Banshee.Hardware
                     Log.DebugFormat ("Loaded HardwareManager backend: {0}", node.Id);
                     break;
                 } catch (Exception e) {
-                    Log.Error ("Hardware manager extension failed to load", e);
+                    Log.Error ("Hardware manager extension failed to load", e.Message);
                 }
             }
 
@@ -218,7 +218,7 @@ namespace Banshee.Hardware
                         return new_device;
                     }
                 } catch (Exception e) {
-                    Log.Error ("Exception casting device", e);
+                    Log.Error ("Exception casting device", e.Message);
                 }
             }
 

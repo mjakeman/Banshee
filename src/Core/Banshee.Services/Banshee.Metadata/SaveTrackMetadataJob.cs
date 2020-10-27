@@ -49,7 +49,7 @@ namespace Banshee.Metadata
     {
         private LibrarySource musicLibrarySource = ServiceManager.SourceManager.MusicLibrary;
 
-        public SaveTrackMetadataJob () : base (Catalog.GetString ("Saving Metadata to File"))
+        public SaveTrackMetadataJob () : base (I18n.Catalog.GetString ("Saving Metadata to File"))
         {
             SetResources (Resource.Cpu, Resource.Disk, Resource.Database);
             IsBackground = true;

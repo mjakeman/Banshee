@@ -58,7 +58,7 @@ namespace Banshee.Metrics
                 try {
                     banshee_metrics = new BansheeMetrics ();
                 } catch (Exception e) {
-                    Log.Error ("Failed to start collection of anonymous usage data", e);
+                    Log.Error ("Failed to start collection of anonymous usage data", e.Message);
                     banshee_metrics = null;
                 }
             }

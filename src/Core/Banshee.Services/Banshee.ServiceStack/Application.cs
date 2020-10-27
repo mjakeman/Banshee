@@ -98,7 +98,7 @@ namespace Banshee.ServiceStack
             _putenv (env);
 #endif
 
-            Catalog.Init (Application.InternalName, System.IO.Path.Combine (
+            I18n.Catalog.Init (Application.InternalName, System.IO.Path.Combine (
                 Hyena.Paths.InstalledApplicationDataRoot, "locale"));
 
             DBusConnection.Init ();
@@ -360,7 +360,7 @@ namespace Banshee.ServiceStack
         private static string GetVersion (string versionName)
         {
             return GetCustomAssemblyMetadata ("ApplicationVersionAttribute", versionName)
-                ?? Catalog.GetString ("Unknown");
+                ?? I18n.Catalog.GetString ("Unknown");
         }
 
         private static string GetBuildInfo (string buildField)

@@ -82,8 +82,8 @@ namespace Banshee.Sources
             //AddSource (music_library = new MusicLibrarySource (), true);
             //AddSource (video_library = new VideoLibrarySource (), false);
 
-            group_sources.Add (new GroupSource (Catalog.GetString ("Online Media"), 60));
-            group_sources.Add (new GroupSource (Catalog.GetString ("Libraries"), 39));
+            group_sources.Add (new GroupSource (I18n.Catalog.GetString ("Online Media"), 60));
+            group_sources.Add (new GroupSource (I18n.Catalog.GetString ("Libraries"), 39));
         }
 
         internal void LoadExtensionSources ()

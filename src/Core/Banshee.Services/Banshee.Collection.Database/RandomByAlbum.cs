@@ -47,9 +47,9 @@ namespace Banshee.Collection.Database
 
         public RandomByAlbum () : base ("album")
         {
-            Label = Catalog.GetString ("Shuffle by A_lbum");
-            Adverb = Catalog.GetString ("by album");
-            Description = Catalog.GetString ("Play all songs from an album, then randomly choose another album");
+            Label = I18n.Catalog.GetString ("Shuffle by A_lbum");
+            Adverb = I18n.Catalog.GetString ("by album");
+            Description = I18n.Catalog.GetString ("Play all songs from an album, then randomly choose another album");
 
             Condition = "CoreTracks.AlbumID = ?";
             OrderBy = "Disc ASC, TrackNumber ASC";

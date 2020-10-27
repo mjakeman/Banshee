@@ -43,9 +43,9 @@ namespace Banshee.Collection.Database
     {
         public RandomByRating () : base ("rating")
         {
-            Label = Catalog.GetString ("Shuffle by _Rating");
-            Adverb = Catalog.GetString ("by rating");
-            Description = Catalog.GetString ("Play songs randomly, prefer higher rated songs");
+            Label = I18n.Catalog.GetString ("Shuffle by _Rating");
+            Adverb = I18n.Catalog.GetString ("by rating");
+            Description = I18n.Catalog.GetString ("Play songs randomly, prefer higher rated songs");
 
             Condition = String.Format ("({0} = ? OR (? = 3 AND {0} = 0))", BansheeQuery.RatingField.Column);
             OrderBy = BansheeQuery.GetRandomSort ();

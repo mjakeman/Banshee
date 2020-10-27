@@ -74,7 +74,7 @@ namespace Banshee.Collection.Database
 
         public override void UpdateSelectAllItem (long count)
         {
-            select_all_item.Title = String.Format (Catalog.GetString ("All Albums ({0})"), count);
+            select_all_item.Title = String.Format (I18n.Catalog.GetString ("All Albums ({0})"), count);
         }
     }
 }
