@@ -33,7 +33,6 @@ using System.Collections.Generic;
 using System.Reflection;
 
 using DBus;
-using org.freedesktop.DBus;
 
 using Hyena;
 using Banshee.Base;

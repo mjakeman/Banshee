@@ -28,26 +28,24 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-// TODO(firox263): Reimplement This
+using System;
+using System.Collections.Generic;
 
-// using System;
-// using System.Collections.Generic;
+using Banshee.Base;
+using Banshee.Metadata;
+using Banshee.Collection;
 
-// using Banshee.Base;
-// using Banshee.Metadata;
-// using Banshee.Collection;
+namespace Banshee.Metadata.LastFM
+{
+    public class LastFMMetadataProvider : BaseMetadataProvider
+    {
+        public LastFMMetadataProvider () : base ()
+        {
+        }
 
-// namespace Banshee.Metadata.LastFM
-// {
-//     public class LastFMMetadataProvider : BaseMetadataProvider
-//     {
-//         public LastFMMetadataProvider () : base ()
-//         {
-//         }
-
-//         public override IMetadataLookupJob CreateJob (IBasicTrackInfo track)
-//         {
-//             return new LastFMQueryJob (track);
-//         }
-//     }
-// }
+        public override IMetadataLookupJob CreateJob (IBasicTrackInfo track)
+        {
+            return new LastFMQueryJob (track);
+        }
+    }
+}

@@ -43,7 +43,6 @@ using System.Web;
 
 using Hyena;
 using Hyena.Json;
-using Mono.Unix;
 using System.Collections.Specialized;
 
 namespace Lastfm
@@ -291,7 +290,7 @@ namespace Lastfm
                 nb_tracks_scrobbled = (int)ar.AsyncState;
 
             } catch (Exception e) {
-                Log.Error ("Failed to complete the scrobble request", e);
+                Log.Error ("Failed to complete the scrobble request", e.Message);
                 state = State.Idle;
                 return;
             }
@@ -300,7 +299,7 @@ namespace Lastfm
             try {
                 response = current_scrobble_request.GetResponseObject ();
             } catch (Exception e) {
-                Log.Error ("Failed to process the scrobble response", e);
+                Log.Error ("Failed to process the scrobble response", e.Message);
                 state = State.Idle;
                 return;
             }
@@ -424,7 +423,7 @@ namespace Lastfm
             try {
                 current_now_playing_request.EndSend (ar);
             } catch (Exception e) {
-                Log.Error ("Failed to complete the NowPlaying request", e);
+                Log.Error ("Failed to complete the NowPlaying request", e.Message);
                 state = State.Idle;
                 current_now_playing_request = null;
                 return;

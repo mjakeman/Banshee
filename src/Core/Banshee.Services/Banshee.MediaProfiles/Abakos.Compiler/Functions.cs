@@ -67,7 +67,7 @@ namespace Abakos.Compiler
             //assemblies.Add(Assembly.GetExecutingAssembly());
         }
 
-        public static IEnumerable<FunctionCache> Functions {
+        internal static IEnumerable<FunctionCache> Functions {
             get { return cached_functions.Values; }
         }
 

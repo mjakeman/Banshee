@@ -47,7 +47,7 @@ namespace Banshee.Collection
         public const string ExportVersion = "1.0";
         public static readonly double PlaybackSkippedThreshold = 0.5;
 
-        public static readonly string UnknownTitle = Catalog.GetString ("Unknown Title");
+        public static readonly string UnknownTitle = I18n.Catalog.GetString ("Unknown Title");
         public static readonly string UnknownTitleUntranslated = "Unknown Title";
 
         public class ExportableAttribute : Attribute
@@ -190,7 +190,7 @@ namespace Banshee.Collection
 
         [Exportable]
         public virtual string AlbumArtist {
-            get { return IsCompilation ? album_artist ?? Catalog.GetString ("Various Artists") : ArtistName; }
+            get { return IsCompilation ? album_artist ?? I18n.Catalog.GetString ("Various Artists") : ArtistName; }
             set { album_artist = value; }
         }
 
@@ -346,13 +346,13 @@ namespace Banshee.Collection
                 case StreamPlaybackError.None:
                     return null;
                 case StreamPlaybackError.ResourceNotFound:
-                    return IsLive ? Catalog.GetString ("Stream location not found") : Catalog.GetString ("File not found");
+                    return IsLive ? I18n.Catalog.GetString ("Stream location not found") : I18n.Catalog.GetString ("File not found");
                 case StreamPlaybackError.CodecNotFound:
-                    return Catalog.GetString ("Codec for playing this media type not available");
+                    return I18n.Catalog.GetString ("Codec for playing this media type not available");
                 case StreamPlaybackError.Drm:
-                    return Catalog.GetString ("File protected by Digital Rights Management (DRM)");
+                    return I18n.Catalog.GetString ("File protected by Digital Rights Management (DRM)");
                 case StreamPlaybackError.Unknown:
-                    return Catalog.GetString ("Unknown error");
+                    return I18n.Catalog.GetString ("Unknown error");
                 default:
                     return null;
             }
@@ -421,11 +421,11 @@ namespace Banshee.Collection
         }
 
         // TODO turn this into a PrimarySource-owned delegate?
-        private static readonly string restart_podcast = Catalog.GetString ("_Restart Podcast");
-        private static readonly string restart_audiobook = Catalog.GetString ("_Restart Audiobook");
-        private static readonly string restart_video = Catalog.GetString ("_Restart Video");
-        private static readonly string restart_song = Catalog.GetString ("_Restart Song");
-        private static readonly string restart_item = Catalog.GetString ("_Restart Item");
+        private static readonly string restart_podcast = I18n.Catalog.GetString ("_Restart Podcast");
+        private static readonly string restart_audiobook = I18n.Catalog.GetString ("_Restart Audiobook");
+        private static readonly string restart_video = I18n.Catalog.GetString ("_Restart Video");
+        private static readonly string restart_song = I18n.Catalog.GetString ("_Restart Song");
+        private static readonly string restart_item = I18n.Catalog.GetString ("_Restart Item");
 
         public string RestartLabel {
             get {
@@ -441,11 +441,11 @@ namespace Banshee.Collection
             }
         }
 
-        private static readonly string jump_to_podcast = Catalog.GetString ("_Jump to Playing Podcast");
-        private static readonly string jump_to_audiobook = Catalog.GetString ("_Jump to Playing Audiobook");
-        private static readonly string jump_to_video = Catalog.GetString ("_Jump to Playing Video");
-        private static readonly string jump_to_song = Catalog.GetString ("_Jump to Playing Song");
-        private static readonly string jump_to_item = Catalog.GetString ("_Jump to Playing Item");
+        private static readonly string jump_to_podcast = I18n.Catalog.GetString ("_Jump to Playing Podcast");
+        private static readonly string jump_to_audiobook = I18n.Catalog.GetString ("_Jump to Playing Audiobook");
+        private static readonly string jump_to_video = I18n.Catalog.GetString ("_Jump to Playing Video");
+        private static readonly string jump_to_song = I18n.Catalog.GetString ("_Jump to Playing Song");
+        private static readonly string jump_to_item = I18n.Catalog.GetString ("_Jump to Playing Item");
 
         public string JumpToLabel {
             get {

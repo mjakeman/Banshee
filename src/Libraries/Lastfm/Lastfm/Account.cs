@@ -112,7 +112,7 @@ namespace Lastfm
 
                 return StationError.None;
             } catch (Exception e) {
-                Log.Error ("Error in Lastfm.Account.RequestAuthorization", e);
+                Log.Error ("Error in Lastfm.Account.RequestAuthorization", e.Message);
                 return StationError.Unknown;
             }
         }
@@ -144,7 +144,7 @@ namespace Lastfm
 
                 return StationError.None;
             } catch (Exception e) {
-                Log.Error ("Error in Lastfm.Account.FetchSessionKey", e);
+                Log.Error ("Error in Lastfm.Account.FetchSessionKey", e.Message);
                 return StationError.Unknown;
             }
         }

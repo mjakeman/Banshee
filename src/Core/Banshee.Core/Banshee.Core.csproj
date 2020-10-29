@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Hyena\Hyena\Hyena.csproj" />
     <ProjectReference Include="..\..\Hyena\Hyena.Glue\Hyena.Glue.csproj" />
+    <ProjectReference Include="..\..\..\ext\mono-addins\Mono.Addins\Mono.Addins.csproj" />
   </ItemGroup>
 
   <ItemGroup>

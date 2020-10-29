@@ -39,155 +39,153 @@ using System.Collections.ObjectModel;
 using System.Web;
 using System.Text.RegularExpressions;
 
-// TODO(firox263): Reimplement This
+using MusicBrainz;
 
-// using MusicBrainz;
+using Hyena;
+using Banshee.Base;
+using Banshee.Metadata;
+using Banshee.Kernel;
+using Banshee.Collection;
+using Banshee.Streaming;
+using Banshee.Networking;
+using Banshee.Collection.Database;
 
-// using Hyena;
-// using Banshee.Base;
-// using Banshee.Metadata;
-// using Banshee.Kernel;
-// using Banshee.Collection;
-// using Banshee.Streaming;
-// using Banshee.Networking;
-// using Banshee.Collection.Database;
+namespace Banshee.Metadata.MusicBrainz
+{
+    public class MusicBrainzQueryJob : MetadataServiceJob
+    {
+        private static string AmazonUriFormat = "http://images.amazon.com/images/P/{0}.01._SCLZZZZZZZ_.jpg";
 
-// namespace Banshee.Metadata.MusicBrainz
-// {
-//     public class MusicBrainzQueryJob : MetadataServiceJob
-//     {
-//         private static string AmazonUriFormat = "http://images.amazon.com/images/P/{0}.01._SCLZZZZZZZ_.jpg";
+        class CoverArtSite
+        {
+             public Regex Regex;
+             public string ImgURI;
 
-//         class CoverArtSite
-//         {
-//              public Regex Regex;
-//              public string ImgURI;
+             public CoverArtSite (Regex regex, string img_URI) {
+                this.Regex = regex;
+                this.ImgURI = img_URI;
+             }
+        }
 
-//              public CoverArtSite (Regex regex, string img_URI) {
-//                 this.Regex = regex;
-//                 this.ImgURI = img_URI;
-//              }
-//         }
+        private static CoverArtSite [] CoverArtSites = new CoverArtSite [] {
+            // CDBaby
+            new CoverArtSite (
+                new Regex (@"http://(?:www\.)?cdbaby.com/cd/(\w)(\w)(\w*)"),
+                "http://cdbaby.name/{0}/{1}/{0}{1}{2}.jpg"
+            ),
+            // Jamendo
+            new CoverArtSite (
+                new Regex (@"http:\/\/(?:www\.)?jamendo.com\/(?:[a-z]+\/)?album\/([0-9]+)"),
+                "http://www.jamendo.com/get/album/id/album/artworkurl/redirect/{0}/?artwork_size=0"
+            )
+        };
 
-//         private static CoverArtSite [] CoverArtSites = new CoverArtSite [] {
-//             // CDBaby
-//             new CoverArtSite (
-//                 new Regex (@"http://(?:www\.)?cdbaby.com/cd/(\w)(\w)(\w*)"),
-//                 "http://cdbaby.name/{0}/{1}/{0}{1}{2}.jpg"
-//             ),
-//             // Jamendo
-//             new CoverArtSite (
-//                 new Regex (@"http:\/\/(?:www\.)?jamendo.com\/(?:[a-z]+\/)?album\/([0-9]+)"),
-//                 "http://www.jamendo.com/get/album/id/album/artworkurl/redirect/{0}/?artwork_size=0"
-//             )
-//         };
+        public MusicBrainzQueryJob (IBasicTrackInfo track)
+        {
+            Track = track;
+            MusicBrainzService.UserAgent = Banshee.Web.Browser.UserAgent;
+        }
 
-//         public MusicBrainzQueryJob (IBasicTrackInfo track)
-//         {
-//             Track = track;
-//             MusicBrainzService.UserAgent = Banshee.Web.Browser.UserAgent;
-//         }
+        public override void Run ()
+        {
+            Lookup ();
+        }
 
-//         public override void Run ()
-//         {
-//             Lookup ();
-//         }
+        public bool Lookup ()
+        {
+            if (!OnlineMetadataServiceJob.TrackConditionsMet (Track)) {
+                return false;
+            }
 
-//         public bool Lookup ()
-//         {
-//             if (!OnlineMetadataServiceJob.TrackConditionsMet (Track)) {
-//                 return false;
-//             }
+            string artwork_id = Track.ArtworkId;
 
-//             string artwork_id = Track.ArtworkId;
+            if (artwork_id == null) {
+                return false;
+            } else if (CoverArtSpec.CoverExists (artwork_id)) {
+                return false;
+            } else if (!InternetConnected) {
+                return false;
+            }
 
-//             if (artwork_id == null) {
-//                 return false;
-//             } else if (CoverArtSpec.CoverExists (artwork_id)) {
-//                 return false;
-//             } else if (!InternetConnected) {
-//                 return false;
-//             }
+            DatabaseTrackInfo dbtrack;
+            dbtrack = Track as DatabaseTrackInfo;
 
-//             DatabaseTrackInfo dbtrack;
-//             dbtrack = Track as DatabaseTrackInfo;
+            Release release;
 
-//             Release release;
+            // If we have the MBID of the album, we can do a direct MusicBrainz lookup
+            if (dbtrack != null && dbtrack.AlbumMusicBrainzId != null) {
 
-//             // If we have the MBID of the album, we can do a direct MusicBrainz lookup
-//             if (dbtrack != null && dbtrack.AlbumMusicBrainzId != null) {
+                release = Release.Get (dbtrack.AlbumMusicBrainzId);
+                if (!String.IsNullOrEmpty (release.GetAsin ()) && SaveCover (String.Format (AmazonUriFormat, release.GetAsin ()))) {
+                    return true;
+                }
 
-//                 release = Release.Get (dbtrack.AlbumMusicBrainzId);
-//                 if (!String.IsNullOrEmpty (release.GetAsin ()) && SaveCover (String.Format (AmazonUriFormat, release.GetAsin ()))) {
-//                     return true;
-//                 }
+            // Otherwise we do a MusicBrainz search
+            } else {
+                ReleaseQueryParameters parameters = new ReleaseQueryParameters ();
+                parameters.Title = Track.AlbumTitle;
+                parameters.Artist = Track.AlbumArtist;
+                if (dbtrack != null) {
+                    parameters.TrackCount = dbtrack.TrackCount;
+                }
 
-//             // Otherwise we do a MusicBrainz search
-//             } else {
-//                 ReleaseQueryParameters parameters = new ReleaseQueryParameters ();
-//                 parameters.Title = Track.AlbumTitle;
-//                 parameters.Artist = Track.AlbumArtist;
-//                 if (dbtrack != null) {
-//                     parameters.TrackCount = dbtrack.TrackCount;
-//                 }
+                Query<Release> query = Release.Query (parameters);
+                release = query.PerfectMatch ();
 
-//                 Query<Release> query = Release.Query (parameters);
-//                 release = query.PerfectMatch ();
+                foreach (Release r in query.Best ()) {
+                    if (!String.IsNullOrEmpty (r.GetAsin ()) && SaveCover (String.Format (AmazonUriFormat, r.GetAsin ()))) {
+                        return true;
+                    }
+                }
+            }
 
-//                 foreach (Release r in query.Best ()) {
-//                     if (!String.IsNullOrEmpty (r.GetAsin ()) && SaveCover (String.Format (AmazonUriFormat, r.GetAsin ()))) {
-//                         return true;
-//                     }
-//                 }
-//             }
+            if (release == null) {
+                return false;
+            }
 
-//             if (release == null) {
-//                 return false;
-//             }
+            // No success with ASIN, let's try with other linked URLs
+            ReadOnlyCollection<UrlRelation> relations = release.GetUrlRelations ();
+            foreach (UrlRelation relation in relations) {
 
-//             // No success with ASIN, let's try with other linked URLs
-//             ReadOnlyCollection<UrlRelation> relations = release.GetUrlRelations ();
-//             foreach (UrlRelation relation in relations) {
+                foreach (CoverArtSite site in CoverArtSites) {
 
-//                 foreach (CoverArtSite site in CoverArtSites) {
+                   Match m = site.Regex.Match (relation.Target.AbsoluteUri);
+                   if (m.Success) {
+                        string [] parameters = new string [m.Groups.Count];
+                        for (int i = 1; i < m.Groups.Count; i++) {
+                            parameters[i-1] = m.Groups[i].Value;
+                        }
 
-//                    Match m = site.Regex.Match (relation.Target.AbsoluteUri);
-//                    if (m.Success) {
-//                         string [] parameters = new string [m.Groups.Count];
-//                         for (int i = 1; i < m.Groups.Count; i++) {
-//                             parameters[i-1] = m.Groups[i].Value;
-//                         }
+                        String uri = String.Format (site.ImgURI, parameters);
+                        if (SaveCover (uri)) {
+                             return true;
+                        }
+                   }
+                }
 
-//                         String uri = String.Format (site.ImgURI, parameters);
-//                         if (SaveCover (uri)) {
-//                              return true;
-//                         }
-//                    }
-//                 }
+                if (relation.Type == "CoverArtLink" && SaveCover (relation.Target.AbsoluteUri)) {
+                   return true;
+                }
+            }
 
-//                 if (relation.Type == "CoverArtLink" && SaveCover (relation.Target.AbsoluteUri)) {
-//                    return true;
-//                 }
-//             }
+            return false;
+        }
 
-//             return false;
-//         }
+        private bool SaveCover (string uri) {
 
-//         private bool SaveCover (string uri) {
+            string artwork_id = Track.ArtworkId;
 
-//             string artwork_id = Track.ArtworkId;
+            if (SaveHttpStreamCover (new Uri (uri), artwork_id, null)) {
+                Log.Debug ("Downloaded cover art", artwork_id);
+                StreamTag tag = new StreamTag ();
+                tag.Name = CommonTags.AlbumCoverId;
+                tag.Value = artwork_id;
 
-//             if (SaveHttpStreamCover (new Uri (uri), artwork_id, null)) {
-//                 Log.Debug ("Downloaded cover art", artwork_id);
-//                 StreamTag tag = new StreamTag ();
-//                 tag.Name = CommonTags.AlbumCoverId;
-//                 tag.Value = artwork_id;
+                AddTag (tag);
+                return true;
+            }
+            return false;
+         }
 
-//                 AddTag (tag);
-//                 return true;
-//             }
-//             return false;
-//          }
-
-//     }
-// }
+    }
+}

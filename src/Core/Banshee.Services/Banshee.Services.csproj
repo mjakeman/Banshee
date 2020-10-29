@@ -5,6 +5,10 @@
     <ProjectReference Include="..\..\Hyena\Hyena.Glue\Hyena.Glue.csproj" />
     <ProjectReference Include="..\..\Hyena\Hyena.Data.Sqlite\Hyena.Data.Sqlite.csproj" />
     <ProjectReference Include="..\Banshee.Core\Banshee.Core.csproj" />
+    <ProjectReference Include="..\..\..\ext\mono-addins\Mono.Addins\Mono.Addins.csproj" />
+    <ProjectReference Include="..\..\Libraries\Mono.Media\Mono.Media.csproj" />
+    <ProjectReference Include="..\..\Libraries\Lastfm\Lastfm.csproj" />
+    <ProjectReference Include="..\..\Libraries\MusicBrainz\MusicBrainz.csproj" />
   </ItemGroup>
 
   <ItemGroup>

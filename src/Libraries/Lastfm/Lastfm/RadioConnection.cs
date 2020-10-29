@@ -39,7 +39,6 @@ using System.Threading;
 
 using Hyena;
 using Hyena.Json;
-using Mono.Unix;
 
 using Media.Playlists.Xspf;
 
@@ -196,7 +195,7 @@ namespace Lastfm
                     this.station = station;
                     return StationError.None;
                 } catch (Exception e) {
-                    Log.Error (e);
+                    Log.Error (e.Message);
                     return StationError.Unknown;
                 }
             }

@@ -1,0 +1,4 @@
+[submodule "ext/mono-addins"]
+	path = ext/mono-addins
+	url = https://github.com/mono/mono-addins
+	branch = ns2.0

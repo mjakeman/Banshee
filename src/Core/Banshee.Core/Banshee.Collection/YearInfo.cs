@@ -36,7 +36,7 @@ namespace Banshee.Collection
 {
     public class YearInfo : CacheableItem
     {
-        public static readonly string UnknownYearTitle = Catalog.GetString ("Unknown Year");
+        public static readonly string UnknownYearTitle = I18n.Catalog.GetString ("Unknown Year");
 
         private int year;
 
