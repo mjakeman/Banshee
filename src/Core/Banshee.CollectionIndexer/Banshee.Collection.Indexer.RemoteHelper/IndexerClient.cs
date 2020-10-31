@@ -32,6 +32,7 @@ using System.Threading;
 using Hyena;
 
 using DBus;
+using org.freedesktop.DBus;
 
 using Banshee.Collection.Indexer;
 

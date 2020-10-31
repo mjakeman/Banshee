@@ -1,4 +1,5 @@
-# In Tree Gir.Core
-As gir.core does not currently provide nuget packages, I am using in-tree
-DLLs to avoid breakages. These will be occasionally rebuilt from `develop`
-in the upstream gir.core repo.
+# In Tree Dependencies
+This folder contains various dependencies that I have modified to
+run on .NET Core. These currently include:
+ * mono-addins
+ * dbus-sharp (with in-tree dbus-sharp-glib)

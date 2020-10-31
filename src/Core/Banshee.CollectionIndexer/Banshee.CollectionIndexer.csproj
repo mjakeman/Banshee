@@ -3,10 +3,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Hyena\Hyena.Glue\Hyena.Glue.csproj" />
     <ProjectReference Include="..\..\Hyena\Hyena\Hyena.csproj" />
+    <ProjectReference Include="..\..\..\ext\dbus-sharp\src\DBus\DBus.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
 </Project>

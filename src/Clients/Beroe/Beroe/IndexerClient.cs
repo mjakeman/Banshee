@@ -47,6 +47,10 @@ namespace Beroe
     {
         public static void Main ()
         {
+            // TODO: Remove the need to explicitly specify ApplicationName to
+            // avoid a crash.
+            Paths.ApplicationName = "Beroe";
+
             if (!DBusConnection.Enabled) {
                 Log.Error ("All commands ignored, DBus support is disabled");
                 return;

@@ -9,6 +9,8 @@
     <ProjectReference Include="..\..\Libraries\Mono.Media\Mono.Media.csproj" />
     <ProjectReference Include="..\..\Libraries\Lastfm\Lastfm.csproj" />
     <ProjectReference Include="..\..\Libraries\MusicBrainz\MusicBrainz.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\GLib\GLib.csproj" />
+    <ProjectReference Include="..\..\..\ext\dbus-sharp\src\DBus.GLib\DBus.GLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +18,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
 </Project>

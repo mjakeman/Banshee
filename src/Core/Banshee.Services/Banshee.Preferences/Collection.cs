@@ -46,7 +46,9 @@ namespace Banshee.Preferences
         {
             lock (this) {
                 if (item is Page || item is Section) {
-                    CollectionExtensions.SortedInsert (list, item);
+                    // TODO(firox263): Use Hyena.CollectionExtensions or
+                    // System.CollectionExtensions? Ambigious
+                    Hyena.Collections.CollectionExtensions.SortedInsert (list, item);
                 } else {
                     list.Add (item);
                 }

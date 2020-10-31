@@ -34,6 +34,7 @@ using System;
 using System.Collections.Generic;
 
 using DBus;
+using org.freedesktop.DBus;
 
 using Hyena;
 
@@ -47,7 +48,9 @@ namespace Banshee.ServiceStack
 
         static DBusConnection ()
         {
-            enabled = !ApplicationContext.CommandLine.Contains ("disable-dbus");
+            // TODO: Proper DBus supported is not implemented
+            // Rewrite Banshee's DBus integration to use either Tmds.DBus or GDBus
+            enabled = false; //!ApplicationContext.CommandLine.Contains ("disable-dbus");
         }
 
         private static List<string> active_connections = new List<string> ();
@@ -114,7 +117,7 @@ namespace Banshee.ServiceStack
                     return true;
                 }
             } catch (Exception e) {
-                Log.Error ("DBus support could not be started. Disabling for this session.", e);
+                Log.Error ("DBus support could not be started. Disabling for this session.", e.Message);
                 enabled = false;
             }
 
@@ -123,6 +126,9 @@ namespace Banshee.ServiceStack
 
         public static bool NameHasOwner (string serviceName)
         {
+            if (!enabled)
+                return false;
+
             try {
                 return Bus.Session.NameHasOwner (MakeBusName (serviceName));
             } catch {
@@ -155,6 +161,9 @@ namespace Banshee.ServiceStack
         {
             connect_tried = true;
 
+            if (!enabled)
+                return 0;
+
             if (init) {
                 BusG.Init ();
             }
@@ -173,14 +182,14 @@ namespace Banshee.ServiceStack
                 mainloop = new GLib.MainLoop ();
             }
 
-            if (!mainloop.IsRunning) {
+            if (!mainloop.IsRunning()) {
                 mainloop.Run ();
             }
         }
 
         public static void QuitMainLoop ()
         {
-            if (mainloop != null && mainloop.IsRunning) {
+            if (mainloop != null && mainloop.IsRunning()) {
                 mainloop.Quit ();
             }
         }

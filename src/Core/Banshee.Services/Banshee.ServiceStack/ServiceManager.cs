@@ -79,7 +79,7 @@ namespace Banshee.ServiceStack
                 try {
                     AddinManager.Registry.DisableAddin (a.AddinId);
                 } catch {}
-                Log.Error (a.Message, a.Exception);
+                Log.Error (a.Message, a.Exception.Message);
             };
 
             if (ApplicationContext.Debugging) {
@@ -294,7 +294,7 @@ namespace Banshee.ServiceStack
                         ((IDisposable)service).Dispose ();
                         Log.DebugFormat ("Service disposed ({0})", service.ServiceName);
                     } catch (Exception e) {
-                        Log.Error (String.Format ("Service disposal ({0}) threw an exception", service.ServiceName), e);
+                        Log.Error (String.Format ("Service disposal ({0}) threw an exception", service.ServiceName), e.Message);
                     }
                 }
 

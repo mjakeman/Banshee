@@ -190,7 +190,8 @@ namespace Banshee.ServiceStack
         {
             bool shown = false;
 
-            foreach (var lang in GLib.Marshaller.NullTermPtrToStringArray (g_get_language_names (), false)) {
+            throw new Exception ("Help lookup is not currently implemented.");
+            /*foreach (var lang in GLib.Marshaller.NullTermPtrToStringArray (g_get_language_names (), false)) {
                 string path = String.Format ("{0}/gnome/help/{1}/{2}",
                     Paths.InstalledApplicationDataRoot, project, lang);
 
@@ -198,7 +199,7 @@ namespace Banshee.ServiceStack
                     shown = Banshee.Web.Browser.Open (String.Format ("ghelp:{0}", path), false);
                     break;
                 }
-            }
+            }*/
 
             if (!shown) {
                 Banshee.Web.Browser.Open (String.Format ("http://library.gnome.org/users/{0}/", project));

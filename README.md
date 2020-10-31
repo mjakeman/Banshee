@@ -5,9 +5,9 @@ Banshee can be ported to .NET Core and Gtk3/4 for modern systems.
 ## Directory Structure
 ```
 The following are the main directories of note:
- - ext: In tree copy of gir.core (Bindings for Gtk, Gst, etc)
+ - ext: In tree copy of various dependent libraries
  - src: Project source code
- - src/Hyena: A fork of Hyena being maintained in-tree
+ - src/Hyena: A fork of Hyena as a submodule
 ```
 
 ## Status
