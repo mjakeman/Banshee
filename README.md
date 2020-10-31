@@ -12,12 +12,42 @@ The following are the main directories of note:
 
 ## Status
 The following projects build:
- - src/Core/Banshee.Core
- - src/Hyena/Hyena
+ - `src/Core/Banshee.Core`
+ - `src/Core/Banshee.CollectionIndexer`
+ - `src/Core/Banshee.Services`
+ - `src/Clients/Beroe`
+ - `src/Clients/Booter`
+ - `src/Libraries/Lastfm`
+ - `src/Libraries/Musicbrainz`
+ - `src/Libraries/Mono.Media`
+ - [Hyena](https://github.com/firox263/Hyena)
 
 Additionally, I added `src/Hyena/Hyena.Glue` to provide stub code for
-certain `Mono` classes/functions with no direct replacement, as well as
-the `Mono.Addins` framework.
+certain `Mono` classes/functions with no direct replacement.
+
+## External Dependencies
+Banshee depends on `Mono.Addins` and `dbus-sharp`/`dbus-sharp-glib` to
+build. The `Mono.Addins` framework works in some capacity, building for .NET Core
+(although I haven't tested to see if it *actually* works). DBus is 
+completely non-functional, so `DBusConnection.Enabled` is hardcoded to `false`.
+
+## TODO
+I am currently working on:
+ - Porting `Hyena.Gui` and `Hyena.Widgets` to gir.core
+ - Porting `src/Core/Banshee.Widgets`
+ - Porting `src/Core/Banshee.ThickClient`
+ - Porting `src/Clients/Nereid` (the main GUI)
+ 
+## Backlog
+Things that need to be done at some point:
+ - Port `src/Backends/Banshee.GStreamerSharp` (for media playback)
+ - Port `dbus-sharp` to GDBus (provided by gir.core)
+ - Get rid of `dbus-sharp-glib`
+ - Re-enable DBus support so the indexer can work (needs clarification)
+ - Figure out what to do with `src/Core/Banshee.WebBrowser`
+     - Remove entirely
+     - Port to Webkit2Gtk (Doesn't run on Windows?)
+     - Embed some other browser engine?
 
 ## Original Readme
 The original README can be seen below at the time of forking:
