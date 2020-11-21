@@ -5,7 +5,7 @@ Banshee can be ported to .NET Core and Gtk3/4 for modern systems.
 ## Directory Structure
 ```
 The following are the main directories of note:
- - ext: In tree copy of various dependent libraries
+ - ext: Git submodules for various dependent libraries
  - src: Project source code
  - src/Hyena: A fork of Hyena as a submodule
 ```
@@ -25,6 +25,21 @@ The following projects build:
 Additionally, I added `src/Hyena/Hyena.Glue` to provide stub code for
 certain `Mono` classes/functions with no direct replacement.
 
+## Build
+You're on your own :)
+
+### Prerequisites:
+1. Have Gtk in your PATH
+2. Have .NET 5 installed
+3. Initialise submodules recursively
+4. gir.core is located under `src/Hyena/ext/gir.core` - build that first
+5. Hyena is located under `src/Hyena`. This is a separate solution, must be **built separately** (i.e. building banshee will not rebuild any Hyena projects, be aware when working on Hyena directly)
+6. Build `ext/mono-addins/Mono.Addins` - Note, the solution file doesn't build mono-addins. You need to manually build the Mono.Addins project.
+7. Build `ext/dbus-sharp` - Solution file should work
+
+### Banshee
+You can now build any of the projects listed under [Status](#status) above. Use the dotnet cli where possible to build. The solution file has some projects added for easy VS/Rider integration.
+
 ## External Dependencies
 Banshee depends on `Mono.Addins` and `dbus-sharp`/`dbus-sharp-glib` to
 build. The `Mono.Addins` framework works in some capacity, building for .NET Core
@@ -33,14 +48,14 @@ completely non-functional, so `DBusConnection.Enabled` is hardcoded to `false`.
 
 ## TODO
 I am currently working on:
+ - Porting `src/Backends/Banshee.GStreamerSharp` (for media playback)
  - Porting `Hyena.Gui` and `Hyena.Widgets` to gir.core
  - Porting `src/Core/Banshee.Widgets`
- - Porting `src/Core/Banshee.ThickClient`
- - Porting `src/Clients/Nereid` (the main GUI)
  
 ## Backlog
 Things that need to be done at some point:
- - Port `src/Backends/Banshee.GStreamerSharp` (for media playback)
+ - Porting `src/Core/Banshee.ThickClient`
+ - Porting `src/Clients/Nereid` (the main GUI)
  - Port `dbus-sharp` to GDBus (provided by gir.core)
  - Get rid of `dbus-sharp-glib`
  - Re-enable DBus support so the indexer can work (needs clarification)
