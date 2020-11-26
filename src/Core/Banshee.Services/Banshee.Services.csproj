@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\Libraries\Lastfm\Lastfm.csproj" />
     <ProjectReference Include="..\..\Libraries\MusicBrainz\MusicBrainz.csproj" />
     <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\GLib\GLib.csproj" />
+    <ProjectReference Include="..\..\..\ext\dbus-sharp\src\DBus\DBus.csproj" />
     <ProjectReference Include="..\..\..\ext\dbus-sharp\src\DBus.GLib\DBus.GLib.csproj" />
   </ItemGroup>
 

@@ -6,10 +6,18 @@
     <ProjectReference Include="..\..\Hyena\Hyena.Data.Sqlite\Hyena.Data.Sqlite.csproj" />
     <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst\Gst.csproj" />
     <ProjectReference Include="..\..\Hyena\Hyena\Hyena.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst.Base\Gst.Base.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst.Audio\Gst.Audio.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst.Pbutils\Gst.Pbutils.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst.Video\Gst.Video.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Banshee.GStreamerSharp.addin.xml" />
+  </ItemGroup>
 
 </Project>
