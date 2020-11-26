@@ -30,195 +30,212 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+// TODO(firox263): Re-enable BpmDetector
 
-using Mono.Unix;
-
-using Gst;
-
-using Hyena;
-using Hyena.Data;
-
-using Banshee.Base;
-using Banshee.Streaming;
-using Banshee.MediaEngine;
-using Banshee.ServiceStack;
-using Banshee.Configuration;
-using Banshee.Preferences;
-
-namespace Banshee.GStreamerSharp
-{
-    public class BpmDetector : IBpmDetector
-    {
-        SafeUri current_uri;
-        Dictionary<int, int> bpm_histogram = new Dictionary<int, int> ();
-
-        Pipeline pipeline;
-        Element filesrc;
-        Element fakesink;
-
-        public event BpmEventHandler FileFinished;
-
-        public BpmDetector ()
-        {
-            try {
-                pipeline = new Pipeline ("the pipeline");
-                filesrc          = ElementFactory.Make ("filesrc", "the filesrc");
-                var decodebin    = ElementFactory.Make ("decodebin", "the decodebin");
-                var audioconvert = Make ("audioconvert");
-                var bpmdetect    = Make ("bpmdetect");
-                fakesink         = ElementFactory.Make ("fakesink", "the fakesink");
-
-                pipeline.Add (filesrc, decodebin, audioconvert, bpmdetect, fakesink);
-
-                if (!filesrc.Link (decodebin)) {
-                    Log.Error ("Could not link pipeline elements");
-                    throw new Exception ();
-                }
-
-                // decodebin and audioconvert are linked dynamically when the decodebin creates a new pad
-                decodebin.PadAdded += (o,args) => {
-                    var audiopad = audioconvert.GetStaticPad ("sink");
-                    if (audiopad.IsLinked) {
-                        return;
-                    }
-
-                    var caps = args.NewPad.QueryCaps ();
-                    if (caps == null)
-                        return;
-
-                    var str = caps[0];
-                    if (!str.Name.Contains ("audio"))
-                        return;
-
-                    args.NewPad.Link (audiopad);
-                };
-
-                if (!Element.Link (audioconvert, bpmdetect, fakesink)) {
-                    Log.Error ("Could not link pipeline elements");
-                    throw new Exception ();
-                }
-                pipeline.Bus.AddWatch (OnBusMessage);
-            } catch (Exception e) {
-                Log.Error (e);
-                throw new ApplicationException (Catalog.GetString ("Could not create BPM detection driver."), e);
-            }
-        }
-
-        private bool OnBusMessage (Bus bus, Message msg)
-        {
-            switch (msg.Type) {
-            case MessageType.Tag:
-                TagList tag_list = msg.ParseTag ();
-
-                foreach (var name in tag_list.Tags) {
-                    if (name == "beats-per-minute") {
-                        if (tag_list.GetTagSize (name) < 1) {
-                            continue;
-                        }
-                        tag_list.Foreach (delegate(TagList list, string tagname) {
-                            for (uint i = 0; i < tag_list.GetTagSize (tagname); i++) {
-                                GLib.Value val = tag_list.GetValueIndex (tagname, i);
-                                if (val.Val is double) {
-                                    double bpm = (double)val;
-                                    int rounded = (int)Math.Round (bpm);
-                                    if (!bpm_histogram.ContainsKey (rounded)) {
-                                        bpm_histogram [rounded] = 1;
-                                    } else {
-                                        bpm_histogram [rounded]++;
-                                    }
-                                }
-                                val.Dispose ();
-                            }
-                        });
-                    }
-                }
-                break;
-
-            case MessageType.Error:
-                string debug;
-                GLib.GException error;
-                msg.ParseError (out error, out debug);
-
-                IsDetecting = false;
-                Log.ErrorFormat ("BPM Detection error: {0}", error.Message);
-                break;
-
-            case MessageType.Eos:
-                IsDetecting = false;
-                pipeline.SetState (State.Null);
-
-                SafeUri uri = current_uri;
-                int best_bpm = -1, best_bpm_count = 0;
-                foreach (int bpm in bpm_histogram.Keys) {
-                    int count = bpm_histogram[bpm];
-                    if (count > best_bpm_count) {
-                        best_bpm_count = count;
-                        best_bpm = bpm;
-                    }
-                }
-
-                Reset ();
-
-                var handler = FileFinished;
-                if (handler != null) {
-                    handler (this, new BpmEventArgs (uri, best_bpm));
-                }
-
-                break;
-            }
-
-            return true;
-        }
-
-        public void Dispose ()
-        {
-            Reset ();
-
-            if (pipeline != null) {
-                pipeline.SetState (State.Null);
-                pipeline.Dispose ();
-                pipeline = null;
-            }
-        }
-
-        public bool IsDetecting { get; private set; }
-
-        public void ProcessFile (SafeUri uri)
-        {
-            Reset ();
-            current_uri = uri;
-            string path = uri.LocalPath;
-
-            try {
-                Log.DebugFormat ("GStreamer running beat detection on {0}", path);
-                IsDetecting = true;
-                fakesink.SetState (State.Null);
-                filesrc ["location"] = path;
-                pipeline.SetState (State.Playing);
-            } catch (Exception e) {
-                Log.Error (e);
-            }
-        }
-
-        private void Reset ()
-        {
-            current_uri = null;
-            bpm_histogram.Clear ();
-        }
-
-        private static Gst.Element Make (string name)
-        {
-            var e = ElementFactory.Make (name, "the " + name);
-            if (e == null) {
-                Log.ErrorFormat ("BPM Detector unable to make element '{0}'", name);
-                throw new Exception ();
-            }
-            return e;
-        }
-    }
-}
+// using System;
+// using System.Linq;
+// using System.Collections;
+// using System.Collections.Generic;
+// using System.Runtime.InteropServices;
+//
+// using Mono.Unix;
+//
+// using Gst;
+//
+// using Hyena;
+// using Hyena.Data;
+//
+// using Banshee.Base;
+// using Banshee.Streaming;
+// using Banshee.MediaEngine;
+// using Banshee.ServiceStack;
+// using Banshee.Configuration;
+// using Banshee.Preferences;
+//
+// namespace Banshee.GStreamerSharp
+// {
+//     public class BpmDetector : IBpmDetector
+//     {
+//         SafeUri current_uri;
+//         Dictionary<int, int> bpm_histogram = new Dictionary<int, int> ();
+//
+//         Pipeline pipeline;
+//         Element filesrc;
+//         Element fakesink;
+//
+//         public event BpmEventHandler FileFinished;
+//
+//         public BpmDetector ()
+//         {
+//             try {
+//                 pipeline = new Pipeline ("the pipeline");
+//                 filesrc          = ElementFactory.Make ("filesrc", "the filesrc");
+//                 var decodebin    = ElementFactory.Make ("decodebin", "the decodebin");
+//                 var audioconvert = Make ("audioconvert");
+//                 var bpmdetect    = Make ("bpmdetect");
+//                 fakesink         = ElementFactory.Make ("fakesink", "the fakesink");
+//
+//                 pipeline.Add (filesrc, decodebin, audioconvert, bpmdetect, fakesink);
+//
+//                 if (!filesrc.Link (decodebin)) {
+//                     Log.Error ("Could not link pipeline elements");
+//                     throw new Exception ();
+//                 }
+//
+//                 // decodebin and audioconvert are linked dynamically when the decodebin creates a new pad
+//                 decodebin.OnPadAdded += (o,args) => {
+//                     var audiopad = audioconvert.GetStaticPad ("sink");
+//                     if (audiopad.IsLinked()) {
+//                         return;
+//                     }
+//
+//                     var caps = args.NewPad.QueryCaps ();
+//                     if (caps == null)
+//                         return;
+//
+//                     var str = caps[0];
+//                     if (!str.Name.Contains ("audio"))
+//                         return;
+//
+//                     args.NewPad.Link (audiopad);
+//                 };
+//
+//                 if (!Element.Link (audioconvert, bpmdetect, fakesink)) {
+//                     Log.Error ("Could not link pipeline elements");
+//                     throw new Exception ();
+//                 }
+//                 pipeline.Bus.AddWatch (OnBusMessage);
+//             } catch (Exception e) {
+//                 Log.Error (e);
+//                 throw new ApplicationException (Catalog.GetString ("Could not create BPM detection driver."), e);
+//             }
+//         }
+//         
+//         [Obsolete("Wrapper Code - Remove")]
+//         public bool OnBusMessage(IntPtr bus, IntPtr msg, IntPtr userData)
+//         {
+//             var managedBus = GObject.Object.WrapPointerAs<Bus>(bus);
+//             var managedMsg = System.Runtime.InteropServices.Marshal.PtrToStructure<Message>(msg);
+//             return OnBusMessage(managedBus, managedMsg);
+//         }
+//
+//         private bool OnBusMessage (Bus bus, Message msg)
+//         {
+//             switch (msg.Type) {
+//             case MessageType.Tag:
+//                 msg.ParseTag (out TagList? tag_list);
+//
+//                 // TODO: Hack - Remove
+//                 if (tag_list == null)
+//                     throw new Exception("Could not retrieve tag list!");
+//
+//                 tag_list = tag_list!;
+//                 // END
+//
+//                 foreach (var name in tag_list.Tags) {
+//                     if (name == "beats-per-minute") {
+//                         if (tag_list.GetTagSize (name) < 1) {
+//                             continue;
+//                         }
+//                         tag_list.Foreach (delegate(TagList list, string tagname) {
+//                             for (uint i = 0; i < tag_list.GetTagSize (tagname); i++) {
+//                                 GLib.Value val = tag_list.GetValueIndex (tagname, i);
+//                                 if (val.Val is double) {
+//                                     double bpm = (double)val;
+//                                     int rounded = (int)Math.Round (bpm);
+//                                     if (!bpm_histogram.ContainsKey (rounded)) {
+//                                         bpm_histogram [rounded] = 1;
+//                                     } else {
+//                                         bpm_histogram [rounded]++;
+//                                     }
+//                                 }
+//                                 val.Dispose ();
+//                             }
+//                         });
+//                     }
+//                 }
+//                 break;
+//
+//             case MessageType.Error:
+//                 string debug;
+//                 GLib.Error? error;
+//                 msg.ParseError (out error, out debug);
+//
+//                 IsDetecting = false;
+//                 Log.ErrorFormat ("BPM Detection error: {0}", error?.Message);
+//                 break;
+//
+//             case MessageType.Eos:
+//                 IsDetecting = false;
+//                 pipeline.SetState (State.@null);
+//
+//                 SafeUri uri = current_uri;
+//                 int best_bpm = -1, best_bpm_count = 0;
+//                 foreach (int bpm in bpm_histogram.Keys) {
+//                     int count = bpm_histogram[bpm];
+//                     if (count > best_bpm_count) {
+//                         best_bpm_count = count;
+//                         best_bpm = bpm;
+//                     }
+//                 }
+//
+//                 Reset ();
+//
+//                 var handler = FileFinished;
+//                 if (handler != null) {
+//                     handler (this, new BpmEventArgs (uri, best_bpm));
+//                 }
+//
+//                 break;
+//             }
+//
+//             return true;
+//         }
+//
+//         public void Dispose ()
+//         {
+//             Reset ();
+//
+//             if (pipeline != null) {
+//                 pipeline.SetState (State.@null);
+//                 pipeline.Dispose ();
+//                 pipeline = null;
+//             }
+//         }
+//
+//         public bool IsDetecting { get; private set; }
+//
+//         public void ProcessFile (SafeUri uri)
+//         {
+//             Reset ();
+//             current_uri = uri;
+//             string path = uri.LocalPath;
+//
+//             try {
+//                 Log.DebugFormat ("GStreamer running beat detection on {0}", path);
+//                 IsDetecting = true;
+//                 fakesink.SetState (State.@null);
+//                 filesrc ["location"] = path;
+//                 pipeline.SetState (State.Playing);
+//             } catch (Exception e) {
+//                 Log.Error (e);
+//             }
+//         }
+//
+//         private void Reset ()
+//         {
+//             current_uri = null;
+//             bpm_histogram.Clear ();
+//         }
+//
+//         private static Gst.Element Make (string name)
+//         {
+//             var e = ElementFactory.Make (name, "the " + name);
+//             if (e == null) {
+//                 Log.ErrorFormat ("BPM Detector unable to make element '{0}'", name);
+//                 throw new Exception ();
+//             }
+//             return e;
+//         }
+//     }
+// }

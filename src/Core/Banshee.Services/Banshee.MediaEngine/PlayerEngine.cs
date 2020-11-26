@@ -66,7 +66,8 @@ namespace Banshee.MediaEngine
 
         public bool IsInitialized { get; internal set; }
 
-        internal protected virtual void Initialize ()
+        // TODO: Revert to internal protected
+        public virtual void Initialize ()
         {
         }
 
@@ -140,7 +141,7 @@ namespace Banshee.MediaEngine
             if (current_state != PlayerState.Idle && current_state != PlayerState.NotReady && current_state != PlayerState.Contacting) {
                 Close (false);
             }
-
+            
             try {
                 CurrentTrackTimeStamp = DateTime.Now;
                 current_track = track;

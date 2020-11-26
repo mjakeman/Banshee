@@ -38,8 +38,8 @@ using System.Threading;
 using Mono.Unix;
 
 using Gst;
-using Gst.PbUtils;
-using Gst.Video;
+using GstPbutils;
+using GstVideo;
 
 using Hyena;
 using Banshee.Collection;
@@ -51,7 +51,7 @@ using Banshee.Preferences;
 
 namespace Banshee.GStreamerSharp
 {
-    public class PlayerEngine : Banshee.MediaEngine.PlayerEngine, IEqualizer, IVisualizationDataSource
+    public class PlayerEngine : Banshee.MediaEngine.PlayerEngine, IEqualizer /*, IVisualizationDataSource*/
     {
         internal class AudioSinkBin : Bin
         {
@@ -119,7 +119,7 @@ namespace Banshee.GStreamerSharp
                 pad.Link (sinkpad);
                 first = audiotee;
 
-                visible_sink = new GhostPad ("sink", first.GetStaticPad ("sink"));
+                visible_sink = GhostPad.New ("sink", first.GetStaticPad ("sink"));
                 AddPad (visible_sink);
             }
 
@@ -189,6 +189,23 @@ namespace Banshee.GStreamerSharp
                 }
             }
 
+            // TODO: These wrappers are placeholders while we don't support managed delegate wrappers.
+            [Obsolete("Wrapper Code - Remove")]
+            public PadProbeReturn InsertReplayGain(IntPtr pad, IntPtr info, IntPtr userData)
+            {
+                var managedPad = WrapPointerAs<Pad>(pad);
+                var managedInfo = System.Runtime.InteropServices.Marshal.PtrToStructure<PadProbeInfo>(info);
+                return InsertReplayGain(managedPad, managedInfo);
+            }
+            
+            [Obsolete("Wrapper Code - Remove")]
+            public PadProbeReturn RemoveReplayGain(IntPtr pad, IntPtr info, IntPtr userData)
+            {
+                var managedPad = WrapPointerAs<Pad>(pad);
+                var managedInfo = System.Runtime.InteropServices.Marshal.PtrToStructure<PadProbeInfo>(info);
+                return RemoveReplayGain(managedPad, managedInfo);
+            }
+
             PadProbeReturn InsertReplayGain (Pad pad, PadProbeInfo info)
             {
                 lock (pipeline_lock) {
@@ -208,9 +225,9 @@ namespace Banshee.GStreamerSharp
             {
                 lock (pipeline_lock) {
                     if (rgvolume != null) {
-                        first = rgvolume.GetStaticPad ("src").Peer.Parent as Element;
+                        first = rgvolume.GetStaticPad ("src").GetPeer()?.GetParentElement();
                         rgvolume.Unlink (first);
-                        rgvolume.SetState (State.Null);
+                        rgvolume.SetState (State.@null);
                         Remove (rgvolume);
                         rgvolume = null;
                         visible_sink.SetTarget (first.GetStaticPad ("sink"));
@@ -289,7 +306,7 @@ namespace Banshee.GStreamerSharp
         CddaManager cdda_manager;
         VideoManager video_manager = null;
         DvdManager dvd_manager = null;
-        Visualization visualization;
+        // Visualization visualization;
 
         bool gapless_enabled;
         private bool next_track_pending;
@@ -298,8 +315,8 @@ namespace Banshee.GStreamerSharp
 
         public PlayerEngine ()
         {
-            Log.InformationFormat ("GStreamer# {0} Initializing; {1}.{2}",
-                typeof (Gst.Version).Assembly.GetName ().Version, Gst.Version.Description, Gst.Version.Nano);
+            Log.InformationFormat ("GStreamer.NET {0} Initializing; {1}.{2}",
+                typeof (Gst.Version).Assembly.GetName ().Version, Gst.Version.VersionString, Gst.Version.Nano);
 
             // Setup the gst plugins/registry paths if running Windows
             if (PlatformDetection.IsWindows) {
@@ -329,7 +346,8 @@ namespace Banshee.GStreamerSharp
 
         protected override bool DelayedInitialize { get { return true; } }
 
-        protected override void Initialize ()
+        // TODO: Revert to protected
+        public override void Initialize ()
         {
             playbin = ElementFactory.Make ("playbin", "the playbin");
 
@@ -344,10 +362,11 @@ namespace Banshee.GStreamerSharp
                 Volume = (ushort)PlayerEngineService.VolumeSchema.Get ();
             }
 
-            visualization = new Visualization (audio_sink);
+            // visualization = new Visualization (audio_sink);
 
-            playbin.AddNotification ("volume", OnVolumeChanged);
-            playbin.Bus.AddWatch (OnBusMessage);
+            // TODO: IMPORTANT We do not support OnVolumeChanged
+            // playbin.AddNotification ("volume", OnVolumeChanged);
+            playbin.GetBus().AddWatch (OnBusMessage);
 
             cdda_manager = new CddaManager (playbin);
             dvd_manager = new DvdManager (playbin);
@@ -371,15 +390,16 @@ namespace Banshee.GStreamerSharp
             base.Dispose ();
         }
 
-        public event VisualizationDataHandler DataAvailable {
-            add {
-                visualization.DataAvailable += value;
-            }
-
-            remove {
-                visualization.DataAvailable -= value;
-            }
-        }
+        // TODO: Re-enable if/when we support GStreamer FFT
+        // public event VisualizationDataHandler DataAvailable {
+        //     add {
+        //         visualization.DataAvailable += value;
+        //     }
+        //
+        //     remove {
+        //         visualization.DataAvailable -= value;
+        //     }
+        // }
 
         public override void VideoExpose (IntPtr window, bool direct)
         {
@@ -398,7 +418,7 @@ namespace Banshee.GStreamerSharp
 
         private System.DateTime about_to_finish_time_stamp;
 
-        void OnAboutToFinish (object o, GLib.SignalArgs args)
+        void OnAboutToFinish (object o, GObject.SignalArgs args)
         {
             // HACK: ugly workaround for GStreamer's bug http://bugzilla.gnome.org/722769
             // long story short, AboutToFinish signal firing twice for the same play of the same track
@@ -494,10 +514,18 @@ namespace Banshee.GStreamerSharp
                 Log.Debug ("[Gapless] Reach the last music under repeat off mode");
             }
         }
+        
+        [Obsolete("Wrapper Code - Remove")]
+        public bool OnBusMessage(IntPtr bus, IntPtr msg, IntPtr userData)
+        {
+            var managedBus = GObject.Object.WrapPointerAs<Bus>(bus);
+            var managedMsg = System.Runtime.InteropServices.Marshal.PtrToStructure<Message>(msg);
+            return OnBusMessage(managedBus, managedMsg);
+        }
 
         private bool OnBusMessage (Bus bus, Message msg)
         {
-            switch (msg.Type) {
+            switch (msg.type) {
                 case MessageType.Eos:
                     StopIterating ();
                     Close (false);
@@ -508,51 +536,56 @@ namespace Banshee.GStreamerSharp
 
                 case MessageType.StateChanged:
                     if (msg.Src == playbin) {
-                        State old_state, new_state, pending_state;
+                        State? old_state, new_state, pending_state;
                         msg.ParseStateChanged (out old_state, out new_state, out pending_state);
                         HandleStateChange (old_state, new_state, pending_state);
                     }
                     break;
 
                 case MessageType.Buffering:
-                    int buffer_percent = msg.ParseBuffering ();
+                    msg.ParseBuffering (out var buffer_percent);
                     HandleBuffering (buffer_percent);
                     break;
 
                 case MessageType.Tag:
-                    TagList tag_list = msg.ParseTag ();
-                    tag_list.Foreach (HandleTag);
+                    msg.ParseTag (out var tag_list);
+                    // TODO: Reimplement TagList parsing once Foreach works
+                    // tag_list?.Foreach (HandleTag); // Can we do this?
                     break;
 
                 case MessageType.Error:
-                    GLib.GException err;
+                    GLib.Error? err;
                     string debug;
                     msg.ParseError (out err, out debug);
 
-                    HandleError (err);
+                    Log.Error($"GStreamer Backend: {debug}");
+                    
+                    // TODO: Use details struct?
+
+                    if (err != null)
+                        HandleError (err.Value);
                     break;
 
                 case MessageType.Element:
+                    if (GstPbutils.Global.IsMissingPluginMessage (msg)) {
+                        string detail = GstPbutils.Global.MissingPluginMessageGetInstallerDetail (msg);
 
-                if (Gst.PbUtils.Global.IsMissingPluginMessage (msg)) {
-                    string detail = Gst.PbUtils.Global.MissingPluginMessageGetInstallerDetail (msg);
+                            if (detail == null)
+                                return false;
 
-                        if (detail == null)
-                            return false;
+                            if (missing_details.Contains (detail)) {
+                                Log.DebugFormat ("Ignoring missing element details, already prompted ('{0}')", detail);
+                                return false;
+                            }
 
-                        if (missing_details.Contains (detail)) {
-                            Log.DebugFormat ("Ignoring missing element details, already prompted ('{0}')", detail);
-                            return false;
-                        }
+                            Log.DebugFormat ("Saving missing element details ('{0}')", detail);
+                            missing_details.Add (detail);
 
-                        Log.DebugFormat ("Saving missing element details ('{0}')", detail);
-                        missing_details.Add (detail);
+                            Log.Error ("Missing GStreamer Plugin", GstPbutils.Global.MissingPluginMessageGetDescription (msg), true);
 
-                        Log.Error ("Missing GStreamer Plugin", Gst.PbUtils.Global.MissingPluginMessageGetDescription (msg), true);
-
-                        InstallPluginsContext install_context = new InstallPluginsContext ();
-                        Gst.PbUtils.Global.InstallPluginsAsync (missing_details.ToArray (), install_context, OnInstallPluginsReturn);
-                    } else if (NavigationAdapter.MessageGetType (msg) == NavigationMessageType.CommandsChanged) {
+                            // InstallPluginsContext install_context = new InstallPluginsContext ();
+                            GstPbutils.Global.InstallPluginsAsync (missing_details.ToArray (), /*install_context*/ null, OnInstallPluginsReturn);
+                    } else if (/*NavigationAdapter*/GstVideo.Navigation.MessageGetType (msg) == NavigationMessageType.CommandsChanged) {
                         dvd_manager.HandleCommandsChanged (playbin);
                     }
                     break;
@@ -563,8 +596,8 @@ namespace Banshee.GStreamerSharp
 
                 case MessageType.Application:
                     string name;
-                    Structure s = msg.Structure;
-                    name = s.Name;
+                    Structure s = msg.GetStructure();
+                    name = s.GetName();
                     if (String.IsNullOrEmpty (name) && name == "stream-changed") {
                         video_manager.ParseStreamInfo ();
                     }
@@ -572,6 +605,12 @@ namespace Banshee.GStreamerSharp
             }
 
             return true;
+        }
+        
+        [Obsolete("Wrapper Code - Remove")]
+        public void OnInstallPluginsReturn(InstallPluginsReturn status, IntPtr userData)
+        {
+            OnInstallPluginsReturn(status);
         }
 
         private void OnInstallPluginsReturn (InstallPluginsReturn status)
@@ -581,7 +620,7 @@ namespace Banshee.GStreamerSharp
             }
         }
 
-        private void OnVolumeChanged (object o, GLib.NotifyArgs args)
+        private void OnVolumeChanged (object o, GObject.Object.NotifySignalArgs args)
         {
             OnEventChanged (PlayerEvent.Volume);
         }
@@ -604,14 +643,15 @@ namespace Banshee.GStreamerSharp
             }
         }
 
-        private void HandleError (GLib.GException ex)
+        private void HandleError (GLib.Error ex)
         {
             TrackInfo failed_track = CurrentTrack;
             Close (true);
 
             var error_message = String.IsNullOrEmpty (ex.Message) ? Catalog.GetString ("Unknown Error") : ex.Message;
 
-            if (ex.Domain == Gst.Global.ResourceErrorQuark ()) {
+            // TODO: Support GLib domains
+            if (ex.Domain == Gst.Global.ResourceErrorQuark) {
                 ResourceError domain_code = (ResourceError)ex.Code;
                 if (failed_track != null) {
                     switch (domain_code) {
@@ -623,7 +663,7 @@ namespace Banshee.GStreamerSharp
                     }
                 }
                 Log.Error (String.Format ("GStreamer resource error: {0}", domain_code), false);
-            } else if (ex.Domain == Gst.Global.StreamErrorQuark ()) {
+            } else if (ex.Domain == Gst.Global.StreamErrorQuark) {
                 StreamError domain_code = (StreamError)ex.Code;
                 if (failed_track != null) {
                     switch (domain_code) {
@@ -636,7 +676,7 @@ namespace Banshee.GStreamerSharp
                 }
 
                 Log.Error (String.Format ("GStreamer stream error: {0}", domain_code), false);
-            } else if (ex.Domain == Gst.Global.CoreErrorQuark ()) {
+            } else if (ex.Domain == Gst.Global.CoreErrorQuark) {
                 CoreError domain_code = (CoreError)ex.Code;
                 if (failed_track != null) {
                     switch (domain_code) {
@@ -651,7 +691,7 @@ namespace Banshee.GStreamerSharp
                 if (domain_code != CoreError.MissingPlugin) {
                     Log.Error (String.Format ("GStreamer core error: {0}", domain_code), false);
                 }
-            } else if (ex.Domain == Gst.Global.LibraryErrorQuark ()) {
+            } else if (ex.Domain == Gst.Global.LibraryErrorQuark) {
                 Log.Error (String.Format ("GStreamer library error: {0}", ex.Code), false);
             }
 
@@ -663,7 +703,7 @@ namespace Banshee.GStreamerSharp
             OnEventChanged (new PlayerEventBufferingArgs (buffer_percent / 100.0));
         }
 
-        private void HandleStateChange (State old_state, State new_state, State pending_state)
+        private void HandleStateChange (State? old_state, State? new_state, State? pending_state)
         {
             StopIterating ();
             if (CurrentState != PlayerState.Loaded && old_state == State.Ready && new_state == State.Paused && pending_state == State.Playing) {
@@ -678,12 +718,19 @@ namespace Banshee.GStreamerSharp
                 OnStateChanged (PlayerState.Paused);
             }
         }
+        
+        [Obsolete("Wrapper Code - Remove")]
+        public void HandleTag(IntPtr tagList, string tagname, IntPtr userData)
+        {
+            var managedTagList = System.Runtime.InteropServices.Marshal.PtrToStructure<TagList>(tagList);
+            HandleTag(managedTagList, tagname);
+        }
 
         private void HandleTag (TagList tag_list, string tagname)
         {
             for (uint i = 0; i < tag_list.GetTagSize (tagname); i++) {
-                GLib.Value val = tag_list.GetValueIndex (tagname, i);
-                OnTagFound (new StreamTag () { Name = tagname, Value = val.Val });
+                GObject.Value val = tag_list.GetValueIndex (tagname, i);
+                OnTagFound (new StreamTag () { Name = tagname, Value = val });
                 val.Dispose ();
             }
         }
@@ -703,7 +750,8 @@ namespace Banshee.GStreamerSharp
                 iterate_timeout_id = 0;
             }
 
-            iterate_timeout_id = GLib.Timeout.Add (200, OnIterate);
+            // TODO: Restore GLib.Timeout functionality
+            // iterate_timeout_id = GLib.Timeout.Add (200, OnIterate);
         }
 
         private void StopIterating ()
@@ -742,7 +790,8 @@ namespace Banshee.GStreamerSharp
             int dot;
             // Always enable rendering of subtitles
             uint flags;
-            flags = (uint)playbin["flags"];
+            // flags = (uint)playbin["flags"];
+            flags = Convert.ToUInt32(playbin["flags"]); // TODO: This seems unsafe?
             flags |= (1 << 2);//GST_PLAY_FLAG_TEXT
             playbin ["flags"] = flags;
 
@@ -772,7 +821,7 @@ namespace Banshee.GStreamerSharp
 
         public override void Play ()
         {
-            playbin.SetState (Gst.State.Playing);
+            var result = playbin.SetState (Gst.State.Playing);
             video_manager.InvalidateOverlay ();
             video_manager.MaybePrepareOverlay ();
         }
@@ -784,25 +833,28 @@ namespace Banshee.GStreamerSharp
 
         public override void Close (bool fullShutdown)
         {
-            playbin.SetState (State.Null);
+            playbin.SetState (State.@null);
             base.Close (fullShutdown);
         }
 
         public override string GetSubtitleDescription (int index)
         {
-            var list = (TagList)playbin.Emit ("get-text-tags", new object[] { index });
+            Console.WriteLine("Subtitle Descriptions are Unsupported");
+            return String.Empty;
+            
+            // var list = (TagList)playbin.Emit ("get-text-tags", new object[] { index });
 
-            if (list == null)
-                return String.Empty;
+            // if (list == null)
+            //    return String.Empty;
 
-            string code;
-            if (!list.GetString (Gst.Constants.TAG_LANGUAGE_CODE, out code))
-                return String.Empty;
+            // string code;
+            // if (!list.GetString (Gst.Constants.TAG_LANGUAGE_CODE, out code))
+            //     return String.Empty;
 
-            var name = Tag.GetLanguageName (code);
-            Log.Debug ("Subtitle language code " + code + " resolved to " + name);
+            // var name = Tag.GetLanguageName (code);
+            // Log.Debug ("Subtitle language code " + code + " resolved to " + name);
 
-            return name;
+            // return name;
         }
 
         public override ushort Volume {
@@ -830,10 +882,14 @@ namespace Banshee.GStreamerSharp
                     return;
                 }
                 gapless_enabled = value;
-                if (value) {
-                    playbin.Connect ("about-to-finish", OnAboutToFinish);
+                if (value)
+                {
+                    // TODO: We should support these handlers
+                    // throw new NotImplementedException("Register OnAboutToFinish");
+                    // playbin.Connect ("about-to-finish", OnAboutToFinish);
                 } else {
-                    playbin.Disconnect ("about-to-finish", OnAboutToFinish);
+                    // playbin.Disconnect ("about-to-finish", OnAboutToFinish);
+                    // throw new NotImplementedException("Unregister OnAboutToFinish");
                 }
             }
         }
@@ -843,7 +899,7 @@ namespace Banshee.GStreamerSharp
             get {
                 long pos;
                 playbin.QueryPosition (query_format, out pos);
-                return (uint) ((ulong)pos / Gst.Constants.MSECOND);
+                return (uint) ((ulong)pos / (ulong)Gst.Constants.MSECOND);
             }
             set { Seek (value); }
         }
@@ -852,7 +908,7 @@ namespace Banshee.GStreamerSharp
             get {
                 long duration;
                 playbin.QueryDuration (query_format, out duration);
-                return (uint) ((ulong)duration / Gst.Constants.MSECOND);
+                return (uint) ((ulong)duration / (ulong)Gst.Constants.MSECOND);
             }
         }
 
@@ -871,7 +927,7 @@ namespace Banshee.GStreamerSharp
         }
 
         public override string Name {
-            get { return Catalog.GetString ("GStreamer# 0.10"); }
+            get { return Catalog.GetString("GStreamer.NET 0.10"); }
         }
 
         public override bool SupportsEqualizer {
