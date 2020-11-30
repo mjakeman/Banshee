@@ -271,11 +271,11 @@ namespace Banshee.MediaEngine
 
         public abstract string GetSubtitleDescription (int index);
 
-        public TrackInfo CurrentTrack {
+        public TrackInfo? CurrentTrack {
             get { return current_track; }
         }
 
-        public SafeUri CurrentUri {
+        public SafeUri? CurrentUri {
             get { return current_track == null ? null : current_track.Uri; }
         }
 

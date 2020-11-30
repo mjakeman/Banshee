@@ -364,7 +364,7 @@ namespace Banshee.GStreamerSharp
 
             // visualization = new Visualization (audio_sink);
 
-            // TODO: IMPORTANT We do not support OnVolumeChanged
+            // TODO: IMPORTANT We should support OnVolumeChanged
             // playbin.AddNotification ("volume", OnVolumeChanged);
             playbin.GetBus().AddWatch (OnBusMessage);
 
@@ -637,7 +637,7 @@ namespace Banshee.GStreamerSharp
             // EoS it and increment its playcount etc.
             if (CurrentState != PlayerState.Loaded && CurrentState != PlayerState.Loading) {
                 // Set the current track as fully played before signaling EndOfStream.
-                ServiceManager.PlayerEngine.IncrementLastPlayed (1.0);
+                ServiceManager.PlayerEngine?.IncrementLastPlayed (1.0);
                 OnEventChanged (PlayerEvent.EndOfStream);
                 OnEventChanged (PlayerEvent.StartOfStream);
             }
@@ -650,7 +650,6 @@ namespace Banshee.GStreamerSharp
 
             var error_message = String.IsNullOrEmpty (ex.Message) ? Catalog.GetString ("Unknown Error") : ex.Message;
 
-            // TODO: Support GLib domains
             if (ex.Domain == Gst.Global.ResourceErrorQuark) {
                 ResourceError domain_code = (ResourceError)ex.Code;
                 if (failed_track != null) {

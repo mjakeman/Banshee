@@ -1,6 +1,6 @@
 # Banshee
-A music player for GNOME. This is an experiment to see if part or all of
-Banshee can be ported to .NET Core and Gtk3/4 for modern systems.
+A music player for GNOME. This is a port of Banshee to .NET 5 and
+Gtk 3 (later Gtk 4) for modern systems.
 
 ## Directory Structure
 ```
@@ -20,7 +20,12 @@ The following projects build:
  - `src/Libraries/Lastfm`
  - `src/Libraries/Musicbrainz`
  - `src/Libraries/Mono.Media`
+ - `src/Backends/Banshee.GStreamerSharp` 
  - [Hyena](https://github.com/firox263/Hyena)
+
+There is a fully working demo player with real audio playback
+located at `src/Clients/Tinyshee` (Tinyshee = Banshee, but smaller).
+It is not straightforward to build at the moment.
 
 Additionally, I added `src/Hyena/Hyena.Glue` to provide stub code for
 certain `Mono` classes/functions with no direct replacement.
@@ -29,12 +34,12 @@ certain `Mono` classes/functions with no direct replacement.
 You're on your own :)
 
 ### Prerequisites:
-1. Have Gtk in your PATH
+1. Have Gtk and GStreamer (preferably mingw) in your PATH
 2. Have .NET 5 installed
 3. Initialise submodules recursively
-4. gir.core is located under `src/Hyena/ext/gir.core` - build that first
+4. gir.core is located under `src/Hyena/ext/gir.core` - build that first (**currently branch feature/gstreamer**)
 5. Hyena is located under `src/Hyena`. This is a separate solution, must be **built separately** (i.e. building banshee will not rebuild any Hyena projects, be aware when working on Hyena directly)
-6. Build `ext/mono-addins/Mono.Addins` **with branch ns2.0** - Note, the solution file doesn't build mono-addins. You need to manually build the Mono.Addins project.
+6. Build `ext/mono-addins/Mono.Addins` **with branch ns2.0** - Note, the solution file doesn't build mono-addins. You need to manually build the `Mono.Addins.csproj` project file.
 7. Build `ext/dbus-sharp` **with branch netcore** - Solution file should work
 
 ### Banshee
@@ -48,7 +53,10 @@ completely non-functional, so `DBusConnection.Enabled` is hardcoded to `false`.
 
 ## TODO
 I am currently working on:
- - Porting `src/Backends/Banshee.GStreamerSharp` (for media playback)
+ - Finish Porting `src/Backends/Banshee.GStreamerSharp` (for media playback)
+    - Note there is a hardcoded string dependency of libintl in `Banshee.Core/Banshee.I18n/Catalog.cs`, replace
+      this with the name of your dll or shared library depending on platform. This will be resolved when the
+      Catalog is migrated to using NGettext directly.
  - Porting `Hyena.Gui` and `Hyena.Widgets` to gir.core
  - Porting `src/Core/Banshee.Widgets`
  
@@ -62,7 +70,7 @@ Things that need to be done at some point:
  - Figure out what to do with `src/Core/Banshee.WebBrowser`
      - Remove entirely
      - Port to Webkit2Gtk (Doesn't run on Windows?)
-     - Embed some other browser engine?
+     - Embed some other browser engine? (e.g. Servo)
 
 ## Original Readme
 The original README can be seen below at the time of forking:
