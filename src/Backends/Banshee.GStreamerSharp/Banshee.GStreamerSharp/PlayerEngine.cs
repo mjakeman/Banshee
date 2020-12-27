@@ -135,18 +135,20 @@ namespace Banshee.GStreamerSharp
                     var volume = sink ["volume"];
                     volumeProvider = sink;
                     Log.DebugFormat ("Sink {0} has native volume: {1}", volumeProvider.Name, volume);
-                } catch (Gst.PropertyNotFoundException) {
+                } catch /*(Gst.PropertyNotFoundException)*/ {
                     var sinkBin = sink as Bin;
-                    if (sinkBin != null) {
-                        foreach (Element e in sinkBin.IterateRecurse ()) {
+                    if (sinkBin != null)
+                    {
+                        Log.Warning("Gst.Iterator is not yet implementing. Volume provider will not function");
+                        /*foreach (Element e in sinkBin.IterateRecurse ()) {
                             try {
                                 var volume = e ["volume"];
                                 volumeProvider = e;
                                 Log.DebugFormat ("Found volume provider {0} in {1}: {2}",
                                     volumeProvider.Name, sink.Name, volume);
                                 break;
-                            } catch (Gst.PropertyNotFoundException) { }
-                        }
+                            } catch /*(Gst.PropertyNotFoundException)#1# { }
+                        }*/
                     }
                 }
                 return volumeProvider;
@@ -193,7 +195,7 @@ namespace Banshee.GStreamerSharp
             [Obsolete("Wrapper Code - Remove")]
             public PadProbeReturn InsertReplayGain(IntPtr pad, IntPtr info, IntPtr userData)
             {
-                var managedPad = WrapPointerAs<Pad>(pad);
+                var managedPad = WrapHandle<Pad>(pad);
                 var managedInfo = System.Runtime.InteropServices.Marshal.PtrToStructure<PadProbeInfo>(info);
                 return InsertReplayGain(managedPad, managedInfo);
             }
@@ -201,7 +203,7 @@ namespace Banshee.GStreamerSharp
             [Obsolete("Wrapper Code - Remove")]
             public PadProbeReturn RemoveReplayGain(IntPtr pad, IntPtr info, IntPtr userData)
             {
-                var managedPad = WrapPointerAs<Pad>(pad);
+                var managedPad = WrapHandle<Pad>(pad);
                 var managedInfo = System.Runtime.InteropServices.Marshal.PtrToStructure<PadProbeInfo>(info);
                 return RemoveReplayGain(managedPad, managedInfo);
             }
@@ -518,7 +520,7 @@ namespace Banshee.GStreamerSharp
         [Obsolete("Wrapper Code - Remove")]
         public bool OnBusMessage(IntPtr bus, IntPtr msg, IntPtr userData)
         {
-            var managedBus = GObject.Object.WrapPointerAs<Bus>(bus);
+            var managedBus = GObject.Object.WrapHandle<Bus>(bus);
             var managedMsg = System.Runtime.InteropServices.Marshal.PtrToStructure<Message>(msg);
             return OnBusMessage(managedBus, managedMsg);
         }
