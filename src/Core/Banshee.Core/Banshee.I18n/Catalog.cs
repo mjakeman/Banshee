@@ -31,13 +31,44 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-//using Mono.Unix;
+using NGettext;
 
 namespace Banshee.I18n
 {
     public static class Catalog
     {
-        private static Dictionary<Assembly, string> domain_assembly_map = new Dictionary<Assembly, string> ();
+        private static NGettext.Catalog _catalog;
+        private static bool _isInit = false;
+
+        public static void Init (string domain, string localeDir)
+        {
+            if (String.IsNullOrEmpty (domain)) {
+                throw new ArgumentException ("No text domain specified");
+            }
+
+            _catalog = new NGettext.Catalog (domain, localeDir);
+            _isInit = true;
+        }
+
+        private static void CheckInit ()
+        {
+            if (!_isInit)
+                throw new Exception ("Catalog has not been initialised. Call Catalog.Init() first");
+        }
+        
+        public static string GetString (string msgid)
+        {
+            CheckInit ();
+            return _catalog.GetString (msgid);
+        }
+        
+        public static string GetPluralString (string msgid, string msgidPlural, int n)
+        {
+            CheckInit ();
+            return _catalog.GetPluralString (msgid, msgidPlural, n);
+        }
+        
+        /*private static Dictionary<Assembly, string> domain_assembly_map = new Dictionary<Assembly, string> ();
         private static List<Assembly> default_domain_assemblies = new List<Assembly> ();
 
         public static void Init (string domain, string localeDir)
@@ -205,7 +236,7 @@ namespace Banshee.I18n
         // instead of direct access like this. Perhaps we could port
         // this file to Hyena instead?
 
-        private const string LibIntlibrary = "intl";
+        private const string LibIntlibrary = "libintl";
 
         [DllImport (LibIntlibrary, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr bind_textdomain_codeset (IntPtr domain, IntPtr codeset);
@@ -223,6 +254,6 @@ namespace Banshee.I18n
         private static extern IntPtr gettext (IntPtr msgid);
 
         [DllImport (LibIntlibrary, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr ngettext (IntPtr msgid_singular, IntPtr msgid_plural, Int32 n);
+        private static extern IntPtr ngettext (IntPtr msgid_singular, IntPtr msgid_plural, Int32 n);*/
     }
 }
