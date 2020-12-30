@@ -3,11 +3,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Hyena\Hyena\Hyena.csproj" />
     <ProjectReference Include="..\..\Hyena\Hyena.Glue\Hyena.Glue.csproj" />
-    <ProjectReference Include="..\..\..\ext\mono-addins\Mono.Addins\Mono.Addins.csproj" />
     <ProjectReference Include="..\..\..\ext\dbus-sharp\src\DBus\DBus.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hyena.Addins" Version="0.1.0" />
     <PackageReference Include="TagLibSharp" Version="2.2.0" />
   </ItemGroup>
 

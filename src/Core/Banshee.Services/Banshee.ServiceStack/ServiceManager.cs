@@ -31,7 +31,7 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 
-using Mono.Addins;
+using Hyena.Addins;
 
 using Hyena;
 

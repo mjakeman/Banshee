@@ -135,7 +135,7 @@ namespace Banshee.GStreamerSharp
                     var volume = sink ["volume"];
                     volumeProvider = sink;
                     Log.DebugFormat ("Sink {0} has native volume: {1}", volumeProvider.Name, volume);
-                } catch (Gst.PropertyNotFoundException) {
+                } catch {
                     var sinkBin = sink as Bin;
                     if (sinkBin != null) {
                         foreach (Element e in sinkBin.IterateRecurse ()) {
@@ -145,7 +145,7 @@ namespace Banshee.GStreamerSharp
                                 Log.DebugFormat ("Found volume provider {0} in {1}: {2}",
                                     volumeProvider.Name, sink.Name, volume);
                                 break;
-                            } catch (Gst.PropertyNotFoundException) { }
+                            } catch { }
                         }
                     }
                 }

@@ -30,7 +30,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
-using Mono.Addins;
+using Hyena.Addins;
 
 using Hyena;
 using Banshee.Base;

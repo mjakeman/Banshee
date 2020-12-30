@@ -28,7 +28,7 @@
 
 using System;
 using Hyena;
-using Mono.Addins;
+using Hyena.Addins;
 
 namespace Banshee.PlatformServices
 {

@@ -32,7 +32,7 @@ using System.IO;
 using System.Threading;
 
 using Mono.Unix;
-using Mono.Addins;
+using Hyena.Addins;
 
 using Hyena;
 using Hyena.Jobs;

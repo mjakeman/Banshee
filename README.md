@@ -39,8 +39,7 @@ You're on your own :)
 3. Initialise submodules recursively
 4. gir.core is located under `src/Hyena/ext/gir.core` - build that first (**currently branch feature/gstreamer**)
 5. Hyena is located under `src/Hyena`. This is a separate solution, must be **built separately** (i.e. building banshee will not rebuild any Hyena projects, be aware when working on Hyena directly)
-6. Build `ext/mono-addins/Mono.Addins` **with branch ns2.0** - Note, the solution file doesn't build mono-addins. You need to manually build the `Mono.Addins.csproj` project file.
-7. Build `ext/dbus-sharp` **with branch netcore** - Solution file should work
+6. Build `ext/dbus-sharp` **with branch netcore** - Solution file should work
 
 ### Banshee
 You can now build any of the projects listed under [Status](#status) above. Use the dotnet cli where possible to build. The solution file has some projects added for easy VS/Rider integration.

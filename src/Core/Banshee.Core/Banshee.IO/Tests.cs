@@ -395,7 +395,7 @@ namespace Banshee.IO
         static Tests ()
         {
             GLib.GType.Init ();
-            Mono.Addins.AddinManager.Initialize (BinDir);
+            Hyena.Addins.AddinManager.Initialize (BinDir);
             providers.Add (new Banshee.IO.SystemIO.Provider ());
             providers.Add (GetProviderFromAssembly ("Unix"));
             try {

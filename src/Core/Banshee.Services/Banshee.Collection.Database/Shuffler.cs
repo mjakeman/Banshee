@@ -29,7 +29,7 @@
 using System;
 using System.Linq;
 
-using Mono.Addins;
+using Hyena.Addins;
 
 using Hyena;
 using Hyena.Data;
