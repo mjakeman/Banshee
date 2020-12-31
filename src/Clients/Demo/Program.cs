@@ -1,5 +1,5 @@
 //
-// Player.cs
+// Tinyshee.cs
 //
 // Author:
 //   Matthew Jakeman <mjak923@aucklanduni.ac.nz>
@@ -28,31 +28,35 @@
 
 using System;
 using System.IO;
-
-using Hyena;
-using Hyena.Addins;
-
 using Banshee.Collection;
 using Banshee.MediaEngine;
-using Banshee.Preferences;
-using Banshee.ServiceStack;
-using Banshee.Sources;
-using Catalog = Banshee.I18n.Catalog;
-
+using Hyena;
 using Gtk;
 
-namespace Test
+namespace Demo
 {
-    public class Player : IService
+    /// <summary>
+    /// This is a minimal example of using Banshee's PlayerEngine system
+    /// to open and play a local file on the computer. Typically, most uses
+    /// of PlayerEngine would go through PlayerEngineService, so this is
+    /// purely for demonstration.
+    /// </summary>
+    class Program
     {
         private static Window window;
         private static PlayerEngine engine;
         private static Button playButton;
-
-        public void Run()
+        
+        static void Main(string[] args)
         {
+            // Initialisation
+            Gtk.Global.Init();
+            Gst.Application.Init();
+            ThreadAssist.InitializeMainThread();
+            Paths.ApplicationName = "banshee-demo";
+
             // Setup Player Engine
-            engine = ServiceManager.Get<PlayerEngineService>().DefaultEngine;
+            engine = (PlayerEngine)new Banshee.GStreamerSharp.PlayerEngine();
             engine.Initialize();
             engine.EventChanged += PlayerStateChanged;
 
@@ -94,7 +98,7 @@ namespace Test
             box.PackStart(playButton, false, false, 0);
 
             // Main Window
-            window = new Window("Banshee Demo Player")
+            window = new Window("Tinyshee")
             {
                 Child = box,
                 DefaultWidth = 350,
@@ -151,7 +155,5 @@ namespace Test
                 return false;
             }
         }
-        
-        string IService.ServiceName => "Player";
     }
 }

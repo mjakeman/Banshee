@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mono.Media", "src\Libraries
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicBrainz", "src\Libraries\MusicBrainz\MusicBrainz.csproj", "{7584F355-A071-40F4-AB85-CB9A3C3A66A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tinyshee", "src\Clients\Tinyshee\Tinyshee.csproj", "{698EAFD9-DCA5-466A-B48D-735A19DCB1E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "src\Clients\Demo\Demo.csproj", "{698EAFD9-DCA5-466A-B48D-735A19DCB1E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "src\Clients\Test\Test.csproj", "{BBB16DF3-8635-4B72-842C-61F952F5F110}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tinyshee", "src\Clients\Tinyshee\Tinyshee.csproj", "{BBB16DF3-8635-4B72-842C-61F952F5F110}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hyena", "Hyena", "{FFB78378-4549-49D3-9C82-BBED375E7E2D}"
 EndProject
