@@ -43,22 +43,12 @@ using Gtk;
 
 namespace Test
 {
-    public class TestClient : Client, IService
+    public class TestClient : Client
     {
-        private static Window window;
-        private static PlayerEngine engine;
-        private static Button playButton;
-        
         public static void Main ()
         {
-            // Initialisation
-            Gtk.Global.Init();
-            Gst.Application.Init();
-            
-            // TODO: Remove the need to explicitly specify ApplicationName to
-            // avoid a crash.
-            Paths.ApplicationName = "Test";
-
+            // Setup Logging
+            Paths.ApplicationName = "banshee-test-player";
             Log.Information ("Test client started");
 
             Startup ();
@@ -66,142 +56,30 @@ namespace Test
 
         private static void Startup ()
         {
-            Banshee.ServiceStack.Application.InitializePaths ();
+            // Initialisation
+            ThreadAssist.InitializeMainThread ();
             Catalog.Init ("banshee", "./locale");
             
-            // Initializes the add-in engine
+            Gtk.Global.Init();
+            Gst.Application.Init();
+            
+            // Look for new add-ins and update registry
             AddinManager.Initialize ();
-			
-            // Looks for new add-ins and updates the add-in registry.
             AddinManager.Registry.Update (null);
 
-            ThreadAssist.InitializeMainThread ();
-
+            // Banshee Services
             ServiceManager.Initialize ();
             ServiceManager.RegisterService<DBusServiceManager> ();
             ServiceManager.RegisterService<SourceManager> ();
             ServiceManager.RegisterService<PreferenceService> ();
             ServiceManager.RegisterService<PlayerEngineService> ();
-            // ServiceManager.RegisterService<BansheeDbConnection> ();
-            // ServiceManager.RegisterService<CollectionIndexerService> ();
-            ServiceManager.RegisterService<TestClient> ();
+            ServiceManager.RegisterService<Player> ();
             ServiceManager.Run ();
 
-            ServiceManager.Get<TestClient> ().Run ();
+            ServiceManager.Get<Player> ().Run ();
         }
-
-        private void Run()
-        {
-            // Setup Player Engine
-            engine = ServiceManager.Get<PlayerEngineService>().DefaultEngine;
-            engine.Initialize();
-            engine.EventChanged += PlayerStateChanged;
-
-            // Construct UI
-            ConstructUI();
-            
-            // Run Application
-            Gtk.Global.Main();
-        }
-
-        private static void ConstructUI()
-        {
-            // File Chooser
-            var fileChooseButton = FileChooserButton.New("Select a file", FileChooserAction.Open);
-            fileChooseButton.OnFileSet += (o, e) =>
-            {
-                var uri = (o as FileChooser).GetUri();
-                if (TryOpenSafeUri(uri, out SafeUri safeuri))
-                    engine.Open(safeuri);
-            };
-
-            // Pause/Play Button
-            playButton = new Button("Play!")
-            {
-                WidthRequest = 100,
-                [Button.ClickedSignal] = (btn, e) =>
-                {
-                    if (engine.CurrentState == PlayerState.Playing)
-                        engine.Pause();
-                    else
-                        engine.Play();
-                }
-            };
-
-            // Horizontal Box
-            var box = new Box(Orientation.Horizontal);
-            box.Spacing = 10;
-            box.PackStart(fileChooseButton, true, true, 0);
-            box.PackStart(playButton, false, false, 0);
-
-            // Main Window
-            window = new Window("Banshee Demo Player")
-            {
-                Child = box,
-                DefaultWidth = 350,
-                Resizable = false,
-                [Widget.DestroySignal] = (o, e) => Gtk.Global.MainQuit()
-            };
-
-            window.SetBorderWidth(10);
-
-            // Start Running
-            window.ShowAll();
-        }
-
-        private static void PlayerStateChanged(PlayerEventArgs args)
-        {
-            switch (args.Event)
-            {
-                case PlayerEvent.StateChange:
-                    var stateChangeArgs = (PlayerEventStateChangeArgs) args;
-
-                    if (stateChangeArgs.Current == PlayerState.Playing)
-                    {
-                        // Prefer: Filename -> Unknown Track
-                        string? trackTitle = null;
-                        if (engine.CurrentTrack?.Uri != null)
-                            trackTitle = Path.GetFileName(new Uri(engine.CurrentTrack?.Uri).LocalPath);
-
-                        window.Title = $"Tinyshee - {trackTitle ?? TrackInfo.UnknownTitle}";
-                        playButton.Label = "Pause";
-                    }
-                    else
-                    {
-                        window.Title = "Tinyshee";
-                        playButton.Label = "Play!";
-                    }
-                    
-                    break;
-            }
-        }
-
-        public static bool TryOpenSafeUri(string uri, out SafeUri safeuri)
-        {
-            try
-            {
-                safeuri = new SafeUri(uri);
-                return true;
-            }
-            catch (Exception e)
-            {
-                var dlg = new Hyena.Gui.Dialogs.ExceptionDialog(e);
-                dlg.Run();
-
-                safeuri = null;
-                return false;
-            }
-        }
-
-        private string [] reboot_args;
-
-        string IService.ServiceName {
-            get { return "TestClient"; }
-        }
-
-        public override string ClientId {
-            get { return "TestClient"; }
-        }
+        
+        public override string ClientId => "TestClient";
     }
 }
 
