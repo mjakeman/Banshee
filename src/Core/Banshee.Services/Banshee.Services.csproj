@@ -22,4 +22,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Banshee.Services.addin.xml">
+      <LogicalName>Banshee.Services.addin.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Banshee.Services.addins">
+      <LogicalName>Banshee.Services.addins</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
