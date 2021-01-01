@@ -12,20 +12,33 @@ The following are the main directories of note:
 
 ## Status
 The following projects build:
+**Core:**
  - `src/Core/Banshee.Core`
  - `src/Core/Banshee.CollectionIndexer`
  - `src/Core/Banshee.Services`
- - `src/Clients/Beroe`
- - `src/Clients/Booter`
+
+**Libraries:**
  - `src/Libraries/Lastfm`
  - `src/Libraries/Musicbrainz`
  - `src/Libraries/Mono.Media`
- - `src/Backends/Banshee.GStreamerSharp` 
- - [Hyena](https://github.com/firox263/Hyena)
+
+**Backends:**
+ - `src/Backends/Banshee.GStreamerSharp`
+
+**Hyena (Submodule):**
+ - [`src/Hyena`](https://github.com/firox263/Hyena)
+
+**Clients:**
+ - `src/Clients/Beroe`
+ - `src/Clients/Booter`
+ - `src/Clients/Demo`
+ - `src/Clients/Tinyshee`
+
+
 
 There is a fully working demo player with real audio playback
 located at `src/Clients/Tinyshee` (Tinyshee = Banshee, but smaller).
-It is not straightforward to build at the moment.
+See below for instructions on how to build.
 
 Additionally, I added `src/Hyena/Hyena.Glue` to provide stub code for
 certain `Mono` classes/functions with no direct replacement.
@@ -34,8 +47,10 @@ certain `Mono` classes/functions with no direct replacement.
 You're on your own :)
 
 ### Prerequisites:
-1. Have Gtk and GStreamer (preferably mingw) in your PATH
-2. Have .NET 5 installed
+1. Have Gtk and GStreamer installed (for windows, preferably mingw) and in your PATH
+2. Have .NET 5 SDK installed
+   
+#### Building
 3. Initialise submodules recursively
 4. gir.core is located under `src/Hyena/ext/gir.core` - build that first
 5. Hyena is located under `src/Hyena`. This is a separate solution, must be **built separately** (i.e. building banshee will not rebuild any Hyena projects, be aware when working on Hyena directly)
@@ -43,7 +58,7 @@ You're on your own :)
 
 A typical build will look like this:
 ```bash
-# Checkout Source
+# Checkout Source (Init Recursively)
 $ git clone https://github.com/firox263/Banshee
 $ git submodule update --init --recursive
 
@@ -70,27 +85,27 @@ installed to run the demo program.
 You can now build any of the projects listed under [Status](#status) above. Use the dotnet cli where possible to build. The solution file has some projects added for easy VS/Rider integration.
 
 ## External Dependencies
-Banshee depends on `Mono.Addins` and `dbus-sharp`/`dbus-sharp-glib` to
-build. The `Mono.Addins` framework works in some capacity, building for .NET Core
-(although I haven't tested to see if it *actually* works). DBus is 
-completely non-functional, so `DBusConnection.Enabled` is hardcoded to `false`.
+Banshee depends on `Hyena.Addins` and `dbus-sharp`/`dbus-sharp-glib` to
+build. `Hyena.Addins` is a port of `Mono.Addins` to .NET Standard 2.1, and
+works for the most part. DBus is completely non-functional, so `DBusConnection.Enabled`
+is hardcoded to `false`.
 
 ## TODO
 I am currently working on:
  - Finish Porting `src/Backends/Banshee.GStreamerSharp` (for media playback)
-    - Note there is a hardcoded string dependency of libintl in `Banshee.Core/Banshee.I18n/Catalog.cs`, replace
-      this with the name of your dll or shared library depending on platform. This will be resolved when the
-      Catalog is migrated to using NGettext directly.
+    - Audio playback works as intended, but there are a few remaining issues with
+      closures/delegates in gir.core that need to be resolved before it can work
+      properly. Video, DVD, CDDA, etc are not yet implemented.
  - Porting `Hyena.Gui` and `Hyena.Widgets` to gir.core
  - Porting `src/Core/Banshee.Widgets`
+ - Porting `src/Core/Banshee.ThickClient`
  
 ## Backlog
 Things that need to be done at some point:
- - Porting `src/Core/Banshee.ThickClient`
  - Porting `src/Clients/Nereid` (the main GUI)
  - Port `dbus-sharp` to GDBus (provided by gir.core)
  - Get rid of `dbus-sharp-glib`
- - Re-enable DBus support so the indexer can work (needs clarification)
+ - Re-enable DBus support so the indexer can work (needs design)
  - Figure out what to do with `src/Core/Banshee.WebBrowser`
      - Remove entirely
      - Port to Webkit2Gtk (Doesn't run on Windows?)
