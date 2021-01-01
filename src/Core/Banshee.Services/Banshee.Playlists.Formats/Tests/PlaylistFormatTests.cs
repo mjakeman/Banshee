@@ -54,7 +54,7 @@ namespace Banshee.Playlists.Formats.Tests
         [TestFixtureSetUp]
         public void Init ()
         {
-            Mono.Addins.AddinManager.Initialize (BinDir);
+            Hyena.Addins.AddinManager.Initialize (BinDir);
 
             playlists_dir = Path.Combine (TestsDir, "data/playlist-data");
             IPlaylistFormat playlist = LoadPlaylist (new M3uPlaylistFormat (), "extended.m3u");

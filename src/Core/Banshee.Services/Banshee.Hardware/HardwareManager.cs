@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-using Mono.Addins;
+using Hyena.Addins;
 using Hyena;
 
 using Banshee.ServiceStack;

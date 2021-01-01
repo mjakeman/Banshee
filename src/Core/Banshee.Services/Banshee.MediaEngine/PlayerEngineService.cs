@@ -32,7 +32,7 @@ using System.Collections.Generic;
 using System.Reflection;
 
 using Mono.Unix;
-using Mono.Addins;
+using Hyena.Addins;
 
 using Hyena;
 using Banshee.Base;

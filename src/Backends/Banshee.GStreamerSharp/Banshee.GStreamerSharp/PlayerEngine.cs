@@ -147,7 +147,7 @@ namespace Banshee.GStreamerSharp
                                 Log.DebugFormat ("Found volume provider {0} in {1}: {2}",
                                     volumeProvider.Name, sink.Name, volume);
                                 break;
-                            } catch /*(Gst.PropertyNotFoundException)#1# { }
+                            } catch (Gst.PropertyNotFoundException) { }
                         }*/
                     }
                 }

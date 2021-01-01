@@ -29,7 +29,7 @@
 using System;
 using System.Globalization;
 
-using Mono.Addins;
+using Hyena.Addins;
 
 namespace Banshee.Hardware
 {

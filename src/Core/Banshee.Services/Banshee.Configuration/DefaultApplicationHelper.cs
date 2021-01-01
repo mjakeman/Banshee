@@ -28,7 +28,7 @@
 
 using System;
 using Hyena;
-using Mono.Addins;
+using Hyena.Addins;
 
 using Banshee.Configuration;
 

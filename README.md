@@ -37,10 +37,34 @@ You're on your own :)
 1. Have Gtk and GStreamer (preferably mingw) in your PATH
 2. Have .NET 5 installed
 3. Initialise submodules recursively
-4. gir.core is located under `src/Hyena/ext/gir.core` - build that first (**currently branch feature/gstreamer**)
+4. gir.core is located under `src/Hyena/ext/gir.core` - build that first
 5. Hyena is located under `src/Hyena`. This is a separate solution, must be **built separately** (i.e. building banshee will not rebuild any Hyena projects, be aware when working on Hyena directly)
-6. Build `ext/mono-addins/Mono.Addins` **with branch ns2.0** - Note, the solution file doesn't build mono-addins. You need to manually build the `Mono.Addins.csproj` project file.
-7. Build `ext/dbus-sharp` **with branch netcore** - Solution file should work
+6. Build `ext/dbus-sharp` **with branch netcore** - Solution file should work
+
+A typical build will look like this:
+```bash
+# Checkout Source
+$ git clone https://github.com/firox263/Banshee
+$ git submodule update --init --recursive
+
+# Build Gir.Core
+$ cd src/Hyena/ext/gir.core/Build
+Build$ dotnet run 
+
+# Build Hyena
+Build$ cd ../../../
+Hyena$ dotnet build
+
+# Build Banshee
+Hyena$ cd ../../
+$ dotnet build
+
+# Run Tinyshee Demo
+$ dotnet run --project src/Clients/Tinyshee 
+```
+
+You will need `gtk3`, `gstreamer`, `gst-plugins-good`, and `gst-plugins-bad`
+installed to run the demo program.
 
 ### Banshee
 You can now build any of the projects listed under [Status](#status) above. Use the dotnet cli where possible to build. The solution file has some projects added for easy VS/Rider integration.

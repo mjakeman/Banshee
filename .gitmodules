@@ -1,11 +1,7 @@
-[submodule "ext/mono-addins"]
-	path = ext/mono-addins
-	url = https://github.com/firox263/mono-addins
-	branch = ns2.0
-[submodule "src/Hyena"]
-	path = src/Hyena
-	url = https://github.com/firox263/Hyena.git
 [submodule "ext/dbus-sharp"]
 	path = ext/dbus-sharp
 	url = https://github.com/firox263/dbus-sharp
 	branch = netcore
+[submodule "src/Hyena"]
+	path = src/Hyena
+	url = https://github.com/firox263/Hyena

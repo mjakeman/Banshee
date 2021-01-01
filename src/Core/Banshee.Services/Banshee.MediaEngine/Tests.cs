@@ -500,7 +500,7 @@ namespace Banshee.MediaEngine
             Application.IdleTimeoutRemoveHandler = IdleTimeoutRemove;
             Application.Initialize ();
 
-            Mono.Addins.AddinManager.Initialize (BinDir);
+            Hyena.Addins.AddinManager.Initialize (BinDir);
 
             main_thread = new Thread (RunMainLoop);
             main_thread.Start ();
