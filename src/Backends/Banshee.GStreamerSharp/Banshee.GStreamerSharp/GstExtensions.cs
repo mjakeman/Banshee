@@ -30,14 +30,14 @@ namespace Banshee.GStreamerSharp
 {
     internal static class GstExtensions
     {
-        internal static uint AddWatch (this Bus bus, BusFunc func)
+        /*internal static uint AddWatch (this Bus bus, BusFunc func)
         {
             //https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#G-PRIORITY-DEFAULT:CAPS
             int G_PRIORITY_DEFAULT = 0;
             //FIXME: use AddWatch() when it is bindable
             return bus.AddWatchFull (G_PRIORITY_DEFAULT, func);
             //gst_bus_add_watch (gst_pipeline_get_bus (GST_PIPELINE (detector->pipeline)), bbd_pipeline_bus_callback, detector);
-        }
+        }*/
 
         //TODO: use Add(params..) from the binding when it's available
         internal static void Add (this Bin sink, params Element[] elements)

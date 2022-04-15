@@ -50,7 +50,7 @@ namespace Demo
         static void Main(string[] args)
         {
             // Initialisation
-            Gtk.Global.Init();
+            Gtk.Functions.Init();
             Gst.Application.Init();
             ThreadAssist.InitializeMainThread();
             Paths.ApplicationName = "banshee-demo";
@@ -64,7 +64,7 @@ namespace Demo
             ConstructUI();
             
             // Run Application
-            Gtk.Global.Main();
+            Gtk.Functions.Main();
         }
 
         private static void ConstructUI()
@@ -92,7 +92,7 @@ namespace Demo
             };
 
             // Horizontal Box
-            var box = new Box(Orientation.Horizontal);
+            var box = Box.New(Orientation.Horizontal, 0);
             box.Spacing = 10;
             box.PackStart(fileChooseButton, true, true, 0);
             box.PackStart(playButton, false, false, 0);
@@ -103,10 +103,10 @@ namespace Demo
                 Child = box,
                 DefaultWidth = 350,
                 Resizable = false,
-                [Widget.DestroySignal] = (o, e) => Gtk.Global.MainQuit()
+                [Widget.DestroySignal] = (o, e) => Gtk.Functions.MainQuit()
             };
 
-            window.SetBorderWidth(10);
+            window.BorderWidth = 10;
 
             // Start Running
             window.ShowAll();
