@@ -366,7 +366,8 @@ namespace Banshee.Equalizer
                 return;
             }
 
-            queue_save_id = GLib.Timeout.Add (2500, delegate {
+            // TODO: Should be renamed g_timeout_add?
+            queue_save_id = GLib.Timeout.AddFull(GLib.Constants.PRIORITY_DEFAULT, 2500, delegate {
                 Save ();
                 queue_save_id = 0;
                 return false;

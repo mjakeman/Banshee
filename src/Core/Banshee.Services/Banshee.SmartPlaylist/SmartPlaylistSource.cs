@@ -602,7 +602,7 @@ namespace Banshee.SmartPlaylist
                     "Time-dependent smart playlist added, so starting one-minute auto-refresh timer.",
                     false
                 );
-                timeout_id = GLib.Timeout.Add(1000*60, OnTimerBeep);
+                timeout_id = GLib.Timeout.AddFull(GLib.Constants.PRIORITY_DEFAULT, 1000*60, OnTimerBeep);
             }
         }
 
@@ -629,7 +629,7 @@ namespace Banshee.SmartPlaylist
             }
         }
 
-        private static bool OnTimerBeep ()
+        private static bool OnTimerBeep (IntPtr? unused)
         {
             foreach (SmartPlaylistSource p in playlists) {
                 if (p.TimeDependent) {

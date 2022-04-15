@@ -4,16 +4,17 @@
     <ProjectReference Include="..\..\Core\Banshee.Core\Banshee.Core.csproj" />
     <ProjectReference Include="..\..\Core\Banshee.Services\Banshee.Services.csproj" />
     <ProjectReference Include="..\..\Hyena\Hyena.Data.Sqlite\Hyena.Data.Sqlite.csproj" />
-    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst\Gst.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\src\Libs\Gst-1.0\Gst-1.0.csproj" />
     <ProjectReference Include="..\..\Hyena\Hyena\Hyena.csproj" />
-    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst.Base\Gst.Base.csproj" />
-    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst.Audio\Gst.Audio.csproj" />
-    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst.Pbutils\Gst.Pbutils.csproj" />
-    <ProjectReference Include="..\..\Hyena\ext\gir.core\Libs\Gst.Video\Gst.Video.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\src\Libs\GstBase-1.0\GstBase-1.0.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\src\Libs\GstAudio-1.0\GstAudio-1.0.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\src\Libs\GstPbutils-1.0\GstPbutils-1.0.csproj" />
+    <ProjectReference Include="..\..\Hyena\ext\gir.core\src\Libs\GstVideo-1.0\GstVideo-1.0.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <OutputPath>../../../bin</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
